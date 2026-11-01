@@ -145,20 +145,80 @@
       font-weight: 600;
       color: var(--muted);
     }
-    input, select, textarea {
+    input, textarea {
       width: 100%;
       font: inherit;
       color: var(--text);
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(167, 139, 250, 0.18);
+      background: #17141f;
+      border: 1px solid rgba(167, 139, 250, 0.22);
       border-radius: 0.7rem;
       padding: 0.7rem 0.85rem;
       outline: none;
+      color-scheme: dark;
     }
-    input:focus, select:focus, textarea:focus {
+    input:focus, textarea:focus {
       border-color: rgba(167, 139, 250, 0.55);
     }
     textarea { min-height: 9rem; resize: vertical; }
+    .type-picker { position: relative; }
+    .type-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font: inherit;
+      color: var(--text);
+      background: #17141f;
+      border: 1px solid rgba(167, 139, 250, 0.22);
+      border-radius: 0.7rem;
+      padding: 0.7rem 0.85rem;
+      cursor: pointer;
+      text-align: left;
+    }
+    .type-btn:hover, .type-btn[aria-expanded="true"] {
+      border-color: rgba(167, 139, 250, 0.55);
+    }
+    .type-btn .chev {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    .type-menu {
+      position: absolute;
+      z-index: 20;
+      left: 0;
+      right: 0;
+      top: calc(100% + 0.35rem);
+      background: #0c0b12;
+      border: 1px solid rgba(167, 139, 250, 0.35);
+      border-radius: 0.85rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+      padding: 0.35rem;
+      display: none;
+      max-height: 16rem;
+      overflow: auto;
+    }
+    .type-menu.open { display: grid; gap: 0.15rem; }
+    .type-option {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+      text-align: left;
+      padding: 0.65rem 0.75rem;
+      border-radius: 0.55rem;
+      cursor: pointer;
+    }
+    .type-option:hover, .type-option.active {
+      background: rgba(167, 139, 250, 0.16);
+    }
+    .type-option small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin-top: 0.15rem;
+    }
     .hp {
       position: absolute;
       left: -10000px;
@@ -259,8 +319,15 @@
           </div>
           <div class="grid-form">
             <div class="field">
-              <label for="category">Category</label>
-              <select id="category" name="category" required></select>
+              <label id="category-label">Ticket type</label>
+              <div class="type-picker" id="type-picker">
+                <input type="hidden" id="category" name="category" value="bug" required />
+                <button type="button" class="type-btn" id="type-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="category-label type-btn-label">
+                  <span id="type-btn-label">Bug report</span>
+                  <span class="chev" aria-hidden="true">▾</span>
+                </button>
+                <div class="type-menu" id="type-menu" role="listbox" aria-labelledby="category-label"></div>
+              </div>
             </div>
             <div class="field">
               <label for="email">Reply email</label>
@@ -312,68 +379,114 @@
           title: "Bug report",
           blurb: "Something broken or unexpected in the app.",
           subject: "Bug: ",
-          body: "What I did:\n1.\n2.\n\nWhat I expected:\n\nWhat actually happened:\n\nHow often: always / sometimes\n"
+          body:
+            "Bug summary:\n\n" +
+            "Steps to reproduce:\n1.\n2.\n3.\n\n" +
+            "Expected result:\n\n" +
+            "Actual result:\n\n" +
+            "App / window where it happened:\n\n" +
+            "How often: always / sometimes / once\n\n" +
+            "Screenshot or exact error text (if any):\n"
         },
         {
           id: "install",
           title: "Install / Setup",
           blurb: "Installer, SmartScreen, missing tray icon, first launch.",
           subject: "Install help: ",
-          body: "Where it failed (download / installer / first launch):\n\nAny error text:\n\nDid the tray icon appear?\n"
+          body:
+            "Which step failed?\n[ ] Download\n[ ] Running AutoCorrectSetup.exe\n[ ] SmartScreen / Windows warning\n[ ] First launch / tray icon missing\n\n" +
+            "Exact message or dialog text:\n\n" +
+            "Did Setup finish with success?\n\n" +
+            "Do you see AutoCorrect in the system tray?\n"
         },
         {
           id: "license",
           title: "License / Billing",
           blurb: "Trial, PayPal, activate online, renewals, refunds.",
-          subject: "License: ",
-          body: "Purchase type (Lifetime / Yearly / Team):\n\nPayPal email used:\n\nWhat Activate online shows:\n"
+          subject: "License / billing: ",
+          body:
+            "Purchase type:\n[ ] Trial\n[ ] Personal Lifetime\n[ ] Personal Yearly\n[ ] Pro Yearly\n[ ] Team\n\n" +
+            "PayPal email used at checkout:\n\n" +
+            "What Settings → License shows now:\n\n" +
+            "What you need help with (activate / renew / cancel / refund):\n"
         },
         {
           id: "autocorrect",
           title: "Autocorrect issue",
           blurb: "Wrong fixes, missed typos, or a pair to remove.",
           subject: "Autocorrect: ",
-          body: "App where it happened:\n\nTyped → became:\n\nWanted:\n\nWord Manager already checked? yes/no\n"
+          body:
+            "App where typing happened (Slack, Word, Cursor, browser, etc.):\n\n" +
+            "What I typed:\n\n" +
+            "What AutoCorrect changed it to:\n\n" +
+            "What it should have been:\n\n" +
+            "Want this pair removed / never learned? yes / no\n\n" +
+            "Checked Word Manager already? yes / no\n"
         },
         {
           id: "dictation",
           title: "Dictation / Win+H",
           blurb: "Voice Typing cleanup, Fix hotkey, review card.",
-          subject: "Dictation: ",
-          body: "Using Win+H auto session or Fix hotkey?\n\nTarget app:\n\nWhat went wrong:\n"
+          subject: "Dictation / Win+H: ",
+          body:
+            "How you triggered Fix:\n[ ] Win+H auto session\n[ ] Fix hotkey (default Win+Alt+F)\n[ ] Tray → Fix now\n\n" +
+            "Target app / field:\n\n" +
+            "What Voice Typing produced:\n\n" +
+            "What the review card suggested (or why no card):\n\n" +
+            "What went wrong:\n"
         },
         {
           id: "rewrite",
           title: "Rewrite / AI",
           blurb: "Selection rewrite, API key, model errors.",
           subject: "Rewrite / AI: ",
-          body: "Feature (rewrite / writing suggestions):\n\nError message if any:\n\nModel in Settings:\n"
+          body:
+            "Feature:\n[ ] Rewrite selection\n[ ] Writing suggestions\n[ ] Other AI:\n\n" +
+            "Instruction / preset used:\n\n" +
+            "OpenAI model in Settings:\n\n" +
+            "Exact error toast or message:\n\n" +
+            "Selected text length (approx.):\n"
         },
         {
           id: "feature",
           title: "Feature request",
           blurb: "Ideas that would make AutoCorrect more useful.",
           subject: "Feature request: ",
-          body: "Problem this would solve:\n\nHow you imagine it working:\n"
+          body:
+            "What problem are you trying to solve?\n\n" +
+            "How would the feature work day to day?\n\n" +
+            "Any app or workflow this is especially for?\n\n" +
+            "Nice-to-have vs must-have:\n"
         },
         {
           id: "performance",
           title: "Crash / Performance",
           blurb: "App freezes, high CPU, or unexpected exits.",
-          subject: "Performance: ",
-          body: "When it happens:\n\nRough CPU/RAM if known:\n\nRecent change (update / new app):\n"
+          subject: "Crash / performance: ",
+          body:
+            "Symptom:\n[ ] Crash / exits\n[ ] Freeze / hangs\n[ ] High CPU or RAM\n[ ] Slow suggestions\n\n" +
+            "When it happens (startup, typing, Fix, Settings, idle):\n\n" +
+            "Rough CPU / RAM if known:\n\n" +
+            "Recent change (Windows update, AutoCorrect update, new app):\n\n" +
+            "Can you reproduce it? steps:\n"
         },
         {
           id: "other",
           title: "Something else",
           blurb: "General questions that do not fit above.",
-          subject: "Question: ",
-          body: "Question / context:\n"
+          subject: "General question: ",
+          body:
+            "What do you need help with?\n\n" +
+            "Any relevant Settings or tray menu details:\n\n" +
+            "Anything else we should know:\n"
         }
       ];
 
       var presetsEl = document.getElementById("presets");
       var category = document.getElementById("category");
+      var typeBtn = document.getElementById("type-btn");
+      var typeBtnLabel = document.getElementById("type-btn-label");
+      var typeMenu = document.getElementById("type-menu");
       var subject = document.getElementById("subject");
       var body = document.getElementById("body");
       var form = document.getElementById("ticket-form");
@@ -381,42 +494,77 @@
       var submitBtn = document.getElementById("submit-btn");
       var formTitle = document.getElementById("form-title");
       var selected = "bug";
+      var emailKeep = "";
+
+      function closeMenu() {
+        typeMenu.classList.remove("open");
+        typeBtn.setAttribute("aria-expanded", "false");
+      }
+
+      function openMenu() {
+        typeMenu.classList.add("open");
+        typeBtn.setAttribute("aria-expanded", "true");
+      }
 
       presets.forEach(function (p) {
-        var opt = document.createElement("option");
-        opt.value = p.id;
-        opt.textContent = p.title;
-        category.appendChild(opt);
+        var card = document.createElement("button");
+        card.type = "button";
+        card.className = "preset";
+        card.setAttribute("role", "listitem");
+        card.dataset.id = p.id;
+        card.innerHTML = "<h3>" + p.title + "</h3><p>" + p.blurb + "</p>";
+        card.addEventListener("click", function () { selectPreset(p.id, true); });
+        presetsEl.appendChild(card);
 
-        var btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "preset";
-        btn.setAttribute("role", "listitem");
-        btn.dataset.id = p.id;
-        btn.innerHTML = "<h3>" + p.title + "</h3><p>" + p.blurb + "</p>";
-        btn.addEventListener("click", function () { selectPreset(p.id, true); });
-        presetsEl.appendChild(btn);
+        var opt = document.createElement("button");
+        opt.type = "button";
+        opt.className = "type-option";
+        opt.setAttribute("role", "option");
+        opt.dataset.id = p.id;
+        opt.innerHTML = p.title + "<small>" + p.blurb + "</small>";
+        opt.addEventListener("click", function () {
+          selectPreset(p.id, true);
+          closeMenu();
+        });
+        typeMenu.appendChild(opt);
       });
 
-      function selectPreset(id, fill) {
+      function selectPreset(id, fillTemplate) {
         selected = id;
         category.value = id;
+        var p = presets.find(function (x) { return x.id === id; });
+        if (!p) return;
+
+        formTitle.textContent = p.title;
+        typeBtnLabel.textContent = p.title;
+
         Array.prototype.forEach.call(presetsEl.children, function (el) {
           el.classList.toggle("active", el.dataset.id === id);
         });
-        var p = presets.find(function (x) { return x.id === id; });
-        if (!p) return;
-        formTitle.textContent = p.title;
-        if (fill) {
-          if (!subject.value || subject.value.indexOf(":") >= 0) subject.value = p.subject;
-          if (!body.value || body.value.length < 8) body.value = p.body;
+        Array.prototype.forEach.call(typeMenu.children, function (el) {
+          el.classList.toggle("active", el.dataset.id === id);
+          el.setAttribute("aria-selected", el.dataset.id === id ? "true" : "false");
+        });
+
+        if (fillTemplate) {
+          subject.value = p.subject;
+          body.value = p.body;
           subject.focus();
           subject.setSelectionRange(subject.value.length, subject.value.length);
         }
       }
 
-      category.addEventListener("change", function () {
-        selectPreset(category.value, false);
+      typeBtn.addEventListener("click", function () {
+        if (typeMenu.classList.contains("open")) closeMenu();
+        else openMenu();
+      });
+
+      document.addEventListener("click", function (e) {
+        if (!document.getElementById("type-picker").contains(e.target)) closeMenu();
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeMenu();
       });
 
       selectPreset("bug", true);
@@ -449,7 +597,9 @@
           }
           statusEl.className = "status ok";
           statusEl.textContent = "Ticket submitted. We will reply to " + payload.email + ".";
+          emailKeep = payload.email;
           form.reset();
+          document.getElementById("email").value = emailKeep;
           selectPreset(selected, true);
         } catch (err) {
           statusEl.className = "status err";
