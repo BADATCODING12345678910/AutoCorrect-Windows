@@ -45,3 +45,7 @@ After paying with PayPal:
 ## Support
 
 Use the website for download and pricing. Product source is maintained separately; this repository is the public distribution surface.
+
+## Maintainer
+
+Public releases and site updates are published by [@BADATCODING12345678910](https://github.com/BADATCODING12345678910).
