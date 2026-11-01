@@ -73,8 +73,8 @@
     .hero {
       padding: 2.4rem 0 2rem;
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
-      gap: 2.5rem 3rem;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 2.25rem 2.75rem;
       align-items: center;
     }
     .hero-copy { display: grid; gap: 1rem; }
@@ -130,95 +130,190 @@
       line-height: 1.45;
     }
 
-    .hero-visual {
+    /* Angled interactive demo */
+    .demo-stage {
       position: relative;
-      min-height: 17rem;
-      border-radius: 1.25rem;
-      background:
-        linear-gradient(160deg, rgba(26, 16, 40, 0.9), rgba(18, 16, 26, 0.95)),
-        var(--card);
-      border: 1px solid var(--line);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
-      overflow: hidden;
-      padding: 1.35rem 1.4rem 1.5rem;
-    }
-    .hero-visual::before {
-      content: "";
-      position: absolute;
-      inset: auto -20% -35% 35%;
-      height: 70%;
-      background: radial-gradient(circle, rgba(167, 139, 250, 0.28), transparent 70%);
-      pointer-events: none;
-    }
-    .app-chrome {
+      min-height: 22rem;
+      perspective: 1200px;
       display: flex;
       align-items: center;
-      gap: 0.45rem;
-      margin-bottom: 1.1rem;
+      justify-content: center;
+    }
+    .demo-stage::before {
+      content: "";
+      position: absolute;
+      width: 78%;
+      height: 70%;
+      right: 4%;
+      bottom: 8%;
+      background: radial-gradient(circle, rgba(167, 139, 250, 0.28), transparent 68%);
+      filter: blur(8px);
+      pointer-events: none;
+    }
+    .demo-frame {
+      position: relative;
+      width: min(100%, 26rem);
+      transform: rotateY(-14deg) rotateX(8deg) rotateZ(-1.5deg);
+      transform-style: preserve-3d;
+      transition: transform 0.45s ease;
+      will-change: transform;
+    }
+    .demo-frame:hover,
+    .demo-frame.is-paused {
+      transform: rotateY(-6deg) rotateX(3deg) rotateZ(0deg);
+    }
+    .demo-window {
+      position: relative;
+      background: linear-gradient(165deg, #17141f 0%, #0d0c12 100%);
+      border: 1px solid rgba(167, 139, 250, 0.28);
+      border-radius: 1rem;
+      box-shadow:
+        0 28px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+      overflow: visible;
+      padding: 0.85rem 1rem 1.1rem;
+    }
+    .demo-chrome {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.85rem;
       color: var(--muted);
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 600;
     }
-    .dot {
-      width: 0.55rem;
-      height: 0.55rem;
+    .demo-chrome-left {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .traffic {
+      display: flex;
+      gap: 0.3rem;
+    }
+    .traffic i {
+      width: 0.45rem;
+      height: 0.45rem;
       border-radius: 50%;
-      background: rgba(167, 139, 250, 0.45);
+      background: rgba(167, 139, 250, 0.35);
+      display: block;
     }
-    .typed {
-      font-size: 1.05rem;
+    .demo-app-name { color: #c8c0dc; }
+    .demo-hint {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: rgba(163, 155, 184, 0.85);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .demo-hint.show { opacity: 1; }
+    .demo-editor {
+      min-height: 7.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(167, 139, 250, 0.16);
+      border-radius: 0.7rem;
+      padding: 0.85rem 0.95rem;
+      font-size: 1.02rem;
       line-height: 1.55;
-      margin: 0 0 1.15rem;
-      color: #ddd8ef;
+      color: #e8e3f7;
+      white-space: pre-wrap;
+      word-break: break-word;
     }
-    .typed s {
-      color: #8a819e;
-      text-decoration-color: rgba(167, 139, 250, 0.7);
+    .demo-caret {
+      display: inline-block;
+      width: 0.1rem;
+      height: 1.05em;
+      margin-left: 1px;
+      vertical-align: text-bottom;
+      background: var(--purple);
+      animation: caret-blink 1s steps(1) infinite;
     }
-    .typed .fix {
+    .demo-caret.hidden { visibility: hidden; animation: none; }
+    @keyframes caret-blink {
+      0%, 45% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+    .demo-mark {
+      background: rgba(167, 139, 250, 0.18);
+      border-bottom: 2px solid var(--purple);
+      border-radius: 0.15rem;
+      padding: 0 0.05rem;
+    }
+    .demo-fixed {
       color: var(--purple);
       font-weight: 600;
     }
-    .suggest {
-      position: relative;
-      z-index: 1;
+
+    .demo-menu {
+      position: absolute;
+      z-index: 5;
+      left: 1.1rem;
+      bottom: -0.35rem;
+      width: min(17.5rem, calc(100% - 1.5rem));
       background: #0c0b12;
-      border: 1px solid rgba(167, 139, 250, 0.35);
-      border-radius: 0.9rem;
-      padding: 0.95rem 1rem;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(167, 139, 250, 0.4);
+      border-radius: 0.85rem;
+      padding: 0.85rem 0.9rem;
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.55);
+      transform: translateY(8px) scale(0.96);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
     }
-    .suggest .label {
-      font-size: 0.75rem;
+    .demo-menu.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .demo-menu .label {
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--muted);
-      margin-bottom: 0.35rem;
-      font-weight: 600;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
     }
-    .suggest .change {
-      font-size: 1rem;
-      margin-bottom: 0.75rem;
+    .demo-menu .change {
+      font-size: 0.98rem;
+      margin-bottom: 0.7rem;
+      line-height: 1.35;
     }
-    .suggest .change s { color: #8a819e; }
-    .suggest .change .fix { color: var(--purple); font-weight: 600; }
-    .suggest-actions {
+    .demo-menu .change s { color: #8a819e; }
+    .demo-menu .change .fix { color: var(--purple); font-weight: 600; }
+    .demo-menu-actions {
       display: flex;
-      gap: 0.5rem;
+      gap: 0.45rem;
       flex-wrap: wrap;
     }
-    .chip {
+    .demo-menu button {
+      appearance: none;
+      cursor: pointer;
       border-radius: 999px;
-      padding: 0.35rem 0.75rem;
+      padding: 0.4rem 0.8rem;
+      font: inherit;
       font-size: 0.82rem;
       font-weight: 600;
       border: 1px solid var(--line);
+      background: transparent;
       color: var(--muted);
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
     }
-    .chip.on {
-      background: rgba(167, 139, 250, 0.18);
+    .demo-menu button:hover { transform: translateY(-1px); color: var(--text); }
+    .demo-menu button.primary {
+      background: rgba(167, 139, 250, 0.2);
       color: var(--text);
-      border-color: rgba(167, 139, 250, 0.4);
+      border-color: rgba(167, 139, 250, 0.45);
+    }
+    .demo-menu button:focus-visible {
+      outline: 2px solid var(--purple);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .demo-frame { transform: none; }
+      .demo-frame:hover, .demo-frame.is-paused { transform: none; }
+      .demo-caret { animation: none; opacity: 1; }
     }
 
     section { padding: 1.5rem 0 2rem; }
@@ -316,11 +411,15 @@
         gap: 1.75rem;
         padding-top: 2rem;
       }
+      .demo-frame { transform: rotateY(-8deg) rotateX(5deg); }
+      .demo-stage { min-height: 20rem; }
     }
     @media (max-width: 640px) {
       .wrap { width: calc(100% - 1.75rem); }
       .grid, .pricing { grid-template-columns: 1fr; }
       .hero h1 { font-size: 1.85rem; }
+      .demo-frame { transform: none; }
+      .demo-menu { left: 0.75rem; right: 0.75rem; width: auto; }
     }
   </style>
 </head>
@@ -349,19 +448,30 @@
         </div>
         <p class="fine">14-day full trial &middot; Windows 10/11 x64 &middot; After install, right-click the tray icon and open Settings</p>
       </div>
-      <aside class="hero-visual" aria-hidden="true">
-        <div class="app-chrome"><span class="dot"></span> Slack &middot; message composer</div>
-        <p class="typed">Can we meet <s>tommorow</s> <span class="fix">tomorrow</span> after standup?</p>
-        <div class="suggest">
-          <div class="label">Spelling</div>
-          <div class="change"><s>tommorow</s> &rarr; <span class="fix">tomorrow</span></div>
-          <div class="suggest-actions">
-            <span class="chip on">Accept</span>
-            <span class="chip">Skip</span>
-            <span class="chip">Undo</span>
+
+      <div class="demo-stage" id="demo-stage">
+        <div class="demo-frame" id="demo-frame">
+          <div class="demo-window" role="region" aria-label="Interactive AutoCorrect demo">
+            <div class="demo-chrome">
+              <div class="demo-chrome-left">
+                <span class="traffic" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="demo-app-name" id="demo-app">Slack</span>
+              </div>
+              <span class="demo-hint" id="demo-hint">Click Accept or Skip</span>
+            </div>
+            <div class="demo-editor" id="demo-editor" aria-live="polite"><span class="demo-caret" id="demo-caret"></span></div>
+            <div class="demo-menu" id="demo-menu" role="dialog" aria-modal="false" aria-labelledby="demo-menu-label" hidden>
+              <div class="label" id="demo-menu-label">Spelling</div>
+              <div class="change" id="demo-menu-change"></div>
+              <div class="demo-menu-actions">
+                <button type="button" class="primary" id="demo-accept">Accept</button>
+                <button type="button" id="demo-skip">Skip</button>
+                <button type="button" id="demo-dismiss">Dismiss</button>
+              </div>
+            </div>
           </div>
         </div>
-      </aside>
+      </div>
     </main>
 
     <section id="features">
@@ -440,5 +550,230 @@
       </div>
     </footer>
   </div>
+
+  <script>
+    (function () {
+      var scenes = [
+        {
+          app: "Slack",
+          parts: [
+            { type: "text", value: "Can we meet " },
+            { type: "fix", wrong: "tommorow", right: "tomorrow", label: "Spelling" },
+            { type: "text", value: " after standup?" }
+          ]
+        },
+        {
+          app: "Cursor",
+          parts: [
+            { type: "text", value: "Please review this when you get a chance. Also fix the " },
+            { type: "fix", wrong: "recieve", right: "receive", label: "Spelling" },
+            { type: "text", value: " path before merge." }
+          ]
+        },
+        {
+          app: "Word",
+          parts: [
+            { type: "text", value: "Thanks for joining. I " },
+            { type: "fix", wrong: "definately", right: "definitely", label: "Spelling" },
+            { type: "text", value: " think we should ship the " },
+            { type: "fix", wrong: "wierd", right: "weird", label: "Spelling" },
+            { type: "text", value: " edge case next." }
+          ]
+        },
+        {
+          app: "Discord",
+          parts: [
+            { type: "text", value: "I'll be " },
+            { type: "fix", wrong: "teh", right: "the", label: "Autocorrect" },
+            { type: "text", value: " first one online " },
+            { type: "fix", wrong: "tommorow", right: "tomorrow", label: "Spelling" },
+            { type: "text", value: "." }
+          ]
+        }
+      ];
+
+      var editor = document.getElementById("demo-editor");
+      var caret = document.getElementById("demo-caret");
+      var menu = document.getElementById("demo-menu");
+      var menuLabel = document.getElementById("demo-menu-label");
+      var menuChange = document.getElementById("demo-menu-change");
+      var appName = document.getElementById("demo-app");
+      var hint = document.getElementById("demo-hint");
+      var frame = document.getElementById("demo-frame");
+      var btnAccept = document.getElementById("demo-accept");
+      var btnSkip = document.getElementById("demo-skip");
+      var btnDismiss = document.getElementById("demo-dismiss");
+
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var sceneIndex = 0;
+      var timers = [];
+      var waitingChoice = null;
+      var autoTimer = null;
+      var runId = 0;
+
+      function clearTimers() {
+        timers.forEach(function (id) { clearTimeout(id); });
+        timers = [];
+        if (autoTimer) {
+          clearTimeout(autoTimer);
+          autoTimer = null;
+        }
+      }
+
+      function later(ms, fn) {
+        var id = setTimeout(fn, ms);
+        timers.push(id);
+        return id;
+      }
+
+      function escapeHtml(s) {
+        return String(s)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function setEditorHtml(html) {
+        editor.innerHTML = html + '<span class="demo-caret' + (menu.classList.contains("open") ? " hidden" : "") + '" id="demo-caret"></span>';
+        caret = document.getElementById("demo-caret");
+      }
+
+      function hideMenu() {
+        menu.classList.remove("open");
+        menu.hidden = true;
+        hint.classList.remove("show");
+        frame.classList.remove("is-paused");
+        if (caret) caret.classList.remove("hidden");
+      }
+
+      function showMenu(fixPart, onChoice) {
+        menuLabel.textContent = fixPart.label || "Suggestion";
+        menuChange.innerHTML =
+          "<s>" + escapeHtml(fixPart.wrong) + "</s> &rarr; <span class=\"fix\">" +
+          escapeHtml(fixPart.right) + "</span>";
+        menu.hidden = false;
+        // force reflow for transition
+        void menu.offsetWidth;
+        menu.classList.add("open");
+        hint.classList.add("show");
+        frame.classList.add("is-paused");
+        if (caret) caret.classList.add("hidden");
+        waitingChoice = onChoice;
+
+        if (autoTimer) clearTimeout(autoTimer);
+        autoTimer = setTimeout(function () {
+          if (waitingChoice) waitingChoice("accept");
+        }, 4200);
+      }
+
+      function resolveChoice(choice) {
+        if (!waitingChoice) return;
+        var fn = waitingChoice;
+        waitingChoice = null;
+        if (autoTimer) {
+          clearTimeout(autoTimer);
+          autoTimer = null;
+        }
+        hideMenu();
+        fn(choice);
+      }
+
+      btnAccept.addEventListener("click", function () { resolveChoice("accept"); });
+      btnSkip.addEventListener("click", function () { resolveChoice("skip"); });
+      btnDismiss.addEventListener("click", function () { resolveChoice("skip"); });
+
+      function typeText(prefixHtml, text, speed, done) {
+        var i = 0;
+        function step() {
+          if (i > text.length) {
+            done();
+            return;
+          }
+          setEditorHtml(prefixHtml + escapeHtml(text.slice(0, i)));
+          i += 1;
+          var delay = speed + (Math.random() * 28 - 10);
+          if (text[i - 1] === " " || text[i - 1] === "," || text[i - 1] === ".") delay += 40;
+          later(Math.max(18, delay), step);
+        }
+        step();
+      }
+
+      function playScene(scene, done) {
+        appName.textContent = scene.app;
+        hideMenu();
+        setEditorHtml("");
+
+        var built = "";
+        var parts = scene.parts.slice();
+        var idx = 0;
+
+        function nextPart() {
+          if (idx >= parts.length) {
+            later(1600, done);
+            return;
+          }
+          var part = parts[idx++];
+          if (part.type === "text") {
+            typeText(built, part.value, reduceMotion ? 0 : 38, function () {
+              built += escapeHtml(part.value);
+              setEditorHtml(built);
+              nextPart();
+            });
+            return;
+          }
+
+          // Type the wrong word, then open menu
+          typeText(built, part.wrong, reduceMotion ? 0 : 42, function () {
+            var marked =
+              built +
+              '<span class="demo-mark" id="demo-active">' +
+              escapeHtml(part.wrong) +
+              "</span>";
+            setEditorHtml(marked);
+            later(reduceMotion ? 100 : 380, function () {
+              showMenu(part, function (choice) {
+                if (choice === "accept") {
+                  built += '<span class="demo-fixed">' + escapeHtml(part.right) + "</span>";
+                } else {
+                  built += escapeHtml(part.wrong);
+                }
+                setEditorHtml(built);
+                later(280, nextPart);
+              });
+            });
+          });
+        }
+
+        nextPart();
+      }
+
+      function loop() {
+        var myRun = ++runId;
+        clearTimers();
+        hideMenu();
+        playScene(scenes[sceneIndex % scenes.length], function () {
+          if (myRun !== runId) return;
+          sceneIndex += 1;
+          later(900, function () {
+            if (myRun !== runId) return;
+            setEditorHtml("");
+            later(350, loop);
+          });
+        });
+      }
+
+      // Instant snapshot for reduced motion: show one corrected line
+      if (reduceMotion) {
+        appName.textContent = "Slack";
+        setEditorHtml(
+          'Can we meet <span class="demo-fixed">tomorrow</span> after standup?'
+        );
+        caret.classList.add("hidden");
+      } else {
+        loop();
+      }
+    })();
+  </script>
 </body>
 </html>
