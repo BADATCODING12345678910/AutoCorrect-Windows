@@ -18,7 +18,7 @@
       --text: #f4f2ff;
       --muted: #a39bb8;
       --line: rgba(167, 139, 250, 0.22);
-      --card: rgba(255, 255, 255, 0.03);
+      --card: rgba(255, 255, 255, 0.04);
       --font: "Source Sans 3", "Segoe UI", sans-serif;
     }
     * { box-sizing: border-box; }
@@ -35,85 +35,80 @@
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
       background:
-        radial-gradient(900px 500px at 15% -10%, rgba(124, 92, 191, 0.35), transparent 60%),
-        radial-gradient(700px 420px at 90% 10%, rgba(167, 139, 250, 0.18), transparent 55%),
+        radial-gradient(1100px 560px at 12% -8%, rgba(124, 92, 191, 0.32), transparent 58%),
+        radial-gradient(900px 480px at 88% 8%, rgba(167, 139, 250, 0.16), transparent 52%),
         linear-gradient(180deg, var(--bg0), var(--bg1) 45%, #0a0910);
     }
     a { color: var(--purple); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    .wrap { width: min(1040px, calc(100% - 2.5rem)); margin: 0 auto; }
+    .wrap { width: min(1180px, calc(100% - 3rem)); margin: 0 auto; }
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.35rem 0 0;
+      padding: 1.1rem 0 0;
       gap: 1rem;
     }
     .brand {
       display: flex;
       align-items: center;
-      gap: 0.7rem;
-      font-family: var(--font);
+      gap: 0.65rem;
       font-weight: 700;
       font-size: 1.05rem;
-      letter-spacing: 0;
     }
     .mark {
-      width: 2.1rem;
-      height: 2.1rem;
-      border-radius: 0.55rem;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.5rem;
       background: linear-gradient(160deg, #1a1028, #3b2466 55%, #6d4ab0);
       display: grid;
       place-items: center;
       box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.35), 0 10px 30px rgba(0, 0, 0, 0.35);
-      font-family: var(--font);
       font-weight: 700;
-      font-size: 1rem;
-      letter-spacing: 0;
+      font-size: 0.95rem;
     }
-    .nav { display: flex; gap: 1.15rem; align-items: center; flex-wrap: wrap; }
+    .nav { display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
     .nav a { color: var(--muted); font-size: 0.95rem; font-weight: 500; }
+
     .hero {
-      padding: 3.75rem 0 3rem;
+      padding: 2.4rem 0 2rem;
       display: grid;
-      gap: 1.15rem;
-      max-width: 38rem;
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr);
+      gap: 2.5rem 3rem;
+      align-items: center;
     }
+    .hero-copy { display: grid; gap: 1rem; }
     .hero h1 {
       margin: 0;
-      font-family: var(--font);
       font-weight: 700;
-      font-size: clamp(1.85rem, 3.6vw, 2.45rem);
-      line-height: 1.25;
+      font-size: clamp(2rem, 3.4vw, 2.75rem);
+      line-height: 1.18;
       letter-spacing: 0;
-      max-width: 22rem;
     }
     .hero h1 em {
       font-style: normal;
       color: var(--purple);
     }
-    .hero p {
+    .hero-copy > p {
       margin: 0;
       color: var(--muted);
       font-size: 1.08rem;
-      line-height: 1.6;
-      max-width: 34rem;
+      line-height: 1.55;
+      max-width: 36rem;
     }
     .cta {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-top: 0.35rem;
+      gap: 0.7rem;
     }
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       border-radius: 999px;
-      padding: 0.8rem 1.3rem;
+      padding: 0.78rem 1.25rem;
       font-weight: 600;
       font-size: 0.98rem;
-      letter-spacing: 0;
       border: 1px solid transparent;
       text-decoration: none !important;
       transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
@@ -134,62 +129,142 @@
       font-size: 0.9rem;
       line-height: 1.45;
     }
-    section { padding: 2.25rem 0; }
-    section h2 {
-      font-family: var(--font);
-      font-size: 1.35rem;
-      font-weight: 700;
+
+    .hero-visual {
+      position: relative;
+      min-height: 17rem;
+      border-radius: 1.25rem;
+      background:
+        linear-gradient(160deg, rgba(26, 16, 40, 0.9), rgba(18, 16, 26, 0.95)),
+        var(--card);
+      border: 1px solid var(--line);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      padding: 1.35rem 1.4rem 1.5rem;
+    }
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: auto -20% -35% 35%;
+      height: 70%;
+      background: radial-gradient(circle, rgba(167, 139, 250, 0.28), transparent 70%);
+      pointer-events: none;
+    }
+    .app-chrome {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      margin-bottom: 1.1rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .dot {
+      width: 0.55rem;
+      height: 0.55rem;
+      border-radius: 50%;
+      background: rgba(167, 139, 250, 0.45);
+    }
+    .typed {
+      font-size: 1.05rem;
+      line-height: 1.55;
       margin: 0 0 1.15rem;
-      letter-spacing: 0;
+      color: #ddd8ef;
+    }
+    .typed s {
+      color: #8a819e;
+      text-decoration-color: rgba(167, 139, 250, 0.7);
+    }
+    .typed .fix {
+      color: var(--purple);
+      font-weight: 600;
+    }
+    .suggest {
+      position: relative;
+      z-index: 1;
+      background: #0c0b12;
+      border: 1px solid rgba(167, 139, 250, 0.35);
+      border-radius: 0.9rem;
+      padding: 0.95rem 1rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+    }
+    .suggest .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+      font-weight: 600;
+    }
+    .suggest .change {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .suggest .change s { color: #8a819e; }
+    .suggest .change .fix { color: var(--purple); font-weight: 600; }
+    .suggest-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .chip {
+      border-radius: 999px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: 1px solid var(--line);
+      color: var(--muted);
+    }
+    .chip.on {
+      background: rgba(167, 139, 250, 0.18);
+      color: var(--text);
+      border-color: rgba(167, 139, 250, 0.4);
+    }
+
+    section { padding: 1.5rem 0 2rem; }
+    section h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin: 0 0 0.95rem;
       line-height: 1.3;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-    }
-    @media (max-width: 700px) {
-      .grid, .pricing { grid-template-columns: 1fr; }
-      .hero { max-width: none; }
-      .hero h1 { max-width: none; font-size: 1.85rem; }
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.9rem;
     }
     .card {
       background: var(--card);
       border: 1px solid var(--line);
       border-radius: 1rem;
-      padding: 1.25rem 1.3rem;
+      padding: 1.1rem 1.15rem;
       min-height: 100%;
     }
     .card h3 {
-      margin: 0 0 0.5rem;
-      font-size: 1.05rem;
-      font-family: var(--font);
+      margin: 0 0 0.4rem;
+      font-size: 1.02rem;
       font-weight: 700;
-      letter-spacing: 0;
       line-height: 1.3;
     }
     .card p {
       margin: 0;
       color: var(--muted);
-      font-size: 0.98rem;
-      line-height: 1.55;
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
     .pricing {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-    }
-    @media (min-width: 900px) {
-      .pricing { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.9rem;
     }
     .price {
       background: var(--card);
       border: 1px solid var(--line);
-      border-radius: 1.1rem;
-      padding: 1.3rem 1.25rem;
+      border-radius: 1.05rem;
+      padding: 1.15rem 1.1rem;
       display: flex;
       flex-direction: column;
-      gap: 0.7rem;
+      gap: 0.6rem;
       min-width: 0;
     }
     .price.featured {
@@ -197,45 +272,55 @@
       box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.15), 0 20px 50px rgba(0, 0, 0, 0.25);
     }
     .price .name {
-      font-family: var(--font);
       font-weight: 700;
-      font-size: 1.02rem;
+      font-size: 1rem;
       line-height: 1.3;
-      letter-spacing: 0;
     }
     .price .amt {
-      font-family: var(--font);
-      font-size: 1.75rem;
+      font-size: 1.65rem;
       font-weight: 700;
       letter-spacing: -0.01em;
-      line-height: 1.2;
+      line-height: 1.15;
     }
     .price .amt span {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: var(--muted);
       font-weight: 500;
-      letter-spacing: 0;
     }
     .price ul {
       margin: 0;
-      padding-left: 1.15rem;
+      padding-left: 1.1rem;
       color: var(--muted);
-      font-size: 0.92rem;
-      line-height: 1.55;
+      font-size: 0.9rem;
+      line-height: 1.5;
       flex: 1;
     }
-    .price ul li + li { margin-top: 0.35rem; }
+    .price ul li + li { margin-top: 0.28rem; }
     .price .btn { width: 100%; }
     footer {
-      padding: 2.5rem 0 3rem;
+      padding: 1.75rem 0 2.5rem;
       border-top: 1px solid var(--line);
       color: var(--muted);
       font-size: 0.9rem;
       line-height: 1.5;
       display: flex;
       flex-wrap: wrap;
-      gap: 0.85rem 1.5rem;
+      gap: 0.75rem 1.5rem;
       justify-content: space-between;
+    }
+
+    @media (max-width: 980px) {
+      .grid, .pricing { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+        padding-top: 2rem;
+      }
+    }
+    @media (max-width: 640px) {
+      .wrap { width: calc(100% - 1.75rem); }
+      .grid, .pricing { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 1.85rem; }
     }
   </style>
 </head>
@@ -251,17 +336,32 @@
     </header>
 
     <main class="hero">
-      <h1>Grammarly that works in <em>every</em> Windows app</h1>
-      <p>
-        Fix typos as you type, clean up Windows Voice Typing, and rewrite selected text
-        anywhere you write &mdash; Slack, Cursor, Word, browsers, Discord, and the rest.
-        Offline by default. Bring your own OpenAI key only when you want AI features.
-      </p>
-      <div class="cta" id="download">
-        <a class="btn btn-primary" id="download-btn" href="https://github.com/BADATCODING12345678910/AutoCorrect-Windows/releases/download/v0.2.0/AutoCorrectSetup.exe">Download for Windows</a>
-        <a class="btn btn-ghost" href="https://www.paypal.com/ncp/payment/PA3R3XQRAF8QG">Buy Lifetime $59</a>
+      <div class="hero-copy">
+        <h1>Grammarly that works in <em>every</em> Windows app</h1>
+        <p>
+          Fix typos as you type, clean up Windows Voice Typing, and rewrite selected text
+          anywhere you write &mdash; Slack, Cursor, Word, browsers, Discord, and the rest.
+          Offline by default. Bring your own OpenAI key only when you want AI.
+        </p>
+        <div class="cta" id="download">
+          <a class="btn btn-primary" id="download-btn" href="https://github.com/BADATCODING12345678910/AutoCorrect-Windows/releases/download/v0.2.0/AutoCorrectSetup.exe">Download for Windows</a>
+          <a class="btn btn-ghost" href="https://www.paypal.com/ncp/payment/PA3R3XQRAF8QG">Buy Lifetime $59</a>
+        </div>
+        <p class="fine">14-day full trial &middot; Windows 10/11 x64 &middot; After install, right-click the tray icon and open Settings</p>
       </div>
-      <p class="fine">14-day full trial &middot; Windows 10/11 x64 &middot; After install, right-click the tray icon and open Settings</p>
+      <aside class="hero-visual" aria-hidden="true">
+        <div class="app-chrome"><span class="dot"></span> Slack &middot; message composer</div>
+        <p class="typed">Can we meet <s>tommorow</s> <span class="fix">tomorrow</span> after standup?</p>
+        <div class="suggest">
+          <div class="label">Spelling</div>
+          <div class="change"><s>tommorow</s> &rarr; <span class="fix">tomorrow</span></div>
+          <div class="suggest-actions">
+            <span class="chip on">Accept</span>
+            <span class="chip">Skip</span>
+            <span class="chip">Undo</span>
+          </div>
+        </div>
+      </aside>
     </main>
 
     <section id="features">
@@ -269,19 +369,19 @@
       <div class="grid">
         <article class="card">
           <h3>As-you-type autocorrect</h3>
-          <p>Thousands of high-confidence typo fixes fire in whatever field has focus &mdash; not locked to a browser extension or one editor.</p>
+          <p>Thousands of high-confidence typo fixes in whatever field has focus &mdash; not locked to a browser extension.</p>
         </article>
         <article class="card">
           <h3>Win+H dictation cleanup</h3>
-          <p>After Windows Voice Typing, clean speech-to-text mistakes with LanguageTool and optional ChatGPT before you send.</p>
+          <p>After Windows Voice Typing, clean speech-to-text mistakes with LanguageTool and optional ChatGPT.</p>
         </article>
         <article class="card">
           <h3>One-card review</h3>
-          <p>Each suggestion shows the exact change. Accept, skip, or undo &mdash; same rhythm as Grammarly, outside the browser.</p>
+          <p>Each suggestion shows the exact change. Accept, skip, or undo &mdash; Grammarly rhythm, every app.</p>
         </article>
         <article class="card">
           <h3>Rewrite selection</h3>
-          <p>Highlight text, describe the edit in plain English, and paste the rewrite back. Uses your own OpenAI key (BYOK).</p>
+          <p>Highlight text, describe the edit in plain English, paste the rewrite back. Uses your OpenAI key.</p>
         </article>
       </div>
     </section>
@@ -293,9 +393,9 @@
           <div class="name">Trial</div>
           <div class="amt">$0 <span>/ 14 days</span></div>
           <ul>
-            <li>Full Personal features unlocked</li>
-            <li>No card required to start</li>
-            <li>Install and try in your real apps</li>
+            <li>Full Personal features</li>
+            <li>No card to start</li>
+            <li>Try in your real apps</li>
           </ul>
           <a class="btn btn-ghost" href="#download">Download</a>
         </div>
@@ -304,8 +404,8 @@
           <div class="amt">$59 <span>one-time</span></div>
           <ul>
             <li>Full Personal forever</li>
-            <li>PayPal one-time checkout</li>
-            <li>Activate in Settings &rarr; License with your PayPal email</li>
+            <li>PayPal checkout</li>
+            <li>Activate in Settings &rarr; License</li>
           </ul>
           <a class="btn btn-primary" href="https://www.paypal.com/ncp/payment/PA3R3XQRAF8QG">Buy with PayPal</a>
         </div>
@@ -313,9 +413,9 @@
           <div class="name">Personal Yearly</div>
           <div class="amt">$39 <span>/ year</span></div>
           <ul>
-            <li>Same Personal feature set</li>
-            <li>Billed yearly through PayPal</li>
-            <li>Cancel anytime in PayPal</li>
+            <li>Same Personal features</li>
+            <li>Billed yearly via PayPal</li>
+            <li>Cancel anytime</li>
           </ul>
           <a class="btn btn-ghost" id="sub-personal" href="https://arsfrcafaoagrjbnjydx.supabase.co/functions/v1/subscribe?tier=personal">Subscribe</a>
         </div>
@@ -324,19 +424,19 @@
           <div class="amt">$79 <span>/ year</span></div>
           <ul>
             <li>Everything in Personal</li>
-            <li>Pro lane for future hosted AI packs</li>
-            <li>Cancel anytime in PayPal</li>
+            <li>Pro lane for hosted AI packs</li>
+            <li>Cancel anytime</li>
           </ul>
           <a class="btn btn-ghost" id="sub-pro" href="https://arsfrcafaoagrjbnjydx.supabase.co/functions/v1/subscribe?tier=pro">Subscribe</a>
         </div>
       </div>
-      <p class="fine" style="margin-top:1.1rem">Need seats for a team? Team plans are $15 per seat / month via <a href="https://arsfrcafaoagrjbnjydx.supabase.co/functions/v1/subscribe?tier=team">Subscribe &middot; Team</a>.</p>
+      <p class="fine" style="margin-top:1rem">Need seats for a team? $15 per seat / month via <a href="https://arsfrcafaoagrjbnjydx.supabase.co/functions/v1/subscribe?tier=team">Subscribe &middot; Team</a>.</p>
     </section>
 
     <footer>
       <div>&copy; AutoCorrect &middot; Windows desktop</div>
       <div>
-        After payment, open the app &rarr; Settings &rarr; License &rarr; enter your PayPal email &rarr; Activate online.
+        After payment: Settings &rarr; License &rarr; PayPal email &rarr; Activate online.
       </div>
     </footer>
   </div>
