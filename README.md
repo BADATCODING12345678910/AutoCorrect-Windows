@@ -7,6 +7,7 @@ System-wide autocorrect, Voice Typing cleanup, and rewrite for Windows — works
 | | |
 |---|---|
 | **Website** | https://badatcoding12345678910.github.io/AutoCorrect-Windows/ |
+| **Support** | https://badatcoding12345678910.github.io/AutoCorrect-Windows/support.html |
 | **Download** | [Latest release — AutoCorrectSetup.exe](https://github.com/BADATCODING12345678910/AutoCorrect-Windows/releases/latest) |
 | **Lifetime checkout** | PayPal one-time purchase (link on the website) |
 | **Yearly / Team** | Subscribe buttons on the website (PayPal Subscriptions) |
