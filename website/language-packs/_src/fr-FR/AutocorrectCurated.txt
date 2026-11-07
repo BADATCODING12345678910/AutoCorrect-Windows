@@ -1,0 +1,124 @@
+# AutoCorrect language pack: French (France)
+# Format: typo<TAB>correction (one per line). High-confidence pairs only.
+bcp	beaucoup
+beaucop	beaucoup
+beaucoups	beaucoup
+bocoup	beaucoup
+auj	aujourd'hui
+aujoudhui	aujourd'hui
+aujourdhui	aujourd'hui
+aujourdui	aujourd'hui
+ptet	peut-être
+peutetre	peut-être
+ptete	peut-être
+peutêtre	peut-être
+cad	c'est-à-dire
+cestadir	c'est-à-dire
+qqn	quelqu'un
+qlqn	quelqu'un
+quelqun	quelqu'un
+qqchose	quelque chose
+qqch	quelque chose
+quelquechose	quelque chose
+ds	dans
+dan	dans
+pr	pour
+pourr	pour
+tjrs	toujours
+toujour	toujours
+toujors	toujours
+tjs	toujours
+svp	s'il vous plaît
+stp	s'il te plaît
+silvouplait	s'il vous plaît
+silteplait	s'il te plaît
+acueillir	accueillir
+acceuillir	accueillir
+acceuil	accueil
+apparament	apparemment
+apperemment	apparemment
+aparament	apparemment
+appercevoir	apercevoir
+apercevoire	apercevoir
+aprés	après
+apres	après
+ca	ça
+cest	c'est
+comencer	commencer
+connection	connexion
+conexion	connexion
+developper	développer
+déveloper	développer
+developer	développer
+diferent	différent
+enviroment	environnement
+environment	environnement
+environement	environnement
+éxemple	exemple
+exemeple	exemple
+exmple	exemple
+indépendemment	indépendamment
+independemment	indépendamment
+interesant	intéressant
+intérressant	intéressant
+interressant	intéressant
+language	langage
+langague	langage
+malgrès	malgré
+malgre	malgré
+malgrés	malgré
+ocasion	occasion
+occassion	occasion
+parceque	parce que
+parce-que	parce que
+psk	parce que
+problem	problème
+probleme	problème
+problême	problème
+réflechir	réfléchir
+refléchir	réfléchir
+reflechir	réfléchir
+responsabilite	responsabilité
+responsabilitée	responsabilité
+succes	succès
+succés	succès
+télephone	téléphone
+telephone	téléphone
+vraimant	vraiment
+vrément	vraiment
+égalemment	également
+egalamment	également
+egalement	également
+évenement	événement
+evenement	événement
+bienvenuee	bienvenue
+bonjou	bonjour
+bonjout	bonjour
+bjr	bonjour
+bsr	bonsoir
+salutt	salut
+merçi	merci
+mexci	merci
+desolé	désolé
+desole	désolé
+etre	être
+étre	être
+avoirr	avoir
+fairee	faire
+ariver	arriver
+arrvé	arriver
+comprandre	comprendre
+connaitre	connaître
+connâitre	connaître
+repondre	répondre
+atendre	attendre
+apeler	appeler
+esayer	essayer
+éssayer	essayer
+utilser	utiliser
+ecouter	écouter
+detester	détester
+preferer	préférer
+préferer	préférer
+demender	demander
+appéler	appeler

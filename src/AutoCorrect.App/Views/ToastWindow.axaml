@@ -1,0 +1,57 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="AutoCorrect.App.Views.ToastWindow"
+        Title="AutoCorrect"
+        Width="340"
+        MaxWidth="380"
+        SizeToContent="Height"
+        CanResize="False"
+        WindowDecorations="None"
+        ShowInTaskbar="False"
+        ShowActivated="False"
+        Topmost="True"
+        Background="Transparent"
+        IsHitTestVisible="False">
+    <Border x:Name="Chrome"
+            CornerRadius="14"
+            Background="{StaticResource AcSurfaceBrush}"
+            BorderBrush="{StaticResource AcBorderBrush}"
+            BorderThickness="1"
+            Padding="14,11"
+            Margin="4"
+            MaxWidth="372"
+            BoxShadow="0 16 36 0 #80000000">
+        <StackPanel Spacing="8">
+            <DockPanel>
+                <Button x:Name="ActionButton"
+                        DockPanel.Dock="Right"
+                        Content="Undo"
+                        Classes="ac-chip"
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        IsVisible="False"
+                        IsHitTestVisible="True" />
+                <TextBlock x:Name="MessageText"
+                           Text="…"
+                           FontSize="12"
+                           Foreground="{StaticResource AcTextBrush}"
+                           TextWrapping="Wrap"
+                           VerticalAlignment="Center"
+                           MaxWidth="280" />
+            </DockPanel>
+            <ProgressBar x:Name="ProgressMeter"
+                         Height="6"
+                         Minimum="0"
+                         Maximum="1"
+                         Value="0"
+                         IsIndeterminate="False"
+                         IsVisible="False" />
+            <TextBlock x:Name="DetailText"
+                       Text=""
+                       FontSize="11"
+                       Opacity="0.72"
+                       Foreground="{StaticResource AcTextBrush}"
+                       IsVisible="False" />
+        </StackPanel>
+    </Border>
+</Window>

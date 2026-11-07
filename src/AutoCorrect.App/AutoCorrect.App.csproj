@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>Assets\autocorrect.ico</ApplicationIcon>
+    <ApplicationTitle>AutoCorrect</ApplicationTitle>
+    <RootNamespace>AutoCorrect.App</RootNamespace>
+    <Version>0.2.30</Version>
+    <AssemblyVersion>0.2.30.0</AssemblyVersion>
+    <FileVersion>0.2.30.0</FileVersion>
+    <InformationalVersion>0.2.30</InformationalVersion>
+    <!-- Scoop/user DOTNET_ROOT often lacks shared runtimes; allow 8.0.x → latest installed. -->
+    <RollForward>LatestMajor</RollForward>
+  </PropertyGroup>
+
+  <!-- Double-click helper: Scoop DOTNET_ROOT without runtimes otherwise shows the .NET install dialog. -->
+  <Target Name="WriteDotnetRootLauncher" AfterTargets="Build">
+    <PropertyGroup>
+      <_LauncherPath>$(OutputPath)Start AutoCorrect.cmd</_LauncherPath>
+      <_LauncherContent>@echo off
+rem Prefer the machine-wide .NET install (shared runtimes). Scoop's DOTNET_ROOT often has the SDK only.
+if exist "%ProgramFiles%\dotnet\dotnet.exe" set "DOTNET_ROOT=%ProgramFiles%\dotnet"
+set "DOTNET_MULTILEVEL_LOOKUP=1"
+start "" "%~dp0AutoCorrect.App.exe"
+</_LauncherContent>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(_LauncherPath)" Lines="$(_LauncherContent)" Overwrite="true" Encoding="ASCII" />
+  </Target>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <AvaloniaResource Include="Assets\**" />
+    <AvaloniaResource Include="Themes\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Desktop" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.4" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="12.1.4" />
+    <PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.3">
+      <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+      <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AutoCorrect.Core\AutoCorrect.Core.csproj" />
+    <ProjectReference Include="..\AutoCorrect.Platform.Abstractions\AutoCorrect.Platform.Abstractions.csproj" />
+    <ProjectReference Include="..\AutoCorrect.Platform.Windows\AutoCorrect.Platform.Windows.csproj" />
+  </ItemGroup>
+</Project>

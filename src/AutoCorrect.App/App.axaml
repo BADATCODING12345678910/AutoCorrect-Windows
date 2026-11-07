@@ -1,0 +1,231 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="AutoCorrect.App.App"
+             xmlns:local="using:AutoCorrect.App"
+             xmlns:vm="using:AutoCorrect.App.ViewModels"
+             x:DataType="vm:AppViewModel"
+             RequestedThemeVariant="Dark"
+             Name="AutoCorrect">
+
+    <Application.DataTemplates>
+        <local:ViewLocator />
+    </Application.DataTemplates>
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceInclude Source="avares://AutoCorrect.App/Themes/AppColors.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+
+    <Application.Styles>
+        <FluentTheme />
+
+        <!-- Shared chrome matching the marketing / review-card look -->
+        <Style Selector="Window">
+            <Setter Property="Foreground" Value="{StaticResource AcTextBrush}" />
+        </Style>
+
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="{StaticResource AcSurfaceRaisedBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource AcTextBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource AcBorderSoftBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Padding" Value="10,8" />
+            <Setter Property="CaretBrush" Value="{StaticResource AcPurpleBrush}" />
+            <Setter Property="SelectionBrush" Value="{StaticResource AcPurpleGlowBrush}" />
+        </Style>
+        <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="{StaticResource AcBorderBrush}" />
+        </Style>
+        <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="{StaticResource AcPurpleBrush}" />
+        </Style>
+
+        <Style Selector="ComboBox">
+            <Setter Property="Background" Value="{StaticResource AcSurfaceRaisedBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource AcTextBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource AcBorderSoftBrush}" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Padding" Value="10,6" />
+        </Style>
+
+        <Style Selector="NumericUpDown">
+            <Setter Property="Background" Value="{StaticResource AcSurfaceRaisedBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource AcTextBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource AcBorderSoftBrush}" />
+            <Setter Property="CornerRadius" Value="10" />
+        </Style>
+
+        <Style Selector="CheckBox">
+            <Setter Property="Foreground" Value="{StaticResource AcTextBrush}" />
+        </Style>
+
+        <Style Selector="TabControl">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="TabItem">
+            <Setter Property="Foreground" Value="{StaticResource AcTextMutedBrush}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Padding" Value="14,8" />
+            <Setter Property="Margin" Value="0,0,4,0" />
+        </Style>
+        <Style Selector="TabItem:selected">
+            <Setter Property="Foreground" Value="{StaticResource AcTextBrush}" />
+        </Style>
+
+        <Style Selector="ListBox">
+            <Setter Property="Background" Value="{StaticResource AcSurfaceRaisedBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource AcTextBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource AcBorderSoftBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="Padding" Value="4" />
+        </Style>
+        <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+            <Setter Property="Background" Value="{StaticResource AcPurpleGlowBrush}" />
+        </Style>
+        <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="{DynamicResource AcAccentHoverSoftBrush}" />
+        </Style>
+
+        <Style Selector="ScrollViewer">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+
+        <Style Selector="Button.ac-primary">
+            <Setter Property="Background" Value="{StaticResource AcPurpleGlowBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource AcTextBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource AcPurpleBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="999" />
+            <Setter Property="Padding" Value="16,8" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        <Style Selector="Button.ac-primary:pointerover">
+            <Setter Property="Background" Value="{DynamicResource AcAccentHoverStrongBrush}" />
+        </Style>
+
+        <Style Selector="Button.ac-ghost">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{StaticResource AcTextMutedBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource AcBorderSoftBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="999" />
+            <Setter Property="Padding" Value="14,8" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        <Style Selector="Button.ac-ghost:pointerover">
+            <Setter Property="Foreground" Value="{StaticResource AcTextBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource AcBorderBrush}" />
+        </Style>
+
+        <Style Selector="Button.ac-chip">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{StaticResource AcTextBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource AcPurpleBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="999" />
+            <Setter Property="Padding" Value="12,6" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        <Style Selector="Button.ac-chip:pointerover">
+            <Setter Property="Background" Value="{StaticResource AcPurpleGlowBrush}" />
+        </Style>
+
+        <!-- Icon chrome (‹ › ✕): kill Fluent’s gray PointerOver slab -->
+        <Style Selector="Button.ac-icon">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Foreground" Value="{StaticResource AcTextMutedBrush}" />
+        </Style>
+        <Style Selector="Button.ac-icon:pointerover">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{StaticResource AcPurpleBrush}" />
+        </Style>
+        <Style Selector="Button.ac-icon:pressed">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{StaticResource AcPurpleBrush}" />
+            <Setter Property="Opacity" Value="0.85" />
+        </Style>
+        <Style Selector="Button.ac-icon:disabled">
+            <Setter Property="Opacity" Value="0.35" />
+        </Style>
+        <Style Selector="Button.ac-icon:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="Button.ac-icon:pressed /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style Selector="Button.ac-icon:disabled /template/ ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+
+        <Style Selector="Border.ac-panel">
+            <Setter Property="Background" Value="{StaticResource AcSurfaceBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource AcBorderSoftBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="Padding" Value="14,12" />
+        </Style>
+    </Application.Styles>
+
+    <TrayIcon.Icons>
+        <TrayIcons>
+            <TrayIcon Icon="/Assets/autocorrect-icon.jpg"
+                      ToolTipText="{Binding TrayToolTip}"
+                      Command="{Binding FixNowCommand}">
+                <TrayIcon.Menu>
+                    <NativeMenu>
+                        <NativeMenuItem Header="Fix now" Command="{Binding FixNowCommand}" />
+                        <NativeMenuItem Header="Clipboard Fix" Command="{Binding ClipboardFixCommand}" />
+                        <NativeMenuItem Header="Rewrite selection…" Command="{Binding RewriteSelectionCommand}" />
+                        <NativeMenuItem Header="Undo last fix" Command="{Binding UndoLastCommand}" />
+                        <NativeMenuItem Header="Undo last auto-learn" Command="{Binding UndoLastAutoLearnCommand}" />
+                        <NativeMenuItem Header="Undo last STT rule" Command="{Binding UndoLastLocalRuleCommand}" />
+                        <NativeMenuItem Header="Pause / resume autocorrect" Command="{Binding TogglePauseCommand}" />
+                        <NativeMenuItem Header="Toggle privacy mode" Command="{Binding PrivacyToggleDefaultCommand}" />
+                        <NativeMenuItem Header="Privacy mode">
+                            <NativeMenuItem.Menu>
+                                <NativeMenu>
+                                    <NativeMenuItem Header="15 minutes" Command="{Binding Privacy15Command}" />
+                                    <NativeMenuItem Header="30 minutes" Command="{Binding Privacy30Command}" />
+                                    <NativeMenuItem Header="1 hour" Command="{Binding Privacy60Command}" />
+                                    <NativeMenuItem Header="2 hours" Command="{Binding Privacy120Command}" />
+                                    <NativeMenuItem Header="Until I turn it off" Command="{Binding PrivacyUntilOffCommand}" />
+                                    <NativeMenuItemSeparator />
+                                    <NativeMenuItem Header="End privacy mode" Command="{Binding PrivacyEndCommand}" />
+                                </NativeMenu>
+                            </NativeMenuItem.Menu>
+                        </NativeMenuItem>
+                        <NativeMenuItem Header="Word Manager…" Command="{Binding OpenWordManagerCommand}" />
+                        <NativeMenuItem Header="Snippet Manager…" Command="{Binding OpenSnippetManagerCommand}" />
+                        <NativeMenuItem Header="Usage stats…" Command="{Binding OpenUsageStatsCommand}" />
+                        <NativeMenuItem Header="What's New…" Command="{Binding OpenWhatsNewCommand}" />
+                        <NativeMenuItem Header="Settings…" Command="{Binding OpenSettingsCommand}" />
+                        <NativeMenuItem Header="License / Buy…" Command="{Binding OpenLicenseCommand}" />
+                        <NativeMenuItem Header="Check for updates…" Command="{Binding CheckForUpdatesCommand}" />
+                        <NativeMenuItem Header="Website…" Command="{Binding OpenWebsiteCommand}" />
+                        <NativeMenuItem Header="GitHub mirror…" Command="{Binding OpenAlternateWebsiteCommand}" />
+                        <NativeMenuItem Header="X…" Command="{Binding OpenSocialXCommand}" />
+                        <NativeMenuItem Header="GitHub…" Command="{Binding OpenSocialGitHubCommand}" />
+                        <NativeMenuItemSeparator />
+                        <NativeMenuItem Header="Exit" Command="{Binding ExitAppCommand}" />
+                    </NativeMenu>
+                </TrayIcon.Menu>
+            </TrayIcon>
+        </TrayIcons>
+    </TrayIcon.Icons>
+</Application>

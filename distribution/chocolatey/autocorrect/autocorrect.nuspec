@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>autocorrect</id>
+    <version>0.2.23</version>
+    <title>AutoCorrect</title>
+    <authors>AutoCorrect</authors>
+    <owners>AutoCorrect</owners>
+    <projectUrl>https://badatcoding12345678910.github.io/AutoCorrect-Windows/</projectUrl>
+    <docsUrl>https://badatcoding12345678910.github.io/AutoCorrect-Windows/</docsUrl>
+    <bugTrackerUrl>https://badatcoding12345678910.github.io/AutoCorrect-Windows/support.html</bugTrackerUrl>
+    <packageSourceUrl>https://github.com/BADATCODING12345678910/AutoCorrect-Windows</packageSourceUrl>
+    <licenseUrl>https://badatcoding12345678910.github.io/AutoCorrect-Windows/</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectSourceUrl>https://github.com/BADATCODING12345678910/AutoCorrect-Windows</projectSourceUrl>
+    <tags>autocorrect grammar dictation productivity writing spellcheck</tags>
+    <summary>System-wide autocorrect and dictation fix for every Windows app.</summary>
+    <description>
+AutoCorrect is a Grammarly-like tray app for Windows that works in every app.
+
+Features include as-you-type autocorrect, Win+H dictation cleanup, snippets, clipboard fix, selection rewrite, privacy mode, and on-demand language packs.
+
+14-day full trial. Lifetime and subscription plans available from the in-app License tab.
+    </description>
+    <releaseNotes>Privacy mode now persists across restarts (timed expiry or until you turn it off).</releaseNotes>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

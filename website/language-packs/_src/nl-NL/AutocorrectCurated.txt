@@ -1,0 +1,67 @@
+# AutoCorrect language pack: Dutch (Netherlands)
+# Format: typo<TAB>correction (one per line). High-confidence pairs only.
+ff	even
+eve	even
+gwn	gewoon
+idd	inderdaad
+inderdad	inderdaad
+mss	misschien
+messchien	misschien
+mischien	misschien
+meschien	misschien
+nvt	niet van toepassing
+svp	alstublieft
+astublieft	alstublieft
+ajb	alsjeblieft
+mvg	met vriendelijke groet
+wrm	waarom
+warom	waarom
+wnr	wanneer
+waner	wanneer
+dankje	dankjewel
+dankuwel	dank u wel
+naturlijk	natuurlijk
+natuurlik	natuurlijk
+warscheinlijk	waarschijnlijk
+waarschijnlik	waarschijnlijk
+eigenlik	eigenlijk
+eignelijk	eigenlijk
+interesant	interessant
+interressant	interessant
+belangrik	belangrijk
+belangrijc	belangrijk
+mogelik	mogelijk
+moogelijk	mogelijk
+moeilik	moeilijk
+moelijk	moeilijk
+makelik	makkelijk
+maklijk	makkelijk
+verschelend	verschillend
+verschilend	verschillend
+deselfde	dezelfde
+somige	sommige
+geeen	geen
+nits	niets
+ietss	iets
+iemadn	iemand
+niemadn	niemand
+altijt	altijd
+aleen	alleen
+alleenn	alleen
+informasie	informatie
+comunicatie	communicatie
+organizatie	organisatie
+andacht	aandacht
+beslising	beslissing
+geleegenheid	gelegenheid
+ervaaring	ervaring
+onmiddelijk	onmiddellijk
+omeddellik	onmiddellijk
+definitieef	definitief
+graaag	graag
+halloo	hallo
+hoii	hoi
+jaa	ja
+neee	nee
+heell	heel
+zeerr	zeer

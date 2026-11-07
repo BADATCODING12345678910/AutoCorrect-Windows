@@ -1,0 +1,113 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AutoCorrect.App.ViewModels"
+        x:Class="AutoCorrect.App.Views.RewritePromptWindow"
+        x:Name="Root"
+        x:DataType="vm:RewritePromptViewModel"
+        Title="Rewrite selection"
+        Width="480"
+        SizeToContent="Height"
+        MinWidth="420"
+        WindowStartupLocation="CenterScreen"
+        CanResize="False"
+        Background="{DynamicResource AcWindowBackgroundBrush}"
+        Icon="/Assets/autocorrect-icon.jpg">
+
+    <Border Classes="ac-panel"
+            Padding="18"
+            Margin="10"
+            BorderBrush="{StaticResource AcBorderBrush}"
+            BoxShadow="0 22 50 0 #8C000000">
+        <StackPanel Spacing="12">
+            <StackPanel Spacing="4">
+                <TextBlock Text="REWRITE"
+                           FontSize="11"
+                           FontWeight="Bold"
+                           Foreground="{StaticResource AcTextMutedBrush}" />
+                <TextBlock Text="Rewrite selection"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource AcTextBrush}" />
+                <TextBlock Text="Tone packs (Email / Slack / Formal) or type your own. Uses your OpenAI key from Settings."
+                           FontSize="12"
+                           Foreground="{StaticResource AcTextMutedBrush}"
+                           TextWrapping="Wrap" />
+            </StackPanel>
+
+            <TextBlock Text="Selected"
+                       FontSize="12"
+                       Foreground="{StaticResource AcTextMutedBrush}" />
+            <Border Background="{StaticResource AcSurfaceRaisedBrush}"
+                    BorderBrush="{StaticResource AcBorderSoftBrush}"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="10"
+                    MaxHeight="120">
+                <ScrollViewer>
+                    <TextBlock Text="{Binding SelectedPreview}"
+                               TextWrapping="Wrap"
+                               Foreground="{StaticResource AcTextBrush}"
+                               FontSize="13" />
+                </ScrollViewer>
+            </Border>
+
+            <ItemsControl ItemsSource="{Binding Presets}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="vm:RewritePreset">
+                        <Button Content="{Binding Label}"
+                                Classes="ac-chip"
+                                Command="{Binding #Root.((vm:RewritePromptViewModel)DataContext).UsePresetCommand}"
+                                CommandParameter="{Binding}"
+                                Margin="0,0,8,8" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <TextBlock Text="Instruction"
+                       FontSize="12"
+                       Foreground="{StaticResource AcTextMutedBrush}" />
+            <TextBox Text="{Binding Instruction}"
+                     AcceptsReturn="True"
+                     TextWrapping="Wrap"
+                     MinHeight="72"
+                     MaxHeight="120"
+                     PlaceholderText="e.g. make this more formal" />
+
+            <DockPanel>
+                <Button DockPanel.Dock="Right"
+                        Content="Save preset"
+                        Classes="ac-chip"
+                        Command="{Binding SaveCurrentAsPresetCommand}"
+                        Margin="8,0,0,0" />
+                <TextBox Text="{Binding NewPresetLabel}"
+                         PlaceholderText="Preset name (optional)"
+                         MinHeight="32" />
+            </DockPanel>
+
+            <TextBlock Text="{Binding StatusMessage}"
+                       FontSize="12"
+                       Foreground="{StaticResource AcPurpleBrush}"
+                       TextWrapping="Wrap"
+                       IsVisible="{Binding HasStatusMessage}" />
+
+            <DockPanel>
+                <Button DockPanel.Dock="Right"
+                        Content="Rewrite"
+                        Classes="ac-primary"
+                        Command="{Binding SubmitCommand}"
+                        IsEnabled="{Binding CanSubmit}"
+                        Margin="8,0,0,0" />
+                <Button DockPanel.Dock="Right"
+                        Content="Cancel"
+                        Classes="ac-ghost"
+                        Command="{Binding CancelCommand}" />
+                <TextBlock />
+            </DockPanel>
+        </StackPanel>
+    </Border>
+</Window>

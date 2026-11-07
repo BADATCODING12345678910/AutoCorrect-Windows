@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Support &mdash; AutoCorrect for Windows</title>
+  <meta name="description" content="Submit an AutoCorrect support ticket: bug reports, install help, license activation, dictation, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("acSiteTheme");
+        document.documentElement.setAttribute("data-theme", t === "dark" ? "dark" : "light");
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      /* Light Lavender (app theme) — default */
+      --bg0: #f5f3fa;
+      --bg1: #ede9f6;
+      --bg-end: #e4dff2;
+      --purple: #7c3aed;
+      --purple-deep: #6d28d9;
+      --text: #1e1433;
+      --muted: #6b6280;
+      --line: rgba(124, 58, 237, 0.18);
+      --card: rgba(255, 255, 255, 0.78);
+      --glow1: rgba(124, 58, 237, 0.14);
+      --glow2: rgba(167, 139, 250, 0.2);
+      --mark-bg: linear-gradient(160deg, #ede9f6, #c4b5fd 55%, #7c3aed);
+      --mark-shadow: 0 0 0 1px rgba(124, 58, 237, 0.28), 0 8px 22px rgba(124, 58, 237, 0.16);
+      --panel-bg: rgba(255, 255, 255, 0.94);
+      --panel-border: rgba(124, 58, 237, 0.22);
+      --panel-shadow: 0 22px 50px rgba(30, 20, 51, 0.1);
+      --input-bg: #ffffff;
+      --input-border: rgba(124, 58, 237, 0.18);
+      --menu-bg: #ffffff;
+      --menu-border: rgba(124, 58, 237, 0.28);
+      --menu-shadow: 0 18px 40px rgba(30, 20, 51, 0.12);
+      --preset-active-bg: rgba(124, 58, 237, 0.1);
+      --preset-hover-border: rgba(124, 58, 237, 0.4);
+      --option-hover: rgba(124, 58, 237, 0.12);
+      --btn-on-accent: #ffffff;
+      --btn-shadow: 0 12px 40px rgba(124, 58, 237, 0.28);
+      --font: "Source Sans 3", "Segoe UI", sans-serif;
+      color-scheme: light;
+    }
+    html[data-theme="dark"] {
+      /* Midnight Purple (app theme) */
+      --bg0: #07070c;
+      --bg1: #12101a;
+      --bg-end: #0a0910;
+      --purple: #a78bfa;
+      --purple-deep: #7c5cbf;
+      --text: #f4f2ff;
+      --muted: #a39bb8;
+      --line: rgba(167, 139, 250, 0.22);
+      --card: rgba(255, 255, 255, 0.04);
+      --glow1: rgba(124, 92, 191, 0.32);
+      --glow2: rgba(167, 139, 250, 0.16);
+      --mark-bg: linear-gradient(160deg, #1a1028, #3b2466 55%, #6d4ab0);
+      --mark-shadow: 0 0 0 1px rgba(167, 139, 250, 0.35), 0 10px 30px rgba(0, 0, 0, 0.35);
+      --panel-bg: rgba(12, 11, 18, 0.92);
+      --panel-border: rgba(167, 139, 250, 0.28);
+      --panel-shadow: 0 22px 50px rgba(0, 0, 0, 0.35);
+      --input-bg: #17141f;
+      --input-border: rgba(167, 139, 250, 0.22);
+      --menu-bg: #0c0b12;
+      --menu-border: rgba(167, 139, 250, 0.35);
+      --menu-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+      --preset-active-bg: rgba(167, 139, 250, 0.12);
+      --preset-hover-border: rgba(167, 139, 250, 0.45);
+      --option-hover: rgba(167, 139, 250, 0.16);
+      --btn-on-accent: #0e0e10;
+      --btn-shadow: 0 12px 40px rgba(124, 92, 191, 0.35);
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      background:
+        radial-gradient(1100px 560px at 12% -8%, var(--glow1), transparent 58%),
+        radial-gradient(900px 480px at 88% 8%, var(--glow2), transparent 52%),
+        linear-gradient(180deg, var(--bg0), var(--bg1) 45%, var(--bg-end));
+    }
+    a { color: var(--purple); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { width: min(960px, calc(100% - 3rem)); margin: 0 auto; }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 0 0;
+      gap: 1rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text);
+      text-decoration: none !important;
+    }
+    .mark {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.5rem;
+      background: var(--mark-bg);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: var(--mark-shadow);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .nav { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .nav a { color: var(--muted); font-size: 0.95rem; font-weight: 500; }
+    .theme-toggle {
+      appearance: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border-radius: 999px;
+      padding: 0.42rem 0.75rem;
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--card);
+      border: 1px solid var(--line);
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+    }
+    .theme-toggle:hover {
+      transform: translateY(-1px);
+      color: var(--text);
+      border-color: var(--purple);
+    }
+    .theme-toggle:focus-visible {
+      outline: 2px solid var(--purple);
+      outline-offset: 2px;
+    }
+    .theme-toggle .theme-icon { font-size: 0.95rem; line-height: 1; }
+    html[data-theme="light"] .theme-toggle .label-dark { display: none; }
+    html[data-theme="dark"] .theme-toggle .label-light { display: none; }
+    .page { padding: 2.25rem 0 3rem; }
+    .eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 0.5rem;
+    }
+    h1 {
+      margin: 0 0 0.65rem;
+      font-size: clamp(1.85rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .lede {
+      margin: 0 0 1.75rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 40rem;
+    }
+    .presets {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .preset {
+      text-align: left;
+      cursor: pointer;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      padding: 0.95rem 1rem;
+      color: var(--text);
+      font: inherit;
+      transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+    }
+    .preset:hover { transform: translateY(-1px); border-color: var(--preset-hover-border); }
+    .preset.active {
+      background: var(--preset-active-bg);
+      border-color: var(--preset-hover-border);
+      box-shadow: 0 0 0 1px var(--line);
+    }
+    .preset h3 {
+      margin: 0 0 0.3rem;
+      font-size: 0.98rem;
+      font-weight: 700;
+    }
+    .preset p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.4;
+    }
+    .panel {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 1.1rem;
+      padding: 1.25rem 1.3rem 1.4rem;
+      box-shadow: var(--panel-shadow);
+    }
+    .panel h2 {
+      margin: 0 0 1rem;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+    .grid-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem 1rem;
+    }
+    .field { display: grid; gap: 0.35rem; }
+    .field.full { grid-column: 1 / -1; }
+    label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    input, textarea {
+      width: 100%;
+      font: inherit;
+      color: var(--text);
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 0.7rem;
+      padding: 0.7rem 0.85rem;
+      outline: none;
+    }
+    input:focus, textarea:focus {
+      border-color: var(--purple);
+    }
+    textarea { min-height: 9rem; resize: vertical; }
+    .type-picker { position: relative; }
+    .type-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font: inherit;
+      color: var(--text);
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 0.7rem;
+      padding: 0.7rem 0.85rem;
+      cursor: pointer;
+      text-align: left;
+    }
+    .type-btn:hover, .type-btn[aria-expanded="true"] {
+      border-color: var(--purple);
+    }
+    .type-btn .chev {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    .type-menu {
+      position: absolute;
+      z-index: 20;
+      left: 0;
+      right: 0;
+      top: calc(100% + 0.35rem);
+      background: var(--menu-bg);
+      border: 1px solid var(--menu-border);
+      border-radius: 0.85rem;
+      box-shadow: var(--menu-shadow);
+      padding: 0.35rem;
+      display: none;
+      max-height: 16rem;
+      overflow: auto;
+    }
+    .type-menu.open { display: grid; gap: 0.15rem; }
+    .type-option {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      font: inherit;
+      text-align: left;
+      padding: 0.65rem 0.75rem;
+      border-radius: 0.55rem;
+      cursor: pointer;
+    }
+    .type-option:hover, .type-option.active {
+      background: var(--option-hover);
+    }
+    .type-option small {
+      display: block;
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin-top: 0.15rem;
+    }
+    .hp {
+      position: absolute;
+      left: -10000px;
+      opacity: 0;
+      height: 0;
+      width: 0;
+      overflow: hidden;
+    }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+      align-items: center;
+      margin-top: 1rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 0.78rem 1.25rem;
+      font-weight: 600;
+      font-size: 0.98rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-decoration: none !important;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple), var(--purple-deep));
+      color: var(--btn-on-accent);
+      box-shadow: var(--btn-shadow);
+    }
+    .btn-primary:disabled { opacity: 0.55; cursor: wait; }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--line);
+    }
+    .status {
+      margin: 0.85rem 0 0;
+      font-size: 0.92rem;
+      color: var(--muted);
+      min-height: 1.3em;
+    }
+    .status.ok { color: #15803d; }
+    .status.err { color: #b91c1c; }
+    html[data-theme="dark"] .status.ok { color: #b7f0c4; }
+    html[data-theme="dark"] .status.err { color: #f5b4b4; }
+    .tips {
+      margin-top: 1.35rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    footer {
+      padding: 1.75rem 0 2.5rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+      justify-content: space-between;
+    }
+    @media (max-width: 820px) {
+      .presets { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: calc(100% - 1.75rem); }
+      .presets, .grid-form { grid-template-columns: 1fr; }
+    }
+  </style>
+  <script>
+    /* Auto soft-refresh when a new site publish is detected (no hard-refresh required). */
+    (function () {
+      var KEY = "acSiteVer";
+      var FLAG = "acSiteReloading";
+      if (sessionStorage.getItem(FLAG) === "1") {
+        sessionStorage.removeItem(FLAG);
+        return;
+      }
+      fetch("version.json", { cache: "no-store" })
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (data) {
+          var ver = String((data && data.version) || "").trim();
+          if (!ver) return;
+          var prev = localStorage.getItem(KEY);
+          if (prev && prev !== ver) {
+            localStorage.setItem(KEY, ver);
+            sessionStorage.setItem(FLAG, "1");
+            var path = location.pathname || "/";
+            location.replace(path + "?v=" + encodeURIComponent(ver));
+            return;
+          }
+          localStorage.setItem(KEY, ver);
+        })
+        .catch(function () { /* offline / first paint */ });
+    })();
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="./"><div class="mark" aria-hidden="true">A</div> AutoCorrect</a>
+      <nav class="nav">
+        <a href="./#features">Features</a>
+        <a href="./#pricing">Pricing</a>
+        <a href="./#download">Download</a>
+        <a href="./support.html">Support</a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch color theme">
+          <span class="theme-icon" aria-hidden="true"></span>
+          <span class="label-dark">Dark</span>
+          <span class="label-light">Light</span>
+        </button>
+      </nav>
+    </header>
+
+    <main class="page">
+      <p class="eyebrow">Support</p>
+      <h1>How can we help?</h1>
+      <p class="lede">
+        Pick a preset below, then fill in the details. We read every ticket and reply to the email you provide.
+        For fastest help, include what you expected vs what happened.
+      </p>
+
+      <div class="presets" id="presets" role="list"></div>
+
+      <div class="panel">
+        <h2 id="form-title">New support ticket</h2>
+        <form id="ticket-form" novalidate>
+          <div class="hp" aria-hidden="true">
+            <label>Company <input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+          </div>
+          <div class="grid-form">
+            <div class="field">
+              <label id="category-label">Ticket type</label>
+              <div class="type-picker" id="type-picker">
+                <input type="hidden" id="category" name="category" value="bug" required />
+                <button type="button" class="type-btn" id="type-btn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="category-label type-btn-label">
+                  <span id="type-btn-label">Bug report</span>
+                  <span class="chev" aria-hidden="true">▾</span>
+                </button>
+                <div class="type-menu" id="type-menu" role="listbox" aria-labelledby="category-label"></div>
+              </div>
+            </div>
+            <div class="field">
+              <label for="email">Reply email</label>
+              <input id="email" name="email" type="email" required placeholder="you@example.com" autocomplete="email" />
+            </div>
+            <div class="field full">
+              <label for="subject">Subject</label>
+              <input id="subject" name="subject" type="text" required maxlength="160" placeholder="Short summary" />
+            </div>
+            <div class="field full">
+              <label for="body">Details</label>
+              <textarea id="body" name="body" required maxlength="6000" placeholder="What happened? Steps to reproduce, screenshots description, etc."></textarea>
+            </div>
+            <div class="field">
+              <label for="app_version">App version (optional)</label>
+              <input id="app_version" name="app_version" type="text" maxlength="64" placeholder="e.g. 0.2.23" />
+            </div>
+            <div class="field">
+              <label for="windows_version">Windows version (optional)</label>
+              <input id="windows_version" name="windows_version" type="text" maxlength="64" placeholder="e.g. Windows 11 24H2" />
+            </div>
+          </div>
+          <div class="actions">
+            <button class="btn btn-primary" type="submit" id="submit-btn">Submit ticket</button>
+            <a class="btn btn-ghost" href="./">Back to home</a>
+          </div>
+          <p class="status" id="status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+
+      <p class="tips">
+        Tip: Settings &rarr; License shows activation status. Tray icon &rarr; Settings for most fixes.
+        Lifetime and subscriptions both activate with the PayPal email used at checkout.
+      </p>
+    </main>
+
+    <footer>
+      <div>&copy; AutoCorrect &middot; Windows desktop</div>
+      <div><a href="./">Home</a> &middot; <a href="./#download">Download</a></div>
+      <div class="fine" style="width:100%;margin-top:.35rem;opacity:.75;font-size:.8rem">
+        GitHub Pages mirror:
+        <a href="https://badatcoding12345678910.github.io/AutoCorrect-Windows/support.html">badatcoding12345678910.github.io/…/support.html</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var ENDPOINT = "https://arsfrcafaoagrjbnjydx.supabase.co/functions/v1/support";
+      var presets = [
+        {
+          id: "bug",
+          title: "Bug report",
+          blurb: "Something broken or unexpected in the app.",
+          subject: "Bug: ",
+          body:
+            "Bug summary:\n\n" +
+            "Steps to reproduce:\n1.\n2.\n3.\n\n" +
+            "Expected result:\n\n" +
+            "Actual result:\n\n" +
+            "App / window where it happened:\n\n" +
+            "How often: always / sometimes / once\n\n" +
+            "Screenshot or exact error text (if any):\n"
+        },
+        {
+          id: "install",
+          title: "Install / Setup",
+          blurb: "Installer, SmartScreen, missing tray icon, first launch.",
+          subject: "Install help: ",
+          body:
+            "Which step failed?\n[ ] Download\n[ ] Running AutoCorrectSetup.exe\n[ ] SmartScreen / Windows warning\n[ ] First launch / tray icon missing\n\n" +
+            "Exact message or dialog text:\n\n" +
+            "Did Setup finish with success?\n\n" +
+            "Do you see AutoCorrect in the system tray?\n"
+        },
+        {
+          id: "license",
+          title: "License / Billing",
+          blurb: "Trial, PayPal, activate online, renewals, refunds.",
+          subject: "License / billing: ",
+          body:
+            "Purchase type:\n[ ] Trial\n[ ] Personal Lifetime\n[ ] Personal Yearly\n[ ] Pro Yearly\n[ ] Team\n\n" +
+            "PayPal email used at checkout:\n\n" +
+            "What Settings → License shows now:\n\n" +
+            "What you need help with (activate / renew / cancel / refund):\n"
+        },
+        {
+          id: "autocorrect",
+          title: "Autocorrect issue",
+          blurb: "Wrong fixes, missed typos, or a pair to remove.",
+          subject: "Autocorrect: ",
+          body:
+            "App where typing happened (Slack, Word, Cursor, browser, etc.):\n\n" +
+            "What I typed:\n\n" +
+            "What AutoCorrect changed it to:\n\n" +
+            "What it should have been:\n\n" +
+            "Want this pair removed / never learned? yes / no\n\n" +
+            "Checked Word Manager already? yes / no\n"
+        },
+        {
+          id: "dictation",
+          title: "Dictation / Win+H",
+          blurb: "Voice Typing cleanup, Fix hotkey, review card.",
+          subject: "Dictation / Win+H: ",
+          body:
+            "How you triggered Fix:\n[ ] Win+H auto session\n[ ] Fix hotkey (default Win+Alt+F)\n[ ] Tray → Fix now\n\n" +
+            "Target app / field:\n\n" +
+            "What Voice Typing produced:\n\n" +
+            "What the review card suggested (or why no card):\n\n" +
+            "What went wrong:\n"
+        },
+        {
+          id: "rewrite",
+          title: "Rewrite / AI",
+          blurb: "Selection rewrite, API key, model errors.",
+          subject: "Rewrite / AI: ",
+          body:
+            "Feature:\n[ ] Rewrite selection\n[ ] Writing suggestions\n[ ] Other AI:\n\n" +
+            "Instruction / preset used:\n\n" +
+            "OpenAI model in Settings:\n\n" +
+            "Exact error toast or message:\n\n" +
+            "Selected text length (approx.):\n"
+        },
+        {
+          id: "feature",
+          title: "Feature request",
+          blurb: "Ideas that would make AutoCorrect more useful.",
+          subject: "Feature request: ",
+          body:
+            "What problem are you trying to solve?\n\n" +
+            "How would the feature work day to day?\n\n" +
+            "Any app or workflow this is especially for?\n\n" +
+            "Nice-to-have vs must-have:\n"
+        },
+        {
+          id: "performance",
+          title: "Crash / Performance",
+          blurb: "App freezes, high CPU, or unexpected exits.",
+          subject: "Crash / performance: ",
+          body:
+            "Symptom:\n[ ] Crash / exits\n[ ] Freeze / hangs\n[ ] High CPU or RAM\n[ ] Slow suggestions\n\n" +
+            "When it happens (startup, typing, Fix, Settings, idle):\n\n" +
+            "Rough CPU / RAM if known:\n\n" +
+            "Recent change (Windows update, AutoCorrect update, new app):\n\n" +
+            "Can you reproduce it? steps:\n"
+        },
+        {
+          id: "other",
+          title: "Something else",
+          blurb: "General questions that do not fit above.",
+          subject: "General question: ",
+          body:
+            "What do you need help with?\n\n" +
+            "Any relevant Settings or tray menu details:\n\n" +
+            "Anything else we should know:\n"
+        }
+      ];
+
+      var presetsEl = document.getElementById("presets");
+      var category = document.getElementById("category");
+      var typeBtn = document.getElementById("type-btn");
+      var typeBtnLabel = document.getElementById("type-btn-label");
+      var typeMenu = document.getElementById("type-menu");
+      var subject = document.getElementById("subject");
+      var body = document.getElementById("body");
+      var form = document.getElementById("ticket-form");
+      var statusEl = document.getElementById("status");
+      var submitBtn = document.getElementById("submit-btn");
+      var formTitle = document.getElementById("form-title");
+      var selected = "bug";
+      var emailKeep = "";
+
+      function closeMenu() {
+        typeMenu.classList.remove("open");
+        typeBtn.setAttribute("aria-expanded", "false");
+      }
+
+      function openMenu() {
+        typeMenu.classList.add("open");
+        typeBtn.setAttribute("aria-expanded", "true");
+      }
+
+      presets.forEach(function (p) {
+        var card = document.createElement("button");
+        card.type = "button";
+        card.className = "preset";
+        card.setAttribute("role", "listitem");
+        card.dataset.id = p.id;
+        card.innerHTML = "<h3>" + p.title + "</h3><p>" + p.blurb + "</p>";
+        card.addEventListener("click", function () { selectPreset(p.id, true); });
+        presetsEl.appendChild(card);
+
+        var opt = document.createElement("button");
+        opt.type = "button";
+        opt.className = "type-option";
+        opt.setAttribute("role", "option");
+        opt.dataset.id = p.id;
+        opt.innerHTML = p.title + "<small>" + p.blurb + "</small>";
+        opt.addEventListener("click", function () {
+          selectPreset(p.id, true);
+          closeMenu();
+        });
+        typeMenu.appendChild(opt);
+      });
+
+      function selectPreset(id, fillTemplate) {
+        selected = id;
+        category.value = id;
+        var p = presets.find(function (x) { return x.id === id; });
+        if (!p) return;
+
+        formTitle.textContent = p.title;
+        typeBtnLabel.textContent = p.title;
+
+        Array.prototype.forEach.call(presetsEl.children, function (el) {
+          el.classList.toggle("active", el.dataset.id === id);
+        });
+        Array.prototype.forEach.call(typeMenu.children, function (el) {
+          el.classList.toggle("active", el.dataset.id === id);
+          el.setAttribute("aria-selected", el.dataset.id === id ? "true" : "false");
+        });
+
+        if (fillTemplate) {
+          subject.value = p.subject;
+          body.value = p.body;
+          subject.focus();
+          subject.setSelectionRange(subject.value.length, subject.value.length);
+        }
+      }
+
+      typeBtn.addEventListener("click", function () {
+        if (typeMenu.classList.contains("open")) closeMenu();
+        else openMenu();
+      });
+
+      document.addEventListener("click", function (e) {
+        if (!document.getElementById("type-picker").contains(e.target)) closeMenu();
+      });
+
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") closeMenu();
+      });
+
+      selectPreset("bug", true);
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        statusEl.className = "status";
+        statusEl.textContent = "Sending…";
+        submitBtn.disabled = true;
+
+        var payload = {
+          category: category.value,
+          subject: subject.value,
+          body: body.value,
+          email: document.getElementById("email").value,
+          app_version: document.getElementById("app_version").value,
+          windows_version: document.getElementById("windows_version").value,
+          company: form.company.value
+        };
+
+        try {
+          var resp = await fetch(ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          var data = await resp.json().catch(function () { return {}; });
+          if (!resp.ok || !data.ok) {
+            throw new Error(data.error || ("HTTP " + resp.status));
+          }
+          statusEl.className = "status ok";
+          statusEl.textContent = "Ticket submitted. We will reply to " + payload.email + ".";
+          emailKeep = payload.email;
+          form.reset();
+          document.getElementById("email").value = emailKeep;
+          selectPreset(selected, true);
+        } catch (err) {
+          statusEl.className = "status err";
+          statusEl.textContent = err && err.message ? err.message : "Could not submit ticket.";
+        } finally {
+          submitBtn.disabled = false;
+        }
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      var btn = document.getElementById("theme-toggle");
+      if (!btn) return;
+      var icon = btn.querySelector(".theme-icon");
+      function sync() {
+        var dark = document.documentElement.getAttribute("data-theme") === "dark";
+        if (icon) icon.textContent = dark ? "☀" : "☾";
+        btn.setAttribute("aria-label", dark ? "Switch to Light Lavender" : "Switch to Midnight Purple");
+        btn.title = dark ? "Light Lavender" : "Midnight Purple";
+      }
+      sync();
+      btn.addEventListener("click", function () {
+        var next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", next);
+        try { localStorage.setItem("acSiteTheme", next); } catch (e) { /* ignore */ }
+        sync();
+      });
+    })();
+  </script>
+</body>
+</html>

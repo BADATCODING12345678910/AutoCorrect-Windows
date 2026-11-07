@@ -1,0 +1,130 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AutoCorrect.App.ViewModels"
+        x:Class="AutoCorrect.App.Views.SnippetManagerWindow"
+        x:DataType="vm:SnippetManagerViewModel"
+        Title="Snippet Manager"
+        Width="720"
+        Height="560"
+        MinWidth="560"
+        MinHeight="400"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource AcWindowBackgroundBrush}"
+        Icon="/Assets/autocorrect-icon.jpg">
+
+    <DockPanel>
+        <Border DockPanel.Dock="Top"
+                Background="{StaticResource AcSurfaceBrush}"
+                BorderBrush="{StaticResource AcBorderSoftBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="20,16">
+            <StackPanel Spacing="10">
+                <StackPanel Spacing="4">
+                    <TextBlock Text="SNIPPETS"
+                               FontSize="11"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource AcTextMutedBrush}" />
+                    <TextBlock Text="Expansions"
+                               FontSize="20"
+                               FontWeight="SemiBold"
+                               Foreground="{StaticResource AcTextBrush}" />
+                    <TextBlock Text="Type ;trigger then Space, Tab, or Enter. Separate from typo autocorrect. Multiline expansions are OK."
+                               FontSize="12"
+                               Foreground="{StaticResource AcTextMutedBrush}"
+                               TextWrapping="Wrap" />
+                    <TextBlock Text="{Binding PathDisplay, StringFormat=File: {0}}"
+                               FontSize="11"
+                               Foreground="{StaticResource AcTextMutedBrush}"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="8">
+                        <Button Content="Add"
+                                Classes="ac-primary"
+                                Command="{Binding AddRowCommand}" />
+                        <Button Content="Remove"
+                                Classes="ac-ghost"
+                                Command="{Binding RemoveSelectedCommand}" />
+                    </StackPanel>
+                    <TextBox Text="{Binding FilterText}"
+                             PlaceholderText="Jump to trigger or expansion…"
+                             MinHeight="36"
+                             Margin="0,0,12,0" />
+                </DockPanel>
+            </StackPanel>
+        </Border>
+
+        <Border DockPanel.Dock="Bottom"
+                Background="{StaticResource AcSurfaceBrush}"
+                BorderBrush="{StaticResource AcBorderSoftBrush}"
+                BorderThickness="0,1,0,0"
+                Padding="16,12">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Left"
+                           Text="{Binding StatusMessage}"
+                           VerticalAlignment="Center"
+                           Foreground="{StaticResource AcTextMutedBrush}"
+                           FontSize="12"
+                           TextWrapping="Wrap"
+                           MaxWidth="420" />
+                <StackPanel DockPanel.Dock="Right"
+                            Orientation="Horizontal"
+                            Spacing="8"
+                            HorizontalAlignment="Right">
+                    <Button Content="Reload"
+                            Classes="ac-ghost"
+                            Command="{Binding ReloadFromDiskCommand}"
+                            ToolTip.Tip="Discard unsaved edits and reload from disk" />
+                    <Button Content="Save"
+                            Classes="ac-primary"
+                            Command="{Binding SaveCommand}" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <Grid Margin="16" ColumnDefinitions="220,*" ColumnSpacing="12">
+            <Border Classes="ac-panel" Padding="0">
+                <ListBox ItemsSource="{Binding Rows}"
+                         SelectedItem="{Binding Selected}"
+                         Background="Transparent"
+                         BorderThickness="0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="vm:SnippetRowViewModel">
+                            <DockPanel Margin="8,6">
+                                <CheckBox DockPanel.Dock="Left"
+                                          IsChecked="{Binding Enabled}"
+                                          VerticalAlignment="Center"
+                                          Margin="0,0,8,0"
+                                          ToolTip.Tip="Enabled" />
+                                <TextBlock Text="{Binding Trigger}"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource AcTextBrush}"
+                                           VerticalAlignment="Center" />
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+
+            <Border Grid.Column="1" Classes="ac-panel">
+                <StackPanel Spacing="10" IsVisible="{Binding Selected, Converter={x:Static ObjectConverters.IsNotNull}}">
+                    <TextBlock Text="Trigger" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                    <TextBox Text="{Binding Selected.Trigger}"
+                             PlaceholderText=";sig"
+                             MinHeight="34"
+                             FontFamily="Consolas, Cascadia Mono, Courier New" />
+                    <TextBlock Text="Expansion" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                    <TextBox Text="{Binding Selected.Expansion}"
+                             PlaceholderText="Best regards,…"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             MinHeight="180"
+                             FontFamily="Consolas, Cascadia Mono, Courier New" />
+                    <CheckBox Content="Enabled"
+                              IsChecked="{Binding Selected.Enabled}"
+                              Foreground="{StaticResource AcTextBrush}" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </DockPanel>
+</Window>

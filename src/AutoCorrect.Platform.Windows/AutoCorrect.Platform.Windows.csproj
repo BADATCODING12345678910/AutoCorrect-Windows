@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>AutoCorrect.Platform.Windows</RootNamespace>
+    <Description>Windows UIA / hooks adapter for AutoCorrect Native</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AutoCorrect.Platform.Abstractions\AutoCorrect.Platform.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

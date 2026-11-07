@@ -1,52 +1,68 @@
-﻿# AutoCorrect for Windows
+# AutoCorrect for Windows
 
-System-wide autocorrect, Voice Typing cleanup, and rewrite for Windows — works in Slack, Cursor, Word, browsers, Discord, and other apps.
+System-wide typing helper for Windows: autocorrect, grammar / Perfect Fix, rewrite, dictation session, language packs, and in-app updates. Built with **.NET 8** and **Avalonia**.
 
-## Links
+**License:** MIT  
+**Main contributor:** [Kyle Welch](https://github.com/BADATCODING12345678910) (`@BADATCODING12345678910`)
 
 | | |
-|---|---|
-| **Website** | https://badatcoding12345678910.github.io/AutoCorrect-Windows/ |
-| **Support** | https://badatcoding12345678910.github.io/AutoCorrect-Windows/support.html |
-| **Download** | [Latest release — AutoCorrectSetup.exe](https://github.com/BADATCODING12345678910/AutoCorrect-Windows/releases/latest) |
-| **Lifetime checkout** | PayPal one-time purchase (link on the website) |
-| **Yearly / Team** | Subscribe buttons on the website (PayPal Subscriptions) |
+|--|--|
+| Site (primary) | https://autocorrect-windows-site.pages.dev/ |
+| Support | https://autocorrect-windows-site.pages.dev/support |
+| GitHub mirror | https://badatcoding12345678910.github.io/AutoCorrect-Windows/ |
+| X | https://x.com/phd_in_sleeping |
+| GitHub | https://github.com/BADATCODING12345678910 |
 
-## What it does
+## Features
 
-- **As-you-type autocorrect** in whatever field has focus (not browser-only)
-- **Win+H dictation cleanup** after Windows Voice Typing
-- **One-card review** — accept, skip, or dismiss each suggestion
-- **Rewrite selection** with your own OpenAI key (optional / BYOK)
-- Offline by default; AI features only when you add a key
+- Tray app with hotkeys (Fix, rewrite, privacy, dictation)
+- Rule packs + AutoLearn + review UI
+- Optional AI grammar / Perfect Fix via **bring your own key (BYOK)** in Settings → Grammar
+- PayPal licensing and Cloudflare-hosted product site
+- Language packs published with the site
 
-## Install
+## Build / run
 
-1. Download `AutoCorrectSetup.exe` from [Releases](https://github.com/BADATCODING12345678910/AutoCorrect-Windows/releases/latest).
-2. Run the installer (Windows 10/11 x64).
-3. Find the tray icon → right-click → **Settings…**
-4. Start a **14-day full trial** — no card required to try.
+```powershell
+dotnet build
+dotnet run --project src/AutoCorrect.App
+# or:
+.\run-app.cmd
+```
 
-Windows may show SmartScreen for a new publisher until a paid code-signing certificate is in place. Choose **More info** → **Run anyway** if you trust this build.
+Quit the tray app before rebuild if you hit DLL lock errors.
 
-## License / activate
+**Usage:** tray → focus a field → **Win+Alt+F** (Fix) / **Win+H** dictation / **Win+Alt+R** rewrite / **Win+Alt+Shift+P** privacy.
 
-After paying with PayPal:
+## Secrets and BYOK
 
-1. Open the app → **Settings** → **License**
-2. Enter the **PayPal email** you used at checkout
-3. Click **Activate online**
+API keys, PayPal, Supabase push secrets, and similar credentials must **never** be committed.
 
-## Privacy
+- End users: paste an AI key in **Settings → Grammar** (stored under `%LocalAppData%\AutoCorrect\` on that PC).
+- Contributors: keep local credential files out of git (see `.gitignore`).
 
-- This public repo hosts the **website**, **installer builds**, and release artifacts only.
-- Do **not** commit API keys, PayPal secrets, license keys, personal emails, or machine paths here.
-- App settings and license files stay on your PC under local app data.
+## Maintainer shipping note
 
-## Support
+Product updates are published from a maintainer machine with:
 
-Use the website for download and pricing. Product source is maintained separately; this repository is the public distribution surface.
+- `%LocalAppData%\AutoCorrect\SupabaseCredentials.ini` (includes `UpdatePushSecret`)
+- local `push-update.cmd 0.2.x "notes"` (Release zip + live update feed)
 
-## Maintainer
+Those credentials are **not** in this repository. Site publish: `.\tools\publish-site.ps1` (Cloudflare Pages primary; GitHub Pages mirror).
 
-Public releases and site updates are published by [@BADATCODING12345678910](https://github.com/BADATCODING12345678910).
+## Layout
+
+| Path | Role |
+|------|------|
+| `src/AutoCorrect.Core` | Pipeline, packs, license, updates |
+| `src/AutoCorrect.App` | Avalonia tray / settings / review |
+| `src/AutoCorrect.Platform.*` | Text bridge (Windows UIA + hooks; Linux/Mac stubs) |
+| `website/` | Landing + support + language packs |
+| `installer/` | Inno Setup |
+| `tools/` | Smoke tests, publish-site, Debug Lab |
+| `supabase/` | Edge functions (license, subscribe, update-feed, support) |
+| `distribution/` | Packaging notes |
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). PRs welcome; credit goes with Kyle Welch as main contributor on this project.

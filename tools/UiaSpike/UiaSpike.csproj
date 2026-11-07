@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>UiaSpike</RootNamespace>
+    <Description>Interactive spike: UIA read/write focused text (Notepad, Brave, Cursor)</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AutoCorrect.Platform.Abstractions\AutoCorrect.Platform.Abstractions.csproj" />
+    <ProjectReference Include="..\..\src\AutoCorrect.Platform.Windows\AutoCorrect.Platform.Windows.csproj" />
+  </ItemGroup>
+
+</Project>

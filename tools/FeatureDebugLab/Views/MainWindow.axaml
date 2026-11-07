@@ -1,0 +1,179 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:FeatureDebugLab.ViewModels"
+        x:Class="FeatureDebugLab.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Title="AutoCorrect Feature Debug Lab"
+        Width="1280"
+        Height="900"
+        MinWidth="1000"
+        MinHeight="720"
+        WindowStartupLocation="CenterScreen">
+
+  <DockPanel Margin="16">
+    <DockPanel DockPanel.Dock="Top" Margin="0,0,0,12">
+      <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="8">
+        <Button Content="Rescan apps" Command="{Binding RescanAppsCommand}" IsEnabled="{Binding !IsRunning}" />
+        <Button Content="Save config" Command="{Binding SaveConfigCommand}" />
+        <Button Content="Copy failures" Command="{Binding CopyFailuresCommand}" ToolTip.Tip="Copy FAIL/WARN with Fix hints for Cursor" />
+        <Button Content="Open report" Command="{Binding OpenLastReportCommand}" />
+        <Button Content="Stop" Command="{Binding StopCommand}" IsEnabled="{Binding IsRunning}" />
+        <Button Content="Run offline"
+                Command="{Binding RunOfflineCommand}"
+                IsEnabled="{Binding !IsRunning}"
+                Padding="14,8"
+                ToolTip.Tip="Fast bug hunt — no live UI typing" />
+        <Button Content="Run full lab"
+                Command="{Binding RunCommand}"
+                IsEnabled="{Binding !IsRunning}"
+                FontWeight="SemiBold"
+                Padding="16,8" />
+      </StackPanel>
+      <StackPanel Spacing="2">
+        <TextBlock Text="Feature Debug Lab" FontSize="22" FontWeight="SemiBold" />
+        <TextBlock Text="{Binding Status}" Opacity="0.75" TextWrapping="Wrap" />
+        <TextBlock Text="{Binding FailuresSummary}" FontWeight="SemiBold" TextWrapping="Wrap" />
+        <TextBlock Text="{Binding ReportPathHint, StringFormat=Report: {0}}" FontSize="11" Opacity="0.55" TextTrimming="CharacterEllipsis" />
+      </StackPanel>
+    </DockPanel>
+
+    <Border DockPanel.Dock="Bottom"
+            Margin="0,12,0,0"
+            Padding="10,8"
+            CornerRadius="8"
+            Background="#1AFFFFFF">
+      <TextBlock FontSize="12" Opacity="0.85" TextWrapping="Wrap"
+                 Text="Offline run finds real product regressions (matcher, settings, snippets, defaults) and writes last-failures.txt with Fix hints. Full lab also walks text-capable apps. Prefer a Debug tray build so DebugLabInjectGate accepts lab keystrokes. Paste Copy failures into Cursor to fix." />
+    </Border>
+
+    <Grid ColumnDefinitions="1.15*,1.2*" RowDefinitions="*,220">
+      <ScrollViewer Grid.Column="0" Grid.Row="0" Margin="0,0,10,8">
+        <StackPanel Spacing="14">
+          <Border Padding="12" CornerRadius="10" Background="#14FFFFFF">
+            <StackPanel Spacing="8">
+              <DockPanel>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="6">
+                  <Button Content="All" Command="{Binding SelectAllOfflineCommand}" Padding="10,4" />
+                  <Button Content="None" Command="{Binding ClearOfflineCommand}" Padding="10,4" />
+                </StackPanel>
+                <TextBlock Text="Offline bug detectors" FontWeight="SemiBold" VerticalAlignment="Center" />
+              </DockPanel>
+              <CheckBox Content="Curated matcher" IsChecked="{Binding Config.TestCuratedMatcher}" />
+              <CheckBox Content="Case preserve" IsChecked="{Binding Config.TestCasePreserve}" />
+              <CheckBox Content="Imported AHK library" IsChecked="{Binding Config.TestImportedLibrary}" />
+              <CheckBox Content="Dictionary 1-edit" IsChecked="{Binding Config.TestDictionaryDistance}" />
+              <CheckBox Content="Excluded process skip" IsChecked="{Binding Config.TestExcludedProcess}" />
+              <CheckBox Content="Protect zones" IsChecked="{Binding Config.TestProtectZones}" />
+              <CheckBox Content="Settings load" IsChecked="{Binding Config.TestSettingsLoad}" />
+              <CheckBox Content="Settings normalize / privacy+dictation clamps" IsChecked="{Binding Config.TestSettingsNormalize}" />
+              <CheckBox Content="Product defaults (theme / privacy / Win+H)" IsChecked="{Binding Config.TestProductDefaults}" />
+              <CheckBox Content="Snippets store round-trip" IsChecked="{Binding Config.TestSnippetsStore}" />
+              <CheckBox Content="Install data paths health" IsChecked="{Binding Config.TestDataPathsHealth}" />
+              <CheckBox Content="License status" IsChecked="{Binding Config.TestLicenseStatus}" />
+              <CheckBox Content="AutoLearn store round-trip" IsChecked="{Binding Config.TestAutoLearnRoundTrip}" />
+              <CheckBox Content="Writing annotator" IsChecked="{Binding Config.TestWritingAnnotator}" />
+              <CheckBox Content="Rewrite defaults" IsChecked="{Binding Config.TestRewriteDefaults}" />
+              <CheckBox Content="Theme setting / themed ico" IsChecked="{Binding Config.TestThemeCatalog}" />
+              <CheckBox Content="WordDiff TightenHunk" IsChecked="{Binding Config.TestWordDiffTighten}" />
+              <CheckBox Content="Merge nearby hunks" IsChecked="{Binding Config.TestMergeNearbyHunks}" />
+              <CheckBox Content="Personal dictionary" IsChecked="{Binding Config.TestPersonalDictionary}" />
+              <CheckBox Content="Hotkey chord parse" IsChecked="{Binding Config.TestHotkeyChordParse}" />
+              <CheckBox Content="Pipeline local-only CorrectAsync" IsChecked="{Binding Config.TestPipelineLocalRules}" />
+              <CheckBox Content="Update feed reachable (network)" IsChecked="{Binding Config.TestUpdateFeedReachable}" />
+            </StackPanel>
+          </Border>
+
+          <Border Padding="12" CornerRadius="10" Background="#14FFFFFF">
+            <StackPanel Spacing="8">
+              <TextBlock Text="Live — text apps × every feature" FontWeight="SemiBold" />
+              <TextBlock Text="{Binding DiscoveredSummary}" TextWrapping="Wrap" Opacity="0.8" />
+              <CheckBox Content="Enable live walk (full lab)" IsChecked="{Binding Config.LiveEnabled}" />
+              <CheckBox Content="Strict live: promote feature WARNs to FAIL" IsChecked="{Binding Config.StrictLiveFailures}" />
+              <CheckBox Content="Text-capable apps only (recommended)" IsChecked="{Binding Config.LiveTextCapableAppsOnly}" />
+              <CheckBox Content="Auto-launch tray AutoCorrect.App" IsChecked="{Binding Config.EnsureTrayAppRunning}" />
+              <CheckBox Content="Close each app when done" IsChecked="{Binding Config.CloseAppsWhenDone}" />
+
+              <TextBlock Text="Optional extra excludes (exe names)" FontSize="12" Opacity="0.7" Margin="0,6,0,0" />
+              <TextBox PlaceholderText="steam.exe, epicgameslauncher.exe"
+                       Text="{Binding Config.ExtraExcludeExes}" />
+
+              <TextBlock Text="Autocorrect words (all used in every app)" FontSize="12" Opacity="0.7" Margin="0,6,0,0" />
+              <TextBox AcceptsReturn="True" TextWrapping="Wrap" MinHeight="48"
+                       Text="{Binding Config.LiveWords}" />
+              <TextBlock Text="Fix sample paragraph" FontSize="12" Opacity="0.7" />
+              <TextBox AcceptsReturn="True" TextWrapping="Wrap" MinHeight="56"
+                       Text="{Binding Config.LiveFixSampleText}" />
+
+              <Grid ColumnDefinitions="*,*,*" Margin="0,4,0,0">
+                <StackPanel Grid.Column="0" Margin="0,0,8,0" Spacing="4">
+                  <TextBlock Text="Countdown (sec)" FontSize="11" Opacity="0.7" />
+                  <NumericUpDown Value="{Binding Config.CountdownSeconds}" Minimum="0" Maximum="30" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Margin="0,0,8,0" Spacing="4">
+                  <TextBlock Text="Settle ms" FontSize="11" Opacity="0.7" />
+                  <NumericUpDown Value="{Binding Config.SettleMs}" Minimum="50" Maximum="5000" Increment="50" />
+                </StackPanel>
+                <StackPanel Grid.Column="2" Spacing="4">
+                  <TextBlock Text="Between apps ms" FontSize="11" Opacity="0.7" />
+                  <NumericUpDown Value="{Binding Config.DelayBetweenAppsMs}" Minimum="0" Maximum="30000" Increment="100" />
+                </StackPanel>
+              </Grid>
+
+              <TextBlock Text="Discovered apps (full walk order)" FontWeight="SemiBold" Margin="0,8,0,0" />
+              <ListBox ItemsSource="{Binding DiscoveredAppLines}"
+                       Height="180"
+                       Background="#10FFFFFF"
+                       CornerRadius="8"
+                       FontSize="11" />
+            </StackPanel>
+          </Border>
+        </StackPanel>
+      </ScrollViewer>
+
+      <DockPanel Grid.Column="1" Grid.Row="0" Margin="10,0,0,8">
+        <StackPanel DockPanel.Dock="Top" Spacing="8" Margin="0,0,0,8">
+          <StackPanel Orientation="Horizontal" Spacing="14">
+            <TextBlock Text="{Binding PassCount, StringFormat=Pass: {0}}" Foreground="#6EE7B7" FontWeight="SemiBold" />
+            <TextBlock Text="{Binding FailCount, StringFormat=Fail: {0}}" Foreground="#FB7185" FontWeight="SemiBold" />
+            <TextBlock Text="{Binding WarnCount, StringFormat=Warn: {0}}" Foreground="#FBBF24" FontWeight="SemiBold" />
+            <TextBlock Text="{Binding SkipCount, StringFormat=Skip: {0}}" Opacity="0.65" />
+          </StackPanel>
+          <CheckBox Content="Show failures / warnings only" IsChecked="{Binding ShowFailuresOnly}" />
+        </StackPanel>
+        <ListBox ItemsSource="{Binding VisibleResults}"
+                 Background="#10FFFFFF"
+                 CornerRadius="10">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <StackPanel Margin="4,4" Spacing="2">
+                <DockPanel>
+                  <TextBlock DockPanel.Dock="Left" Width="52" FontWeight="SemiBold"
+                             Text="{Binding StatusTag}" />
+                  <TextBlock Text="{Binding Suite}" FontWeight="SemiBold" Margin="0,0,8,0" />
+                  <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
+                </DockPanel>
+                <TextBlock Opacity="0.7" FontSize="11" TextWrapping="Wrap"
+                           Text="{Binding Detail}" />
+                <TextBlock Opacity="0.9" FontSize="11" TextWrapping="Wrap" Foreground="#FBBF24"
+                           Text="{Binding FixHint}" />
+              </StackPanel>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </DockPanel>
+
+      <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
+              Padding="10" CornerRadius="10" Background="#10FFFFFF">
+        <DockPanel>
+          <TextBlock DockPanel.Dock="Top" Text="Log" FontWeight="SemiBold" Margin="0,0,0,6" />
+          <TextBox Text="{Binding LogText}"
+                   IsReadOnly="True"
+                   AcceptsReturn="True"
+                   TextWrapping="Wrap"
+                   FontFamily="Consolas,Courier New,monospace"
+                   FontSize="11" />
+        </DockPanel>
+      </Border>
+    </Grid>
+  </DockPanel>
+</Window>

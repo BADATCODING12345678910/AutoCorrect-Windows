@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AutoCorrect.App/AutoCorrect.App.csproj" />
+    <Project Path="src/AutoCorrect.Core/AutoCorrect.Core.csproj" />
+    <Project Path="src/AutoCorrect.Platform.Abstractions/AutoCorrect.Platform.Abstractions.csproj" />
+    <Project Path="src/AutoCorrect.Platform.Linux/AutoCorrect.Platform.Linux.csproj" />
+    <Project Path="src/AutoCorrect.Platform.Mac/AutoCorrect.Platform.Mac.csproj" />
+    <Project Path="src/AutoCorrect.Platform.Windows/AutoCorrect.Platform.Windows.csproj" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/FeatureDebugLab/FeatureDebugLab.csproj" />
+    <Project Path="tools/PipelineSmoke/PipelineSmoke.csproj" />
+    <Project Path="tools/UiaSpike/UiaSpike.csproj" />
+  </Folder>
+</Solution>

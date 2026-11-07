@@ -1,0 +1,1170 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AutoCorrect.App.ViewModels"
+        x:Class="AutoCorrect.App.Views.SettingsWindow"
+        x:DataType="vm:SettingsViewModel"
+        Title="AutoCorrect Settings"
+        Width="820"
+        Height="640"
+        MinWidth="700"
+        MinHeight="520"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource AcWindowBackgroundBrush}"
+        Icon="/Assets/autocorrect-icon.jpg">
+
+    <DockPanel Margin="0">
+        <!-- Header -->
+        <Border DockPanel.Dock="Top"
+                Background="{StaticResource AcSurfaceBrush}"
+                BorderBrush="{StaticResource AcBorderSoftBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="24,16">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="10">
+                    <Button Content="Reset defaults"
+                            Classes="ac-ghost"
+                            Command="{Binding ResetDefaultsCommand}" />
+                    <Button Content="Save"
+                            Classes="ac-primary"
+                            Command="{Binding SaveCommand}" />
+                </StackPanel>
+                <StackPanel Spacing="4">
+                    <TextBlock Text="SETTINGS"
+                               FontSize="11"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource AcTextMutedBrush}" />
+                    <TextBlock Text="AutoCorrect"
+                               FontSize="22"
+                               FontWeight="SemiBold"
+                               Foreground="{StaticResource AcTextBrush}" />
+                    <TextBlock Text="{Binding SettingsPath}"
+                               FontSize="11"
+                               Foreground="{StaticResource AcTextMutedBrush}"
+                               TextTrimming="CharacterEllipsis" />
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <Border DockPanel.Dock="Bottom"
+                Padding="24,10"
+                BorderBrush="{StaticResource AcBorderBrush}"
+                BorderThickness="0,1,0,0"
+                Background="{StaticResource AcSurfaceBrush}">
+            <TextBlock Text="{Binding StatusMessage}"
+                       FontSize="13"
+                       Foreground="{StaticResource AcPurpleSoftBrush}" />
+        </Border>
+
+        <TabControl Margin="16,12,16,8"
+                    Padding="0">
+            <!-- Dictation -->
+            <TabItem Header="Dictation">
+                <ScrollViewer Padding="8,12,8,8">
+                    <StackPanel Spacing="14" MaxWidth="720">
+                        <TextBlock Text="When and how Fix runs after Voice Typing (Win+H)."
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   FontSize="13"
+                                   TextWrapping="Wrap" />
+
+                        <CheckBox Content="Enable dictation Fix"
+                                  IsChecked="{Binding DictationEnabled}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Trigger mode" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <ComboBox ItemsSource="{Binding TriggerModes}"
+                                      SelectedItem="{Binding TriggerMode}"
+                                      MinWidth="220"
+                                      HorizontalAlignment="Left" />
+                            <TextBlock Text="hotkey = Win+Alt+F / tray only · auto = after Voice Typing · both = either"
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Confirm mode" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <ComboBox ItemsSource="{Binding ConfirmModes}"
+                                      SelectedItem="{Binding ConfirmMode}"
+                                      MinWidth="220"
+                                      HorizontalAlignment="Left" />
+                            <TextBlock Text="preview = suggestion card (recommended) · silent = apply all hunks immediately · confirm = same card for now"
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <CheckBox Content="Auto-watch Voice Typing"
+                                  IsChecked="{Binding AutoWatchVoiceTyping}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                        <CheckBox Content="Track Win+H (passthrough — does not block Voice Typing)"
+                                  IsChecked="{Binding UseWinHHook}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Auto delay after dictation ends (ms)"
+                                       Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <NumericUpDown Value="{Binding AutoDelayMs}"
+                                           Minimum="0" Maximum="5000" Increment="100"
+                                           Width="160" HorizontalAlignment="Left" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Multi-utterance quiet window (ms)"
+                                       Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <NumericUpDown Value="{Binding MultiUtteranceQuietMs}"
+                                           Minimum="0" Maximum="15000" Increment="100"
+                                           Width="160" HorizontalAlignment="Left" />
+                            <TextBlock Text="Waits after Voice Typing ends so a quick restart cancels the pending Fix (0 = off)."
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Spacing="24">
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="Min characters" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                                <NumericUpDown Value="{Binding MinChars}" Minimum="1" Maximum="200" Width="120" />
+                            </StackPanel>
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="Max characters" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                                <NumericUpDown Value="{Binding MaxChars}" Minimum="100" Maximum="50000" Width="140" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Text scope" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <ComboBox ItemsSource="{Binding Scopes}"
+                                      SelectedItem="{Binding Scope}"
+                                      MinWidth="220"
+                                      HorizontalAlignment="Left" />
+                        </StackPanel>
+                        <CheckBox Content="Prefer current selection when present"
+                                  IsChecked="{Binding PreferSelection}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Grammar -->
+            <TabItem Header="Grammar">
+                <ScrollViewer Padding="8,12,8,8">
+                    <StackPanel Spacing="14" MaxWidth="720">
+                        <TextBlock Text="Correction pipeline for Win+H / Fix / Clipboard Fix — not as-you-type. As-you-type only fixes finished-word typos."
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   FontSize="13"
+                                   TextWrapping="Wrap" />
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Fix quality" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <ComboBox ItemsSource="{Binding FixQualityModes}"
+                                      SelectedItem="{Binding FixQuality}"
+                                      MinWidth="240"
+                                      HorizontalAlignment="Left" />
+                            <TextBlock Text="perfect (default) = LanguageTool + ChatGPT when an OpenAI key is set (overrides Provider below). standard = use Provider combo only. Free LanguageTool alone cannot catch every STT/grammar miss."
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Provider (Standard mode / power users)" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <ComboBox ItemsSource="{Binding Providers}"
+                                      SelectedItem="{Binding Provider}"
+                                      MinWidth="240"
+                                      HorizontalAlignment="Left" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Provider order (when both)" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <ComboBox ItemsSource="{Binding ProviderOrders}"
+                                      SelectedItem="{Binding ProviderOrder}"
+                                      MinWidth="280"
+                                      HorizontalAlignment="Left" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Grammar language (global)" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <ComboBox ItemsSource="{Binding LanguageOptions}"
+                                      SelectedItem="{Binding SelectedLanguage}"
+                                      MinWidth="280"
+                                      MaxWidth="420"
+                                      HorizontalAlignment="Left"
+                                      ToolTip.Tip="LanguageTool grammar/spelling for Fix. en-US = American English, en-GB = British English. Auto-detect guesses per request.">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding DisplayName}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <TextBlock Text="Fix grammar uses LanguageTool for every listed language. As-you-type packs download only when you pick a language (or Auto-detect finds one) — English (US) is built in; others land in %LocalAppData%\AutoCorrect\packs. Traditional Chinese (Taiwan) is not a separate LT pack yet."
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <CheckBox Content="Use local STT rules (DictationLocalRules.txt)"
+                                  IsChecked="{Binding UseLocalRules}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Local rules file" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <TextBox Text="{Binding LocalRulesFile}" PlaceholderText="DictationLocalRules.txt" />
+                        </StackPanel>
+
+                        <CheckBox Content="Add punctuation (heuristic commas / sentence breaks)"
+                                  IsChecked="{Binding UsePunctuation}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                        <CheckBox Content="Light polish (capitalize sentences, lone i → I)"
+                                  IsChecked="{Binding UseLightPolish}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+
+                        <Border Height="1" Background="{StaticResource AcBorderBrush}" Margin="0,8" />
+
+                        <TextBlock Text="Writing suggestions (Phase B)"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource AcTextBrush}" />
+                        <CheckBox Content="Enable writing suggestions (clarity / conciseness)"
+                                  IsChecked="{Binding UseWritingSuggestions}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                        <TextBlock Text="Runs after correctness. Needs an OpenAI API key. Default off. Cards labeled “Improve clarity” / “Make concise”."
+                                   FontSize="11"
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   TextWrapping="Wrap" />
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Writing instruction" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <TextBox Text="{Binding WritingInstruction}"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     MinHeight="70"
+                                     MaxHeight="140" />
+                        </StackPanel>
+
+                        <Border Height="1" Background="{StaticResource AcBorderBrush}" Margin="0,8" />
+
+                        <TextBlock Text="Suggestion card"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource AcTextBrush}" />
+                        <CheckBox Content="Merge nearby mistakes into one card"
+                                  IsChecked="{Binding MergeNearbyMistakes}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Nearby merge max gap (characters)"
+                                       Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <NumericUpDown Value="{Binding NearbyMergeMaxGapChars}"
+                                           Minimum="0" Maximum="8" Width="120"
+                                           HorizontalAlignment="Left" />
+                        </StackPanel>
+
+                        <Border Height="1" Background="{StaticResource AcBorderBrush}" Margin="0,8" />
+
+                        <TextBlock Text="AI provider (Perfect Fix / ChatGPT provider / Rewrite)"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource AcTextBrush}" />
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Provider" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <ComboBox ItemsSource="{Binding LlmProviderIds}"
+                                      SelectedItem="{Binding LlmProvider}"
+                                      MinWidth="280"
+                                      HorizontalAlignment="Left" />
+                            <TextBlock Text="{Binding LlmProviderHint}"
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="API key" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <TextBox Text="{Binding OpenAiApiKey}"
+                                     PasswordChar="{Binding OpenAiApiKeyPasswordChar}"
+                                     PlaceholderText="sk-… / sk-ant-… / OpenRouter key"
+                                     MinWidth="360"
+                                     HorizontalAlignment="Stretch" />
+                            <CheckBox Content="Show API key"
+                                      IsChecked="{Binding ShowOpenAiApiKey}"
+                                      Foreground="{StaticResource AcTextMutedBrush}" />
+                            <TextBlock Text="{Binding ApiKeyPath, StringFormat=Stored in: {0}}"
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap" />
+                            <TextBlock Text="Saved under %LocalAppData%\AutoCorrect so in-app updates never wipe your key."
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcPurpleSoftBrush}"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Base URL" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <TextBox Text="{Binding LlmBaseUrl}"
+                                     MinWidth="360"
+                                     HorizontalAlignment="Stretch" />
+                            <TextBlock Text="Presets fill this automatically. Custom = any OpenAI-compatible endpoint (Together, Fireworks, local, …)."
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Model" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <ComboBox ItemsSource="{Binding OpenAiModelPresets}"
+                                      Text="{Binding OpenAiModel}"
+                                      IsEditable="True"
+                                      IsTextSearchEnabled="True"
+                                      Width="320"
+                                      HorizontalAlignment="Left" />
+                            <TextBlock Text="Pick a preset or type any model id for that provider."
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Instruction" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <TextBox Text="{Binding ChatGptInstruction}"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     MinHeight="90"
+                                     MaxHeight="160" />
+                        </StackPanel>
+                        <TextBlock Text="Used when Fix quality is Perfect (or Provider includes chatgpt). Tip: OpenRouter one key covers many models/vendors."
+                                   FontSize="11"
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Autocorrect -->
+            <TabItem Header="Autocorrect">
+                <ScrollViewer Padding="8,12,8,8">
+                    <StackPanel Spacing="14" MaxWidth="720">
+                        <TextBlock Text="High-confidence as-you-type corrections on word end (space / punctuation). Never speculative AI — only enabled sources below. Full sentence grammar is Settings → Grammar (Fix quality / Perfect), not this tab."
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   FontSize="13"
+                                   TextWrapping="Wrap" />
+
+                        <CheckBox Content="Enable as-you-type autocorrect"
+                                  IsChecked="{Binding AutocorrectEnabled}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                        <CheckBox Content="Show Undo toast after autocorrect"
+                                  IsChecked="{Binding ShowAutocorrectUndoToast}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                        <TextBlock Text="Brief toast with an Undo button (also available via the Undo hotkey)."
+                                   FontSize="11"
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   TextWrapping="Wrap"
+                                   Margin="24,0,0,0" />
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Strictness" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <ComboBox ItemsSource="{Binding StrictnessModes}"
+                                      SelectedItem="{Binding AutocorrectStrictness}"
+                                      MinWidth="220"
+                                      HorizontalAlignment="Left" />
+                            <TextBlock Text="Recommended: balanced + Dictionary unique 1-edit (fewer missed typos). strict = fewer false positives (exact whole-word only; skips mid-word “?” library entries)."
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <Border Height="1" Background="{StaticResource AcBorderBrush}" Margin="0,4" />
+
+                        <TextBlock Text="Sources"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource AcTextBrush}" />
+
+                        <CheckBox Content="Curated list (classic typos — default on)"
+                                  IsChecked="{Binding UseCurated}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                        <StackPanel Spacing="6" Margin="24,0,0,0">
+                            <TextBlock Text="Curated file" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <TextBox Text="{Binding CuratedFile}" PlaceholderText="AutocorrectCurated.txt" />
+                            <TextBlock Text="{Binding CuratedPath, StringFormat=Path: {0}}"
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap"
+                                       TextTrimming="CharacterEllipsis" />
+                            <TextBlock Text="{Binding CuratedCountHint}"
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcPurpleSoftBrush}" />
+                        </StackPanel>
+
+                        <CheckBox Content="Imported AHK library (AutoCorrectHotstrings.ahk)"
+                                  IsChecked="{Binding UseImportedLibrary}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                        <StackPanel Spacing="6" Margin="24,0,0,0">
+                            <TextBlock Text="On by default (~5k typos). Strict = exact non-“?” only. Balanced = exact + mid-word “?” suffix (e.g. badn→band) with AHK nullifiers and dictionary guard so real words like design/sign stay put."
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap" />
+                            <TextBlock Text="{Binding ImportedPath, StringFormat=Cache: {0}}"
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap"
+                                       TextTrimming="CharacterEllipsis" />
+                            <TextBlock Text="{Binding ImportedCountHint}"
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcPurpleSoftBrush}" />
+                            <Button Content="Re-import from AHK…"
+                                    Command="{Binding ReimportLibraryCommand}"
+                                    HorizontalAlignment="Left"
+                                    Padding="12,6"
+                                    Classes="ac-ghost" />
+                        </StackPanel>
+
+                        <CheckBox Content="Auto-learned pairs"
+                                  IsChecked="{Binding UseLearned}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                        <TextBlock Margin="24,0,0,0"
+                                   Text="Pairs you Accept from Auto-Learn (backspace corrections) fire as-you-type."
+                                   FontSize="11"
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   TextWrapping="Wrap" />
+
+                        <CheckBox Content="Dictionary unique 1-edit"
+                                  IsChecked="{Binding UseDictionaryDistance}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                        <StackPanel Spacing="6" Margin="24,0,0,0">
+                            <TextBlock Text="On by default. Corrects when the typed word is 1 edit from exactly one dictionary neighbor (or one keyboard-adjacent neighbor). Ambiguous → no change."
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap" />
+                            <TextBlock Text="Wordlist file" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <TextBox Text="{Binding WordlistFile}"
+                                     PlaceholderText="unigram_freq_list_filtered_89k.csv" />
+                            <TextBlock Text="{Binding WordlistPath, StringFormat=Path: {0}}"
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap"
+                                       TextTrimming="CharacterEllipsis" />
+                            <TextBlock Text="{Binding WordlistCountHint}"
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcPurpleSoftBrush}" />
+                        </StackPanel>
+
+
+                        <TextBlock Text="Auto-Learn"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource AcTextBrush}" />
+                        <TextBlock Text="When you backspace-fix a typo (e.g. type teh, delete it, type the), AutoCorrect counts that pair. After enough repeats it can offer to learn it."
+                                   FontSize="12"
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   TextWrapping="Wrap" />
+                        <CheckBox Content="Enable Auto-Learn"
+                                  IsChecked="{Binding AutoLearnEnabled}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Learn mode" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <ComboBox ItemsSource="{Binding LearnModes}"
+                                      SelectedItem="{Binding LearnMode}"
+                                      MinWidth="220"
+                                      HorizontalAlignment="Left" />
+                            <TextBlock Text="manual = count only · confirm = Accept/Skip/Never toast · silent = add automatically"
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Min occurrences before promote"
+                                       Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <NumericUpDown Value="{Binding MinOccurrences}"
+                                           Minimum="1" Maximum="20" Width="120"
+                                           HorizontalAlignment="Left" />
+                        </StackPanel>
+
+                        <Button Content="Open Word Manager…"
+                                Command="{Binding OpenWordManagerCommand}"
+                                HorizontalAlignment="Left"
+                                Padding="14,8"
+                                Classes="ac-chip"
+                                Margin="0,4,0,0" />
+                        <TextBlock Text="Search, remove, or restore autocorrect pairs. Removed words stay blocked until you restore them."
+                                   FontSize="11"
+                                   Foreground="{StaticResource AcPurpleSoftBrush}"
+                                   TextWrapping="Wrap"
+                                   Margin="0,4,0,0" />
+                        <Border Height="1" Background="{StaticResource AcBorderBrush}" Margin="0,4" />
+
+                        <CheckBox Content="Protect zones (skip emails, URLs, @handles, #tags, paths, code-ish tokens)"
+                                  IsChecked="{Binding ProtectZones}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+
+                        <Border Height="1" Background="{StaticResource AcBorderBrush}" Margin="0,4" />
+                        <TextBlock Text="Snippets"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource AcTextBrush}" />
+                        <CheckBox Content="Enable snippets (;sig expansions)"
+                                  IsChecked="{Binding SnippetsEnabled}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                        <TextBlock Text="Type ;trigger then Space/Tab/Enter. Separate from typo autocorrect. Multiline expansions OK."
+                                   FontSize="11"
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   TextWrapping="Wrap" />
+                        <Button Content="Open Snippet Manager…"
+                                Command="{Binding OpenSnippetManagerCommand}"
+                                Classes="ac-ghost"
+                                HorizontalAlignment="Left"
+                                Padding="14,8"
+                                Margin="0,4,0,0" />
+                        <StackPanel Spacing="6" Margin="0,4,0,0">
+                            <TextBlock Text="Snippets file" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <TextBox Text="{Binding SnippetsFileName}" PlaceholderText="Snippets.json" />
+                            <TextBlock Text="{Binding SnippetsPathHint, StringFormat=Path: {0}}"
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap"
+                                       TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Excluded processes (comma-separated)"
+                                       Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <TextBox Text="{Binding ExcludedProcesses}"
+                                     PlaceholderText="AutoCorrect.App,WindowsTerminal,Code,…" />
+                            <TextBlock Text="Blunt off-switch: skip autocorrect while these apps have focus (.exe optional). Defaults include terminals and IDEs."
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Per-app profiles (one per line)"
+                                       Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <TextBox Text="{Binding AppProfilesText}"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     MinHeight="88"
+                                     PlaceholderText="Code, autocorrect=off, fix=on&#x0a;slack, strictness=strict&#x0a;discord, off" />
+                            <TextBlock Text="Richer than exclude: autocorrect=on|off · fix=on|off · strictness=strict|balanced · curated/imported/dictionary/learned=on|off. Bare “off” = autocorrect off. # comments OK."
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <Button Content="Promote frequent learns → curated…"
+                                Command="{Binding PromoteLearnedToCuratedCommand}"
+                                HorizontalAlignment="Left"
+                                Padding="14,8"
+                                Classes="ac-chip" />
+                        <TextBlock Text="Adds local LearnContribution tallies (≥3 accepts) into AutocorrectCurated.txt."
+                                   FontSize="11"
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   TextWrapping="Wrap" />
+
+                        <TextBlock Text="Live: curated/learned/library/dictionary fire on word end. Tray → Undo last auto-learn removes the newest learned pair."
+                                   FontSize="11"
+                                   Foreground="{StaticResource AcPurpleSoftBrush}"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Hotkeys -->
+            <TabItem Header="Hotkeys">
+                <ScrollViewer Padding="8,12,8,8">
+                    <StackPanel Spacing="16" MaxWidth="720">
+                        <TextBlock Text="{Binding HotkeyHint}"
+                                   Foreground="{StaticResource AcPurpleSoftBrush}"
+                                   FontSize="13"
+                                   TextWrapping="Wrap" />
+
+                        <Border Classes="ac-panel"
+                                Padding="14">
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="Fix now"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource AcTextBrush}" />
+                                <DockPanel>
+                                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="8">
+                                        <Button Content="Record…"
+                                                Command="{Binding RecordFixCommand}"
+                                                Padding="12,6"
+                                                Classes="ac-ghost" />
+                                    </StackPanel>
+                                    <TextBox Text="{Binding FixHotkey}"
+                                             FontSize="15"
+                                             FontWeight="SemiBold"
+                                             Margin="0,0,12,0" />
+                                </DockPanel>
+                                <TextBlock Text="Presets:"
+                                           FontSize="11"
+                                           Foreground="{StaticResource AcTextMutedBrush}" />
+                                <ListBox ItemsSource="{Binding FixHotkeyPresets}"
+                                         SelectedItem="{Binding FixHotkey}"
+                                         MaxHeight="110"
+                                         Background="Transparent"
+                                         BorderThickness="0" />
+                            </StackPanel>
+                        </Border>
+
+                        <Border Classes="ac-panel"
+                                Padding="14">
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="Undo last fix"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource AcTextBrush}" />
+                                <DockPanel>
+                                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="8">
+                                        <Button Content="Clear"
+                                                Command="{Binding ClearUndoCommand}"
+                                                Padding="12,6"
+                                                Classes="ac-ghost" />
+                                        <Button Content="Record…"
+                                                Command="{Binding RecordUndoCommand}"
+                                                Padding="12,6"
+                                                Classes="ac-ghost" />
+                                    </StackPanel>
+                                    <TextBox Text="{Binding UndoHotkey}"
+                                             FontSize="15"
+                                             FontWeight="SemiBold"
+                                             Margin="0,0,12,0"
+                                             PlaceholderText="(disabled)" />
+                                </DockPanel>
+                                <TextBlock Text="Blank = disabled. Undoes last Fix apply, rewrite, or as-you-type autocorrect."
+                                           FontSize="11"
+                                           Foreground="{StaticResource AcTextMutedBrush}"
+                                           TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+
+                        <Border Classes="ac-panel"
+                                Padding="14">
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="Dictation session (Voice Typing)"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource AcTextBrush}" />
+                                <DockPanel>
+                                    <Button DockPanel.Dock="Right"
+                                            Content="Record…"
+                                            Command="{Binding RecordDictationCommand}"
+                                            Padding="12,6"
+                                            Classes="ac-ghost"
+                                            Margin="12,0,0,0" />
+                                    <TextBox Text="{Binding DictationHotkey}"
+                                             FontSize="15"
+                                             FontWeight="SemiBold" />
+                                </DockPanel>
+                                <TextBlock Text="Keep Win+H if you use Windows Voice Typing — we only observe that chord (passthrough)."
+                                           FontSize="11"
+                                           Foreground="{StaticResource AcTextMutedBrush}"
+                                           TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+
+                        <Border Classes="ac-panel"
+                                Padding="14">
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="Rewrite selection"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource AcTextBrush}" />
+                                <DockPanel>
+                                    <Button DockPanel.Dock="Right"
+                                            Content="Record…"
+                                            Command="{Binding RecordRewriteCommand}"
+                                            Padding="12,6"
+                                            Classes="ac-ghost"
+                                            Margin="12,0,0,0" />
+                                    <TextBox Text="{Binding RewriteHotkey}"
+                                             FontSize="15"
+                                             FontWeight="SemiBold" />
+                                </DockPanel>
+                                <TextBlock Text="Highlight text → chord → pick a preset or type an instruction (needs OpenAI API key)."
+                                           FontSize="11"
+                                           Foreground="{StaticResource AcTextMutedBrush}"
+                                           TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+
+                        <Border Classes="ac-panel"
+                                Padding="14">
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="Pause as-you-type autocorrect"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource AcTextBrush}" />
+                                <DockPanel>
+                                    <Button DockPanel.Dock="Right"
+                                            Content="Record…"
+                                            Command="{Binding RecordPauseCommand}"
+                                            Padding="12,6"
+                                            Classes="ac-ghost"
+                                            Margin="12,0,0,0" />
+                                    <TextBox Text="{Binding PauseHotkey}"
+                                             FontSize="15"
+                                             FontWeight="SemiBold" />
+                                </DockPanel>
+                                <TextBlock Text="Toggle soft-pause without quitting. Tray tooltip shows PAUSED. Fix / Rewrite still work."
+                                           FontSize="11"
+                                           Foreground="{StaticResource AcTextMutedBrush}"
+                                           TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+
+                        <Border Classes="ac-panel"
+                                Padding="14">
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="Clipboard Fix"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource AcTextBrush}" />
+                                <DockPanel>
+                                    <Button DockPanel.Dock="Right"
+                                            Content="Record…"
+                                            Command="{Binding RecordClipboardFixCommand}"
+                                            Padding="12,6"
+                                            Classes="ac-ghost"
+                                            Margin="12,0,0,0" />
+                                    <TextBox Text="{Binding ClipboardFixHotkey}"
+                                             FontSize="15"
+                                             FontWeight="SemiBold"
+                                             PlaceholderText="Win+Alt+C (blank = off)" />
+                                </DockPanel>
+                                <Button Content="Clear"
+                                        Command="{Binding ClearClipboardFixCommand}"
+                                        HorizontalAlignment="Left"
+                                        Padding="10,4"
+                                        Classes="ac-ghost" />
+                                <CheckBox Content="Paste cleaned text after fix (Ctrl+V)"
+                                          IsChecked="{Binding ClipboardFixPasteAfter}"
+                                          Foreground="{StaticResource AcTextBrush}" />
+                                <TextBlock Text="Runs the same Fix pipeline on clipboard text, writes the result back, optionally pastes. No field focus required."
+                                           FontSize="11"
+                                           Foreground="{StaticResource AcTextMutedBrush}"
+                                           TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+
+                        <Border Classes="ac-panel"
+                                Padding="14">
+                            <StackPanel Spacing="8">
+                                <TextBlock Text="Privacy mode"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource AcTextBrush}" />
+                                <DockPanel>
+                                    <Button DockPanel.Dock="Right"
+                                            Content="Record…"
+                                            Command="{Binding RecordPrivacyCommand}"
+                                            Padding="12,6"
+                                            Classes="ac-ghost"
+                                            Margin="12,0,0,0" />
+                                    <TextBox Text="{Binding PrivacyHotkey}"
+                                             FontSize="15"
+                                             FontWeight="SemiBold"
+                                             PlaceholderText="Win+Alt+Shift+P (blank = off)" />
+                                </DockPanel>
+                                <Button Content="Clear"
+                                        Command="{Binding ClearPrivacyCommand}"
+                                        HorizontalAlignment="Left"
+                                        Padding="10,4"
+                                        Classes="ac-ghost" />
+                                <TextBlock Text="Toggles Privacy for your default duration (Settings → General), or ends it if already on. Same as tray → Toggle privacy mode."
+                                           FontSize="11"
+                                           Foreground="{StaticResource AcTextMutedBrush}"
+                                           TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+
+                        <Button Content="Cancel recording"
+                                Command="{Binding CancelRecordCommand}"
+                                IsVisible="{Binding IsRecording}"
+                                HorizontalAlignment="Left"
+                                Padding="12,6"
+                                Classes="ac-chip" />
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- License -->
+            <TabItem Header="License">
+                <ScrollViewer Padding="8,12,8,8">
+                    <StackPanel Spacing="14" MaxWidth="720">
+                        <TextBlock Text="14-day trial includes everything. After that, Fix (LanguageTool) and as-you-type autocorrect stay free; Rewrite / ChatGPT writing need a license."
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   FontSize="13"
+                                   TextWrapping="Wrap" />
+
+                        <Border Classes="ac-panel"
+                                Padding="14">
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="{Binding LicenseStatusLine}"
+                                           FontSize="16"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource AcPurpleBrush}" />
+                                <TextBlock Text="{Binding LicenseDetailLine}"
+                                           FontSize="12"
+                                           Foreground="{StaticResource AcTextMutedBrush}"
+                                           TextWrapping="Wrap" />
+                            </StackPanel>
+                        </Border>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Email (PayPal / developer)" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <DockPanel>
+                                <Button DockPanel.Dock="Right"
+                                        Content="Activate online"
+                                        Command="{Binding ActivateOnlineCommand}"
+                                        Margin="10,0,0,0"
+                                        Padding="14,8"
+                                        Classes="ac-primary" />
+                                <TextBox Text="{Binding LicenseEmail}"
+                                         PlaceholderText="you@email.com"
+                                         MinHeight="36" />
+                            </DockPanel>
+                            <TextBlock Text="After PayPal payment, the webhook marks your email active — then Activate online."
+                                       FontSize="11"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <StackPanel Spacing="6">
+                            <TextBlock Text="Offline key (optional / Lifetime backup)" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                            <TextBox Text="{Binding LicenseKeyInput}"
+                                     PlaceholderText="Paste AC2.1.… key here"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     MinHeight="72" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Button Content="Activate key"
+                                    Command="{Binding ActivateLicenseCommand}"
+                                    Padding="18,8"
+                                    Classes="ac-ghost" />
+                            <Button Content="Sync now"
+                                    Command="{Binding SyncLicenseCommand}"
+                                    Padding="14,8"
+                                    Classes="ac-ghost" />
+                            <Button Content="Buy Lifetime…"
+                                    Command="{Binding OpenBuyPageCommand}"
+                                    Padding="14,8"
+                                    Classes="ac-primary" />
+                            <Button Content="Clear license"
+                                    Command="{Binding ClearLicenseCommand}"
+                                    Padding="14,8"
+                                    Classes="ac-ghost" />
+                        </StackPanel>
+
+                        <TextBlock Text="Subscriptions (PayPal — Activate online with the same email after checkout)"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource AcTextBrush}"
+                                   Margin="0,8,0,0" />
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Button Content="Personal yearly…"
+                                    Command="{Binding OpenSubscribePersonalCommand}"
+                                    Padding="14,8"
+                                    Classes="ac-chip" />
+                            <Button Content="Pro yearly…"
+                                    Command="{Binding OpenSubscribeProCommand}"
+                                    Padding="14,8"
+                                    Classes="ac-chip" />
+                            <Button Content="Team monthly…"
+                                    Command="{Binding OpenSubscribeTeamCommand}"
+                                    Padding="14,8"
+                                    Classes="ac-chip" />
+                        </StackPanel>
+
+                        <TextBlock Text="{Binding LicenseFilePath, StringFormat=Saved to: {0}}"
+                                   FontSize="11"
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   TextWrapping="Wrap" />
+                        <TextBlock Text="Pay with PayPal, then Activate online. Lifetime buyers can also paste an offline key."
+                                   FontSize="12"
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- Appearance -->
+            <TabItem Header="Appearance">
+                <ScrollViewer Padding="8,12,8,8">
+                    <StackPanel Spacing="14" MaxWidth="720">
+                        <TextBlock Text="Pick a look — dark, light, or gradient. Changes apply immediately and save with Settings. Tray, window, and desktop shortcut icons recolor with the theme (Explorer may take a moment to refresh)."
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   FontSize="13"
+                                   TextWrapping="Wrap" />
+
+                        <Border HorizontalAlignment="Left"
+                                CornerRadius="18"
+                                ClipToBounds="True"
+                                Width="72"
+                                Height="72"
+                                BorderBrush="{StaticResource AcBorderSoftBrush}"
+                                BorderThickness="1">
+                            <Image Source="{Binding ThemedLogo}"
+                                   Stretch="UniformToFill"
+                                   Width="72"
+                                   Height="72" />
+                        </Border>
+
+                        <TextBlock Text="Dark"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource AcTextBrush}" />
+                        <ItemsControl ItemsSource="{Binding DarkThemes}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:ThemeOptionViewModel">
+                                    <Button Command="{Binding SelectCommand}"
+                                            Margin="0,0,10,10"
+                                            Padding="0"
+                                            Width="148"
+                                            Height="88"
+                                            Cursor="Hand"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                        <Border CornerRadius="12"
+                                                BorderThickness="2"
+                                                BorderBrush="{Binding BorderBrush}"
+                                                ClipToBounds="True">
+                                            <Panel>
+                                                <Border Background="{Binding PreviewBrush}" />
+                                                <StackPanel Margin="10,8" VerticalAlignment="Bottom" Spacing="2">
+                                                    <TextBlock Text="{Binding DisplayName}"
+                                                               FontSize="12"
+                                                               FontWeight="SemiBold"
+                                                               Foreground="{Binding LabelBrush}"
+                                                               TextWrapping="Wrap" />
+                                                    <Border Width="28" Height="6" CornerRadius="3"
+                                                            Background="{Binding AccentBrush}"
+                                                            HorizontalAlignment="Left" />
+                                                </StackPanel>
+                                            </Panel>
+                                        </Border>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <TextBlock Text="Light"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource AcTextBrush}" />
+                        <ItemsControl ItemsSource="{Binding LightThemes}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:ThemeOptionViewModel">
+                                    <Button Command="{Binding SelectCommand}"
+                                            Margin="0,0,10,10"
+                                            Padding="0"
+                                            Width="148"
+                                            Height="88"
+                                            Cursor="Hand"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                        <Border CornerRadius="12"
+                                                BorderThickness="2"
+                                                BorderBrush="{Binding BorderBrush}"
+                                                ClipToBounds="True">
+                                            <Panel>
+                                                <Border Background="{Binding PreviewBrush}" />
+                                                <StackPanel Margin="10,8" VerticalAlignment="Bottom" Spacing="2">
+                                                    <TextBlock Text="{Binding DisplayName}"
+                                                               FontSize="12"
+                                                               FontWeight="SemiBold"
+                                                               Foreground="{Binding LabelBrush}"
+                                                               TextWrapping="Wrap" />
+                                                    <Border Width="28" Height="6" CornerRadius="3"
+                                                            Background="{Binding AccentBrush}"
+                                                            HorizontalAlignment="Left" />
+                                                </StackPanel>
+                                            </Panel>
+                                        </Border>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <TextBlock Text="Gradients"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource AcTextBrush}" />
+                        <ItemsControl ItemsSource="{Binding GradientThemes}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:ThemeOptionViewModel">
+                                    <Button Command="{Binding SelectCommand}"
+                                            Margin="0,0,10,10"
+                                            Padding="0"
+                                            Width="148"
+                                            Height="88"
+                                            Cursor="Hand"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                        <Border CornerRadius="12"
+                                                BorderThickness="2"
+                                                BorderBrush="{Binding BorderBrush}"
+                                                ClipToBounds="True">
+                                            <Panel>
+                                                <Border Background="{Binding PreviewBrush}" />
+                                                <StackPanel Margin="10,8" VerticalAlignment="Bottom" Spacing="2">
+                                                    <TextBlock Text="{Binding DisplayName}"
+                                                               FontSize="12"
+                                                               FontWeight="SemiBold"
+                                                               Foreground="{Binding LabelBrush}"
+                                                               TextWrapping="Wrap" />
+                                                    <Border Width="28" Height="6" CornerRadius="3"
+                                                            Background="{Binding AccentBrush}"
+                                                            HorizontalAlignment="Left" />
+                                                </StackPanel>
+                                            </Panel>
+                                        </Border>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <TextBlock Text="{Binding SelectedThemeLabel, StringFormat=Selected: {0}}"
+                                   FontSize="12"
+                                   Foreground="{StaticResource AcPurpleSoftBrush}" />
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+
+            <!-- General -->
+            <TabItem Header="General">
+                <ScrollViewer Padding="8,12,8,8">
+                    <StackPanel Spacing="14" MaxWidth="720">
+                        <TextBlock Text="{Binding AppVersionDisplay, StringFormat=Version {0}}"
+                                   Foreground="{StaticResource AcPurpleBrush}"
+                                   FontSize="14"
+                                   FontWeight="SemiBold" />
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <Button Content="Website…"
+                                    Command="{Binding OpenWebsiteCommand}"
+                                    Padding="14,8"
+                                    Classes="ac-ghost"
+                                    ToolTip.Tip="https://autocorrect-windows-site.pages.dev/" />
+                            <Button Content="Support…"
+                                    Command="{Binding OpenSupportPageCommand}"
+                                    Padding="14,8"
+                                    Classes="ac-ghost"
+                                    ToolTip.Tip="https://autocorrect-windows-site.pages.dev/support" />
+                            <Button Content="GitHub mirror…"
+                                    Command="{Binding OpenAlternateWebsiteCommand}"
+                                    Padding="14,8"
+                                    Classes="ac-ghost"
+                                    ToolTip.Tip="https://badatcoding12345678910.github.io/AutoCorrect-Windows/ — fallback if Cloudflare is down" />
+                            <Button Content="X…"
+                                    Command="{Binding OpenSocialXCommand}"
+                                    Padding="14,8"
+                                    Classes="ac-ghost"
+                                    ToolTip.Tip="https://x.com/phd_in_sleeping" />
+                            <Button Content="GitHub…"
+                                    Command="{Binding OpenSocialGitHubCommand}"
+                                    Padding="14,8"
+                                    Classes="ac-ghost"
+                                    ToolTip.Tip="https://github.com/BADATCODING12345678910 — main contributor Kyle Welch" />
+                        </StackPanel>
+                        <TextBlock Text="Product site, pricing, download, and support (Cloudflare). GitHub mirror is a fallback. Follow on X / GitHub — Kyle Welch."
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   FontSize="12"
+                                   TextWrapping="Wrap" />
+                        <CheckBox Content="Show startup toast"
+                                  IsChecked="{Binding ShowStartupToast}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                        <TextBlock Text="Reminds people the app lives in the system tray (right-click tray icon → Settings…)."
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   FontSize="12"
+                                   TextWrapping="Wrap" />
+                        <CheckBox Content="Check for updates on startup"
+                                  IsChecked="{Binding CheckForUpdatesOnStartup}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                        <TextBlock Text="Updates download in the background and restart AutoCorrect — you do not need to re-run Setup. First install still uses Setup.exe. Tray → Check for updates… anytime."
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   FontSize="13"
+                                   TextWrapping="Wrap" />
+                        <CheckBox Content="Start with Windows"
+                                  IsChecked="{Binding StartWithWindows}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                        <CheckBox Content="Learn local STT rules when I Accept a Fix"
+                                  IsChecked="{Binding LearnLocalRulesFromAccepts}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+
+                        <TextBlock Text="Usage stats"
+                                   Foreground="{StaticResource AcTextBrush}"
+                                   FontSize="15"
+                                   FontWeight="SemiBold"
+                                   Margin="0,10,0,0" />
+                        <CheckBox Content="Collect local usage stats (never uploaded)"
+                                  IsChecked="{Binding CollectUsageStats}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                        <CheckBox Content="Show weekly digest toast"
+                                  IsChecked="{Binding ShowWeeklyDigest}"
+                                  IsEnabled="{Binding CollectUsageStats}"
+                                  Foreground="{StaticResource AcTextBrush}" />
+                        <Button Content="Open Usage stats…"
+                                Command="{Binding OpenUsageStatsCommand}"
+                                Classes="ac-ghost"
+                                HorizontalAlignment="Left"
+                                Padding="14,8" />
+
+                        <TextBlock Text="Accessibility"
+                                   Foreground="{StaticResource AcTextBrush}"
+                                   FontSize="15"
+                                   FontWeight="SemiBold"
+                                   Margin="0,10,0,0" />
+                        <TextBlock Text="Fix card size" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
+                        <ComboBox ItemsSource="{Binding ReviewCardScaleLabels}"
+                                  SelectedItem="{Binding ReviewCardScaleLabel}"
+                                  MinWidth="160"
+                                  HorizontalAlignment="Left" />
+                        <TextBlock Text="Larger cards help readability and pointer targets. Screen-reader names are on Accept / Skip / Never."
+                                   FontSize="12"
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   TextWrapping="Wrap" />
+
+                        <TextBlock Text="Privacy mode"
+                                   Foreground="{StaticResource AcTextBrush}"
+                                   FontSize="15"
+                                   FontWeight="SemiBold"
+                                   Margin="0,10,0,0" />
+                        <TextBlock Text="Blocks LanguageTool, ChatGPT, and Rewrite for a while. Autocorrect, snippets, and local Fix rules stay on. Tray icon shows a teal lock badge."
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   FontSize="12"
+                                   TextWrapping="Wrap" />
+                        <TextBlock Text="{Binding PrivacyStatusText}"
+                                   Foreground="{StaticResource AcPurpleBrush}"
+                                   FontSize="13"
+                                   TextWrapping="Wrap" />
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <ComboBox ItemsSource="{Binding PrivacyDurationLabels}"
+                                      SelectedItem="{Binding PrivacyDurationLabel}"
+                                      MinWidth="180"
+                                      VerticalAlignment="Center" />
+                            <Button Content="Start now"
+                                    Command="{Binding StartPrivacyNowCommand}"
+                                    Padding="14,8"
+                                    Classes="ac-primary" />
+                            <Button Content="End privacy"
+                                    Command="{Binding EndPrivacyNowCommand}"
+                                    Padding="14,8"
+                                    Classes="ac-ghost" />
+                        </StackPanel>
+                        <TextBlock Text="Default duration is saved with Settings. Active privacy survives restart until the timer ends or you turn it off."
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   FontSize="12"
+                                   TextWrapping="Wrap" />
+
+                        <StackPanel Orientation="Horizontal" Spacing="10" Margin="0,8,0,0">
+                            <Button Content="Export backup…"
+                                    Command="{Binding ExportBackupCommand}"
+                                    Padding="14,8"
+                                    Classes="ac-ghost" />
+                            <Button Content="Import backup…"
+                                    Command="{Binding ImportBackupCommand}"
+                                    Padding="14,8"
+                                    Classes="ac-ghost" />
+                        </StackPanel>
+                        <TextBlock Text="Backup includes settings, learned/removed words, and local rules (not license keys)."
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   FontSize="12"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

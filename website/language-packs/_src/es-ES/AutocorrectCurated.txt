@@ -1,0 +1,151 @@
+# AutoCorrect language pack: Spanish (Spain)
+# Format: typo<TAB>correction (one per line). High-confidence pairs only.
+qe	que
+qeu	que
+qiu	que
+qie	que
+porqe	porque
+xq	porque
+porke	porque
+porq	porque
+tb	también
+tmb	también
+tambien	también
+tambein	también
+tanbien	también
+haver	haber
+aber	haber
+aser	hacer
+acer	hacer
+hazer	hacer
+aserlo	hacerlo
+acerlo	hacerlo
+llendo	yendo
+yendoo	yendo
+kiero	quiero
+qiero	quiero
+quieroo	quiero
+nesesito	necesito
+nesecito	necesito
+necesitto	necesito
+grax	gracias
+grasias	gracias
+graciaz	gracias
+bn	bien
+vien	bien
+biem	bien
+dps	después
+despues	después
+despoues	después
+ahií	ahí
+aquii	aquí
+akí	aquí
+aya	allá
+maas	más
+estaa	está
+estta	está
+esttan	están
+estánn	están
+tambienn	también
+exelente	excelente
+ecelente	excelente
+problama	problema
+probelma	problema
+interezante	interesante
+interesnte	interesante
+posiblmente	posiblemente
+posiblemnte	posiblemente
+provalmente	probablemente
+probablmente	probablemente
+definitivamnete	definitivamente
+imediatamente	inmediatamente
+oportuidad	oportunidad
+esperiencia	experiencia
+experencia	experiencia
+recomendacion	recomendación
+recomendasion	recomendación
+comunicacion	comunicación
+comunicasión	comunicación
+informacion	información
+informasión	información
+atencion	atención
+atension	atención
+situacion	situación
+situasión	situación
+relacion	relación
+relasión	relación
+organizacion	organización
+organisación	organización
+educacion	educación
+educasión	educación
+direccion	dirección
+direcsión	dirección
+accion	acción
+axión	acción
+opcion	opción
+opsión	opción
+seccion	sección
+secsión	sección
+conexion	conexión
+conesión	conexión
+decision	decisión
+discusion	discusión
+conclusion	conclusión
+version	versión
+revision	revisión
+television	televisión
+avion	avión
+abión	avión
+camion	camión
+reunion	reunión
+cansion	canción
+corazon	corazón
+corasón	corazón
+razon	razón
+rasón	razón
+talvez	tal vez
+talves	tal vez
+sinembargo	sin embargo
+sinebargo	sin embargo
+atraves	a través
+a traves	a través
+sobretodo	sobre todo
+encuanto	en cuanto
+dehecho	de hecho
+porfavor	por favor
+porfabor	por favor
+muchasgracias	muchas gracias
+buenosdias	buenos días
+buenos dias	buenos días
+buenastardes	buenas tardes
+buenasnoches	buenas noches
+adioz	adiós
+perdon	perdón
+dnd	dónde
+dondee	dónde
+qien	quién
+quiénn	quién
+comó	cómo
+cómoo	cómo
+cuandó	cuándo
+cuándoo	cuándo
+cuantó	cuánto
+cuantoo	cuánto
+ningun	ningún
+ningunno	ningún
+algun	algún
+algunn	algún
+alguin	alguien
+alguíen	alguien
+nadien	nadie
+nadíe	nadie
+siempe	siempre
+siempree	siempre
+nuncaa	nunca
+todabia	todavía
+aora	ahora
+ahoraa	ahora
+antess	antes
+mientraz	mientras
+aunqe	aunque
+entonses	entonces

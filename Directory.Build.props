@@ -1,0 +1,11 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <Company>AutoCorrect</Company>
+    <Product>AutoCorrect Native</Product>
+    <Authors>AutoCorrect</Authors>
+  </PropertyGroup>
+</Project>

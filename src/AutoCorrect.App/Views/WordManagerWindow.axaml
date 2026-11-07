@@ -1,0 +1,184 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AutoCorrect.App.ViewModels"
+        x:Class="AutoCorrect.App.Views.WordManagerWindow"
+        x:DataType="vm:WordManagerViewModel"
+        Title="Word Manager"
+        Width="720"
+        Height="560"
+        MinWidth="600"
+        MinHeight="420"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource AcWindowBackgroundBrush}"
+        Icon="/Assets/autocorrect-icon.jpg">
+
+    <DockPanel Margin="0">
+        <Border DockPanel.Dock="Top"
+                Background="{StaticResource AcSurfaceBrush}"
+                BorderBrush="{StaticResource AcBorderSoftBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="20,16">
+            <StackPanel Spacing="10">
+                <StackPanel Spacing="4">
+                    <TextBlock Text="WORD MANAGER"
+                               FontSize="11"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource AcTextMutedBrush}" />
+                    <TextBlock Text="Your corrections"
+                               FontSize="20"
+                               FontWeight="SemiBold"
+                               Foreground="{StaticResource AcTextBrush}" />
+                    <TextBlock Text="Add your own pairs, search, remove ones you don’t want, restore anytime, or reset to defaults."
+                               FontSize="12"
+                               Foreground="{StaticResource AcTextMutedBrush}"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+
+                <Border Classes="ac-panel" Padding="12">
+                    <Grid ColumnDefinitions="*,12,*,Auto" RowDefinitions="Auto,Auto">
+                        <TextBlock Grid.Row="0" Grid.Column="0"
+                                   Text="Typo (what you type)"
+                                   FontSize="11"
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   Margin="0,0,0,4" />
+                        <TextBlock Grid.Row="0" Grid.Column="2"
+                                   Text="Correction"
+                                   FontSize="11"
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   Margin="0,0,0,4" />
+                        <TextBox Grid.Row="1" Grid.Column="0"
+                                 Text="{Binding NewTrigger}"
+                                 PlaceholderText="e.g. teh"
+                                 MinHeight="34" />
+                        <TextBox Grid.Row="1" Grid.Column="2"
+                                 Text="{Binding NewReplacement}"
+                                 PlaceholderText="e.g. the"
+                                 MinHeight="34" />
+                        <Button Grid.Row="1" Grid.Column="3"
+                                Content="Add"
+                                Classes="ac-primary"
+                                Command="{Binding AddPairCommand}"
+                                Margin="12,0,0,0"
+                                VerticalAlignment="Stretch" />
+                    </Grid>
+                </Border>
+
+                <DockPanel>
+                    <Button DockPanel.Dock="Right"
+                            Content="Import list…"
+                            Classes="ac-ghost"
+                            Command="{Binding ImportListCommand}"
+                            Margin="12,0,0,0"
+                            ToolTip.Tip="JSON, TXT, TSV, or CSV (typo→fix pairs)" />
+                    <TextBox Text="{Binding SearchText}"
+                             PlaceholderText="Search both lists…  learned:  never:"
+                             MinHeight="36"
+                             ToolTip.Tip="Prefixes: learned: (Active learned/custom only) · never: / removed: (Never list only)" />
+                </DockPanel>
+            </StackPanel>
+        </Border>
+
+        <Border DockPanel.Dock="Bottom"
+                Background="{StaticResource AcSurfaceBrush}"
+                BorderBrush="{StaticResource AcBorderSoftBrush}"
+                BorderThickness="0,1,0,0"
+                Padding="16,12">
+            <DockPanel>
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="8">
+                    <Button Content="Export Never…"
+                            Classes="ac-ghost"
+                            Command="{Binding ExportRemovedCommand}"
+                            ToolTip.Tip="Export Never/Removed list as TSV" />
+                    <Button Content="Reset learned"
+                            Classes="ac-ghost"
+                            Command="{Binding ResetLearnedCommand}"
+                            ToolTip.Tip="Clear auto-learned pairs only" />
+                    <Button Content="Reset removed"
+                            Classes="ac-ghost"
+                            Command="{Binding ResetRemovedCommand}"
+                            ToolTip.Tip="Clear the forever-removed list" />
+                    <Button Content="Reset all user data"
+                            Classes="ac-chip"
+                            Command="{Binding ResetAllUserDataCommand}"
+                            ToolTip.Tip="Clear learned + removed (shipped curated list stays)" />
+                </StackPanel>
+                <TextBlock Text="{Binding StatusMessage}"
+                           VerticalAlignment="Center"
+                           FontSize="12"
+                           Foreground="{StaticResource AcPurpleSoftBrush}"
+                           TextWrapping="Wrap" />
+            </DockPanel>
+        </Border>
+
+        <TabControl Margin="14,10" SelectedIndex="{Binding SelectedTab}">
+            <TabItem Header="Active">
+                <DockPanel Margin="0,10,0,0">
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,12,0,0">
+                        <Button Content="{Binding RemoveButtonLabel}"
+                                Classes="ac-primary"
+                                Command="{Binding RemoveSelectedCommand}" />
+                        <TextBlock Text="Ctrl/Shift multi-select → bulk Never (Removed forever-list)."
+                                   VerticalAlignment="Center"
+                                   FontSize="11"
+                                   Foreground="{StaticResource AcTextMutedBrush}" />
+                    </StackPanel>
+                    <ListBox x:Name="ActiveList"
+                             ItemsSource="{Binding ActivePairs}"
+                             SelectedItem="{Binding SelectedActive}"
+                             SelectionMode="Multiple"
+                             SelectionChanged="OnActiveSelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="vm:WordPairRow">
+                                <DockPanel Margin="8,6">
+                                    <TextBlock DockPanel.Dock="Right"
+                                               Text="{Binding Meta}"
+                                               FontSize="11"
+                                               Foreground="{StaticResource AcTextMutedBrush}"
+                                               Margin="12,0,0,0" />
+                                    <TextBlock Text="{Binding Display}"
+                                               FontSize="14"
+                                               Foreground="{StaticResource AcTextBrush}" />
+                                </DockPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+            </TabItem>
+
+            <TabItem Header="Never / Removed">
+                <DockPanel Margin="0,10,0,0">
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,12,0,0">
+                        <Button Content="{Binding RestoreButtonLabel}"
+                                Classes="ac-primary"
+                                Command="{Binding RestoreSelectedCommand}" />
+                        <TextBlock Text="Includes Word Manager Never + AutoLearn never keys."
+                                   VerticalAlignment="Center"
+                                   FontSize="11"
+                                   Foreground="{StaticResource AcTextMutedBrush}" />
+                    </StackPanel>
+                    <ListBox x:Name="RemovedList"
+                             ItemsSource="{Binding RemovedPairs}"
+                             SelectedItem="{Binding SelectedRemoved}"
+                             SelectionMode="Multiple"
+                             SelectionChanged="OnRemovedSelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="vm:WordPairRow">
+                                <DockPanel Margin="8,6">
+                                    <TextBlock DockPanel.Dock="Right"
+                                               Text="{Binding Meta}"
+                                               FontSize="11"
+                                               Foreground="{StaticResource AcTextMutedBrush}"
+                                               Margin="12,0,0,0"
+                                               TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Text="{Binding Display}"
+                                               FontSize="14"
+                                               Foreground="{StaticResource AcTextBrush}" />
+                                </DockPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </DockPanel>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

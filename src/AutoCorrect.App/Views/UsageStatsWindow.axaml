@@ -1,0 +1,54 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AutoCorrect.App.ViewModels"
+        x:Class="AutoCorrect.App.Views.UsageStatsWindow"
+        x:DataType="vm:UsageStatsViewModel"
+        Title="Usage stats"
+        Width="420"
+        Height="460"
+        MinWidth="360"
+        MinHeight="360"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource AcWindowBackgroundBrush}"
+        Icon="/Assets/autocorrect-icon.jpg">
+
+    <DockPanel Margin="20">
+        <StackPanel DockPanel.Dock="Top" Spacing="6" Margin="0,0,0,14">
+            <TextBlock Text="USAGE"
+                       FontSize="11"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource AcTextMutedBrush}" />
+            <TextBlock Text="Your corrections"
+                       FontSize="20"
+                       FontWeight="SemiBold"
+                       Foreground="{StaticResource AcTextBrush}" />
+            <TextBlock Text="{Binding StatusMessage}"
+                       FontSize="12"
+                       Foreground="{StaticResource AcTextMutedBrush}"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="8" Margin="0,14,0,0">
+            <Button Content="Refresh" Classes="ac-ghost" Command="{Binding RefreshCommand}" Padding="12,7" />
+            <Button Content="Reset week" Classes="ac-ghost" Command="{Binding ResetWeekCommand}" Padding="12,7" />
+            <Button Content="Reset all" Classes="ac-ghost" Command="{Binding ResetAllCommand}" Padding="12,7" />
+        </StackPanel>
+
+        <ScrollViewer>
+            <StackPanel Spacing="12">
+                <Border Classes="ac-panel">
+                    <TextBlock Text="{Binding WeekSummary}"
+                               FontFamily="Cascadia Mono, Consolas, Courier New"
+                               FontSize="13"
+                               Foreground="{StaticResource AcTextBrush}" />
+                </Border>
+                <Border Classes="ac-panel">
+                    <TextBlock Text="{Binding AllTimeSummary}"
+                               FontFamily="Cascadia Mono, Consolas, Courier New"
+                               FontSize="13"
+                               Foreground="{StaticResource AcTextBrush}" />
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

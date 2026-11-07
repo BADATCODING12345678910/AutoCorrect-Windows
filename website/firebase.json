@@ -1,0 +1,29 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "_src/**",
+      "*.md"
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(html|json)",
+        "headers": [
+          { "key": "Cache-Control", "value": "no-cache" }
+        ]
+      },
+      {
+        "source": "language-packs/**",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=3600" },
+          { "key": "Access-Control-Allow-Origin", "value": "*" }
+        ]
+      }
+    ],
+    "cleanUrls": false,
+    "trailingSlash": false
+  }
+}

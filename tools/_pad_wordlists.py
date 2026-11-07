@@ -1,0 +1,170 @@
+# -*- coding: utf-8 -*-
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1] / "website" / "language-packs" / "_src"
+
+MORE = {
+    "fr-FR": (
+        "personne personnes homme femme enfant ami amie famille maison travail jour nuit matin soir "
+        "semaine mois annee heure minute seconde temps fois lieu pays ville village rue chemin monde "
+        "vie mort amour paix guerre eau feu terre air soleil lune etoile ciel mer riviere montagne "
+        "arbre fleur animal chien chat oiseau nourriture boisson pain lait cafe the vin biere viande "
+        "poisson fruit legume livre papier lettre message telephone ordinateur internet courrier ecole "
+        "universite professeur etudiant classe examen note entreprise bureau patron employe client "
+        "produit service argent prix euro banque compte paiement achat vente magasin marche voiture "
+        "bus train avion bateau velo voyage vacances hotel restaurant cinema theatre musique film "
+        "sport football match jeu sante medecin hopital maladie medicament gouvernement politique "
+        "loi droit justice liberte verite mensonge erreur succes probleme solution question reponse "
+        "idee pensee opinion doute certitude espoir peur joie tristesse surprise interet attention "
+        "soin respect confiance amitie societe culture histoire art science technologie nature "
+        "environnement climat saison printemps ete automne hiver nord sud est ouest gauche droite "
+        "haut bas dedans dehors pres loin ici la ailleurs maintenant ensuite avant apres pendant "
+        "depuis encore deja presque souvent rarement jamais parfois aussi seulement tres assez trop "
+        "peu plus moins autre meme chaque tout rien quelque chose facon maniere raison cause effet "
+        "but moyen resultat exemple aujourd'hui beaucoup peut-etre quelqu'un toujours"
+    ).replace("aujourd'hui", "aujourd'hui").split(),
+    "de-DE": (
+        "Mensch Menschen Mann Frau Kind Freund Freundin Familie Haus Arbeit Tag Nacht Morgen Abend "
+        "Woche Monat Jahr Stunde Minute Sekunde Zeit Mal Ort Land Stadt Dorf Strasse Weg Welt Leben "
+        "Tod Liebe Hass Frieden Krieg Wasser Feuer Erde Luft Sonne Mond Stern Himmel Meer Fluss Berg "
+        "Baum Blume Tier Hund Katze Vogel Essen Trinken Brot Milch Kaffee Tee Wein Bier Fleisch Fisch "
+        "Obst Gemuese Buch Papier Brief Nachricht Telefon Computer Internet Post Schule Universitaet "
+        "Lehrer Schueler Klasse Pruefung Note Firma Buero Chef Mitarbeiter Kunde Produkt Dienst Geld "
+        "Preis Euro Bank Konto Zahlung Kauf Verkauf Laden Markt Auto Bus Zug Flugzeug Schiff Fahrrad "
+        "Reise Urlaub Hotel Restaurant Kino Theater Musik Film Sport Fussball Spiel Gesundheit Arzt "
+        "Krankenhaus Krankheit Medizin Regierung Politik Gesetz Recht Justiz Freiheit Wahrheit Luege "
+        "Fehler Erfolg Problem Loesung Frage Antwort Idee Gedanke Meinung Zweifel Gewissheit Hoffnung "
+        "Angst Freude Trauer Ueberraschung Interesse Aufmerksamkeit Sorgfalt Respekt Vertrauen "
+        "Freundschaft Gesellschaft Kultur Geschichte Kunst Wissenschaft Technik Natur Umwelt Klima "
+        "Jahreszeit Fruehling Sommer Herbst Winter Norden Sueden Osten Westen links rechts oben unten "
+        "innen aussen nah fern hier dort da heute gestern morgen jetzt dann noch schon auch nur sehr "
+        "ganz etwas nichts alles jemand niemand irgendwie irgendwo irgendwann deshalb darum allerdings "
+        "jedoch sondern beziehungsweise wahrscheinlich vielleicht natuerlich moeglich noetig wichtig "
+        "richtig falsch schnell langsam einfach schwierig besonders manchmal oft selten immer nie"
+    ).split(),
+    "pt-BR": (
+        "pessoa pessoas homem mulher crianca amigo amiga familia casa trabalho dia noite manha tarde "
+        "semana mes ano hora minuto segundo tempo vez vezes lugar pais cidade povo rua caminho mundo "
+        "vida morte amor odio paz guerra agua fogo terra ar sol lua estrela ceu mar rio montanha "
+        "arvore flor animal cao gato passaro comida bebida pao leite cafe cha vinho cerveja carne "
+        "peixe fruta verdura livro papel carta mensagem telefone computador internet correio escola "
+        "universidade professor estudante classe exame nota empresa escritorio chefe empregado cliente "
+        "produto servico dinheiro preco real banco conta pagamento compra venda loja mercado carro "
+        "onibus trem aviao barco bicicleta viagem ferias hotel restaurante cinema teatro musica filme "
+        "esporte futebol partida jogo saude medico hospital doenca remedio governo politica lei "
+        "direito justica liberdade verdade mentira erro sucesso problema solucao pergunta resposta "
+        "ideia pensamento opiniao duvida certeza esperanca medo alegria tristeza surpresa interesse "
+        "atencao cuidado respeito confianca amizade sociedade cultura historia arte ciencia tecnologia "
+        "natureza meio ambiente clima estacao primavera verao outono inverno norte sul leste oeste "
+        "esquerda direita cima baixo dentro fora perto longe aqui ali la agora depois antes ainda "
+        "sempre nunca talvez quase muito pouco mais menos porem entretanto contudo todavia embora "
+        "apesar conforme segundo durante enquanto onde como porque quanto qual quais quem nenhum "
+        "nenhuma alguem ninguem algo nada tudo todo toda todos todas outro outra mesmo mesma cada "
+        "qualquer interessante importante necessario possivel dificil facil diferente especial "
+        "principal geral pessoal profissional nacional internacional informacao comunicacao educacao "
+        "situacao relacao organizacao atencao opcao acao decisao versao revisao televisao coracao "
+        "razao excecao oportunidade experiencia recomendacao"
+    ).split(),
+    "it-IT": (
+        "persona persone uomo donna bambino amico amica famiglia casa lavoro giorno notte mattina sera "
+        "settimana mese anno ora minuto secondo tempo volta luogo paese citta strada mondo vita morte "
+        "amore pace guerra acqua fuoco terra aria sole luna stella cielo mare fiume montagna albero "
+        "fiore animale cane gatto uccello cibo bevanda pane latte caffe te vino birra carne pesce "
+        "frutta verdura libro carta lettera messaggio telefono computer internet scuola universita "
+        "professore studente classe esame voto azienda ufficio capo impiegato cliente prodotto servizio "
+        "denaro prezzo euro banca conto pagamento acquisto vendita negozio mercato macchina autobus "
+        "treno aereo nave bicicletta viaggio vacanze albergo ristorante cinema teatro musica film "
+        "sport calcio partita gioco salute medico ospedale malattia medicina governo politica legge "
+        "diritto giustizia liberta verita bugia errore successo problema soluzione domanda risposta "
+        "idea pensiero opinione dubbio certezza speranza paura gioia tristezza sorpresa interesse "
+        "attenzione cura rispetto fiducia amicizia societa cultura storia arte scienza tecnologia "
+        "natura ambiente clima stagione primavera estate autunno inverno nord sud est ovest sinistra "
+        "destra sopra sotto dentro fuori vicino lontano qui li la adesso poi dopo prima oggi ieri "
+        "domani sempre mai anche ancora gia forse veramente probabilmente certamente sicuramente "
+        "naturalmente ovviamente interessante importante necessario possibile difficile facile diverso "
+        "stesso altro ogni qualche nessuno niente informazione comunicazione organizzazione educazione "
+        "situazione relazione decisione versione opportunita esperienza raccomandazione immediatamente "
+        "definitivamente"
+    ).split(),
+    "nl-NL": (
+        "mens mensen man vrouw kind vriend vriendin familie huis werk dag nacht ochtend avond week "
+        "maand jaar uur minuut seconde tijd keer plaats land stad dorp straat weg wereld leven dood "
+        "liefde vrede oorlog water vuur aarde lucht zon maan ster hemel zee rivier berg boom bloem "
+        "dier hond kat vogel eten drinken brood melk koffie thee wijn bier vlees vis fruit groente "
+        "boek papier brief bericht telefoon computer internet school universiteit leraar student klas "
+        "examen cijfer bedrijf kantoor baas medewerker klant product dienst geld prijs euro bank "
+        "rekening betaling koop verkoop winkel markt auto bus trein vliegtuig boot fiets reis vakantie "
+        "hotel restaurant bioscoop theater muziek film sport voetbal wedstrijd spel gezondheid dokter "
+        "ziekenhuis ziekte medicijn regering politiek wet recht justitie vrijheid waarheid leugen fout "
+        "succes probleem oplossing vraag antwoord idee gedachte mening twijfel zekerheid hoop angst "
+        "vreugde verdriet verrassing interesse aandacht zorg respect vertrouwen vriendschap samenleving "
+        "cultuur geschiedenis kunst wetenschap technologie natuur milieu klimaat seizoen lente zomer "
+        "herfst winter noord zuid oost west links rechts boven onder binnen buiten dichtbij ver hier "
+        "daar vandaag gisteren morgen nu dan nog al ook alleen heel erg zeer informatie communicatie "
+        "organisatie educatie situatie relatie beslissing versie gelegenheid ervaring aanbeveling "
+        "onmiddellijk definitief natuurlijk waarschijnlijk eigenlijk interessant belangrijk mogelijk "
+        "nodig moeilijk makkelijk verschillend dezelfde andere iedere elke sommige geen niets iets "
+        "alles iemand niemand ergens nergens altijd nooit vaak soms"
+    ).split(),
+    "pl-PL": (
+        "osoba ludzie mezczyzna kobieta dziecko przyjaciel przyjaciolka rodzina dom praca dzien noc "
+        "rano wieczor tydzien miesiac rok godzina minuta sekunda czas raz miejsce kraj miasto wies "
+        "ulica droga swiat zycie smierc milosc pokoj wojna woda ogien ziemia powietrze slonce "
+        "ksiezyc gwiazda niebo morze rzeka gora drzewo kwiat zwierze pies kot ptak jedzenie napoj "
+        "chleb mleko kawa herbata wino piwo mieso ryba owoc warzywo ksiazka papier list wiadomosc "
+        "telefon komputer internet szkola uniwersytet nauczyciel uczen klasa egzamin ocena firma "
+        "biuro szef pracownik klient produkt usluga pieniadze cena euro bank konto platnosc zakup "
+        "sprzedaz sklep rynek samochod autobus pociag samolot statek rower podroz wakacje hotel "
+        "restauracja kino teatr muzyka film sport pilka mecz gra zdrowie lekarz szpital choroba "
+        "lekarstwo rzad polityka prawo sprawiedliwosc wolnosc prawda klamstwo blad sukces problem "
+        "rozwiazanie pytanie odpowiedz pomysl mysl opinia watpliwosc pewnosc nadzieja strach radosc "
+        "smutek niespodzianka zainteresowanie uwaga opieka szacunek zaufanie przyjazn spoleczenstwo "
+        "kultura historia sztuka nauka technologia natura srodowisko klimat pora wiosna lato jesien "
+        "zima polnoc poludnie wschod zachod lewo prawo gora dol wewnatrz blisko daleko tutaj tam "
+        "dzisiaj wczoraj jutro teraz potem wczesniej pozniej zawsze nigdy czasami czesto rzadko "
+        "rowniez takze jednak wiec poniewaz chociaz jesli jezeli"
+    ).split(),
+    "ja-JP": (
+        "watashi anata kare kanojo hito tomodachi kazoku ie uchi shigoto hi yoru asa ban shuukan tsuki "
+        "toshi jikan fun byou toki basho kuni machi mura michi sekai seikatsu ai heiwa sensou mizu chi "
+        "kuki taiyou hoshi sora umi kawa yama ki hana dobutsu inu neko tori tabemono nomimono pan "
+        "gyuunyuu koohii ocha wain biiru niku sakana kudamono yasai hon kami tegami messeeji denwa "
+        "pasokon intaanetto gakkou daigaku sensei gakusei kurasu shiken tensuu kaisha ofisu joushi "
+        "shain okyaku seihin saabisu okane nedan en ginkou kouza shiharai kaimono hanbai mise ichiba "
+        "kuruma basu densha hikouki fune jitensha ryokou kyuuka hoteru resutoran eigakan gekijou "
+        "ongaku eiga spootsu sakkaa shiai geemu kenkou isha byouin byouki kusuri seifu seiji houritsu "
+        "kenri seigi jiyuu shinjitsu uso ayamari seikou mondai kaiketsu shitsumon kotae aidia kangae "
+        "iken utagai kakushin kibou osore yorokobi kanashimi odoroki kyoumi chuui sewa sonkei shinrai "
+        "yuujou shakai bunka rekishi geijutsu kagaku gijutsu shizen kankyou kikou kisetsu haru natsu "
+        "aki fuyu kita minami higashi nishi hidari migi ue shita naka soto chikai tooi koko soko asoko "
+        "desu desuka masu masen arigatou sumimasen konnichiwa ohayou"
+    ).split(),
+    "ru-RU": (
+        # already rich in Cyrillic from curated — add more common lemmas
+        "человек люди мужчина женщина ребёнок друг подруга семья дом работа день ночь утро вечер "
+        "неделя месяц год час минута секунда время раз место страна город деревня улица дорога мир "
+        "жизнь смерть любовь война вода огонь земля воздух солнце луна звезда небо море река гора "
+        "дерево цветок животное собака кошка птица еда напиток хлеб молоко кофе чай вино пиво мясо "
+        "рыба фрукт овощ книга бумага письмо сообщение телефон компьютер интернет школа университет "
+        "учитель студент класс экзамен оценка компания офис начальник сотрудник клиент продукт услуга "
+        "деньги цена евро банк счёт оплата покупка продажа магазин рынок машина автобус поезд самолёт "
+        "корабль велосипед путешествие отпуск отель ресторан кино театр музыка фильм спорт футбол "
+        "матч игра здоровье врач больница болезнь лекарство правительство политика закон право "
+        "справедливость свобода правда ложь ошибка успех проблема решение вопрос ответ идея мысль "
+        "мнение сомнение уверенность надежда страх радость грусть сюрприз интерес внимание забота "
+        "уважение доверие дружба общество культура история искусство наука технология природа среда "
+        "климат сезон весна лето осень зима север юг восток запад лево право верх низ внутри снаружи "
+        "близко далеко здесь там сегодня вчера завтра сейчас потом всегда никогда иногда часто редко"
+    ).split(),
+}
+
+for code, extras in MORE.items():
+    path = ROOT / code / "wordlist.txt"
+    words = [w.strip() for w in path.read_text(encoding="utf-8").splitlines() if w.strip()]
+    seen = {w.casefold() for w in words}
+    for w in extras:
+        if w and w.casefold() not in seen:
+            seen.add(w.casefold())
+            words.append(w)
+    path.write_text("\n".join(words) + "\n", encoding="utf-8")
+    print(f"{code}: {len(words)}")

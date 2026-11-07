@@ -1,0 +1,55 @@
+# AutoCorrect language pack: Japanese
+# Format: typo<TAB>correction (one per line). High-confidence pairs only.
+arigato	arigatou
+arigatouu	arigatou
+arigatoh	arigatou
+onegai	onegaishimasu
+onegai shimasu	onegaishimasu
+sumimasenn	sumimasen
+suimasen	sumimasen
+gomenne	gomen ne
+konichiwa	konnichiwa
+konnichiha	konnichiwa
+kombanwa	konbanwa
+konbanha	konbanwa
+ohayo	ohayou
+ohayoo	ohayou
+oyasumi	oyasuminasai
+oyasumi nasai	oyasuminasai
+sayonaraa	sayonara
+hazimemashite	hajimemashite
+yorosiku	yoroshiku
+dozo	douzo
+douzoo	douzo
+haii	hai
+iiee	iie
+iye	iie
+wakarimasita	wakarimashita
+wakarimasenn	wakarimasen
+daijobu	daijoubu
+tyotto	chotto
+chottoo	chotto
+sugoii	sugoi
+kawai	kawaii
+kawaai	kawaii
+taskete	tasukete
+gochisosama	gochisousama
+irassyaimase	irasshaimase
+otukaresama	otsukaresama
+siturei	shitsureishimasu
+shitsurei	shitsureishimasu
+moichido	mou ichido
+mouichido	mou ichido
+benkyo	benkyou
+sigoto	shigoto
+tomodatii	tomodachi
+tomodatci	tomodachi
+kazokuu	kazoku
+senseii	sensei
+gakuseii	gakusei
+tabemasuu	tabemasu
+nomimasuu	nomimasu
+ikimasuu	ikimasu
+hanasimasu	hanashimasu
+yomimasuu	yomimasu
+kakimasuu	kakimasu

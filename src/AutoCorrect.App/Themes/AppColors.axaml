@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- Match marketing demo: deep charcoal + soft purple accents -->
+  <Color x:Key="AcBlack">#07070C</Color>
+  <Color x:Key="AcSurface">#0C0B12</Color>
+  <Color x:Key="AcSurfaceRaised">#17141F</Color>
+  <Color x:Key="AcBorder">#473A66</Color>
+  <Color x:Key="AcBorderSoft">#2E2740</Color>
+  <Color x:Key="AcPurple">#A78BFA</Color>
+  <Color x:Key="AcPurpleDeep">#7C5CBF</Color>
+  <Color x:Key="AcPurpleSoft">#C4B5FD</Color>
+  <Color x:Key="AcPurpleGlow">#33A78BFA</Color>
+  <Color x:Key="AcText">#F4F2FF</Color>
+  <Color x:Key="AcTextMuted">#A39BB8</Color>
+  <Color x:Key="AcStrike">#8A819E</Color>
+
+  <SolidColorBrush x:Key="AcBlackBrush" Color="{StaticResource AcBlack}" />
+  <SolidColorBrush x:Key="AcSurfaceBrush" Color="{StaticResource AcSurface}" />
+  <SolidColorBrush x:Key="AcSurfaceRaisedBrush" Color="{StaticResource AcSurfaceRaised}" />
+  <SolidColorBrush x:Key="AcBorderBrush" Color="{StaticResource AcBorder}" />
+  <SolidColorBrush x:Key="AcBorderSoftBrush" Color="{StaticResource AcBorderSoft}" />
+  <SolidColorBrush x:Key="AcPurpleBrush" Color="{StaticResource AcPurple}" />
+  <SolidColorBrush x:Key="AcPurpleDeepBrush" Color="{StaticResource AcPurpleDeep}" />
+  <SolidColorBrush x:Key="AcPurpleSoftBrush" Color="{StaticResource AcPurpleSoft}" />
+  <SolidColorBrush x:Key="AcPurpleGlowBrush" Color="{StaticResource AcPurpleGlow}" />
+  <SolidColorBrush x:Key="AcAccentHoverSoftBrush" Color="#1AA78BFA" />
+  <SolidColorBrush x:Key="AcAccentHoverStrongBrush" Color="#44A78BFA" />
+  <SolidColorBrush x:Key="AcTextBrush" Color="{StaticResource AcText}" />
+  <SolidColorBrush x:Key="AcTextMutedBrush" Color="{StaticResource AcTextMuted}" />
+  <SolidColorBrush x:Key="AcStrikeBrush" Color="{StaticResource AcStrike}" />
+  <SolidColorBrush x:Key="AcOnAccentBrush" Color="#0E0E10" />
+  <!-- Overridden at runtime by ThemeService (solid or gradient). -->
+  <SolidColorBrush x:Key="AcWindowBackgroundBrush" Color="{StaticResource AcBlack}" />
+</ResourceDictionary>

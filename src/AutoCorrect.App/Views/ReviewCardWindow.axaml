@@ -1,0 +1,262 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AutoCorrect.App.ViewModels"
+        x:Class="AutoCorrect.App.Views.ReviewCardWindow"
+        x:DataType="vm:AppViewModel"
+        Title="AutoCorrect Suggestion"
+        Width="300"
+        MinWidth="280"
+        MaxWidth="340"
+        MinHeight="120"
+        SizeToContent="Height"
+        CanResize="False"
+        WindowDecorations="None"
+        Background="Transparent"
+        Topmost="True"
+        ShowInTaskbar="False"
+        WindowStartupLocation="Manual"
+        Icon="/Assets/autocorrect-icon.jpg"
+        KeyDown="OnKeyDown"
+        AutomationProperties.Name="AutoCorrect suggestion card">
+
+    <!-- Marketing-demo style one-suggestion card -->
+    <Border CornerRadius="14"
+            BorderBrush="{StaticResource AcBorderBrush}"
+            BorderThickness="1"
+            Background="{StaticResource AcSurfaceBrush}"
+            BoxShadow="0 22 50 0 #8C000000"
+            Padding="14,12,14,14"
+            ClipToBounds="False">
+        <DockPanel>
+            <Border x:Name="DragBar"
+                    DockPanel.Dock="Top"
+                    Background="Transparent"
+                    Cursor="SizeAll"
+                    Margin="0,0,0,10"
+                    PointerPressed="OnDragPointerPressed"
+                    PointerMoved="OnDragPointerMoved"
+                    PointerReleased="OnDragPointerReleased"
+                    PointerCaptureLost="OnDragPointerCaptureLost">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="2">
+                        <Button Content="‹"
+                                Classes="ac-icon"
+                                Width="26" Height="26"
+                                FontSize="15"
+                                IsVisible="{Binding HasMultiple}"
+                                IsEnabled="{Binding CanGoPrev}"
+                                Command="{Binding PrevSuggestionCommand}"
+                                ToolTip.Tip="Previous suggestion"
+                                AutomationProperties.Name="Previous suggestion" />
+                        <TextBlock Text="{Binding PositionLabel}"
+                                   IsVisible="{Binding HasMultiple}"
+                                   FontSize="11"
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   VerticalAlignment="Center"
+                                   Margin="2,0"
+                                   AutomationProperties.Name="{Binding PositionLabel}" />
+                        <Button Content="›"
+                                Classes="ac-icon"
+                                Width="26" Height="26"
+                                FontSize="15"
+                                IsVisible="{Binding HasMultiple}"
+                                IsEnabled="{Binding CanGoNext}"
+                                Command="{Binding NextSuggestionCommand}"
+                                ToolTip.Tip="Next suggestion"
+                                AutomationProperties.Name="Next suggestion" />
+                        <Button Content="✕"
+                                Classes="ac-icon"
+                                Width="26" Height="26"
+                                Command="{Binding CloseQueueCommand}"
+                                ToolTip.Tip="Close (Esc)"
+                                AutomationProperties.Name="Close suggestions" />
+                    </StackPanel>
+                    <StackPanel Spacing="2" VerticalAlignment="Center">
+                        <DockPanel>
+                            <Border DockPanel.Dock="Right"
+                                    Background="{StaticResource AcSurfaceRaisedBrush}"
+                                    BorderBrush="{StaticResource AcBorderSoftBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="999"
+                                    Padding="8,2"
+                                    Margin="8,0,0,0"
+                                    IsVisible="{Binding HasConfidenceChip}">
+                                <TextBlock Text="{Binding ConfidenceChip}"
+                                           FontSize="10"
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource AcPurpleSoftBrush}" />
+                            </Border>
+                            <TextBlock Text="{Binding CategoryBadge}"
+                                       FontSize="11"
+                                       FontWeight="Bold"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       VerticalAlignment="Center"
+                                       TextTrimming="CharacterEllipsis"
+                                       ToolTip.Tip="{Binding WhyTooltip}" />
+                        </DockPanel>
+                        <TextBlock Text="{Binding WhyText}"
+                                   IsVisible="{Binding HasWhyText}"
+                                   FontSize="11"
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   TextWrapping="Wrap"
+                                   TextTrimming="CharacterEllipsis"
+                                   MaxLines="2"
+                                   ToolTip.Tip="{Binding WhyTooltip}" />
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+
+            <Button DockPanel.Dock="Top"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Left"
+                    Padding="0,0,0,12"
+                    Cursor="Hand"
+                    Command="{Binding ApplyCurrentCommand}"
+                    ToolTip.Tip="Click or press Accept to apply">
+                <StackPanel Spacing="8">
+                    <WrapPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Current.OldDisplay}"
+                                   IsVisible="{Binding Current.ShowOldStrike}"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource AcStrikeBrush}"
+                                   TextDecorations="Strikethrough"
+                                   Margin="0,0,8,0"
+                                   VerticalAlignment="Center" />
+                        <TextBlock Text="→"
+                                   IsVisible="{Binding Current.ShowOldStrike}"
+                                   FontSize="15"
+                                   Foreground="{StaticResource AcTextMutedBrush}"
+                                   Margin="0,0,8,0"
+                                   VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Current.NewDisplay}"
+                                   IsVisible="{Binding Current.ShowNewAccent}"
+                                   FontSize="16"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource AcPurpleBrush}"
+                                   VerticalAlignment="Center" />
+                    </WrapPanel>
+
+                    <Border Background="{StaticResource AcSurfaceRaisedBrush}"
+                            BorderBrush="{StaticResource AcBorderSoftBrush}"
+                            BorderThickness="1"
+                            CornerRadius="10"
+                            Padding="10,8"
+                            IsVisible="{Binding Current.HasSentenceContext}">
+                        <WrapPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Current.LeftContext}"
+                                       IsVisible="{Binding Current.HasLeftContext}"
+                                       FontSize="12"
+                                       Foreground="{StaticResource AcTextMutedBrush}"
+                                       Margin="0,0,4,0" />
+                            <TextBlock Text="{Binding Current.OldDisplay}"
+                                       IsVisible="{Binding Current.ShowOldStrike}"
+                                       FontSize="12"
+                                       FontWeight="SemiBold"
+                                       Foreground="{StaticResource AcStrikeBrush}"
+                                       TextDecorations="Strikethrough"
+                                       Margin="0,0,4,0" />
+                            <TextBlock Text="{Binding Current.NewDisplay}"
+                                       IsVisible="{Binding Current.ShowNewAccent}"
+                                       FontSize="12"
+                                       FontWeight="SemiBold"
+                                       Foreground="{StaticResource AcPurpleBrush}"
+                                       Margin="0,0,4,0" />
+                            <TextBlock Text="{Binding Current.RightContext}"
+                                       IsVisible="{Binding Current.HasRightContext}"
+                                       FontSize="12"
+                                       Foreground="{StaticResource AcTextMutedBrush}" />
+                        </WrapPanel>
+                    </Border>
+                </StackPanel>
+            </Button>
+
+            <StackPanel DockPanel.Dock="Bottom" Spacing="8">
+                <Button Content="{Binding AcceptAllLabel}"
+                        IsVisible="{Binding HasMultiple}"
+                        Command="{Binding ApplyAllSafeCommand}"
+                        HorizontalAlignment="Stretch"
+                        Padding="12,7"
+                        FontSize="12"
+                        FontWeight="SemiBold"
+                        Background="Transparent"
+                        Foreground="{StaticResource AcPurpleBrush}"
+                        BorderBrush="{StaticResource AcPurpleBrush}"
+                        BorderThickness="1"
+                        CornerRadius="999"
+                        Cursor="Hand"
+                        ToolTip.Tip="Apply every safe suggestion in one write (Ctrl+Enter). Skips whole-field rewrites."
+                        AutomationProperties.Name="{Binding AcceptAllLabel}" />
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <Button Content="Accept"
+                            Command="{Binding ApplyCurrentCommand}"
+                            Padding="14,7"
+                            FontSize="12"
+                            FontWeight="SemiBold"
+                            Background="{StaticResource AcPurpleGlowBrush}"
+                            Foreground="{StaticResource AcTextBrush}"
+                            BorderBrush="{StaticResource AcPurpleBrush}"
+                            BorderThickness="1"
+                            CornerRadius="999"
+                            Cursor="Hand"
+                            ToolTip.Tip="Apply this suggestion"
+                            AutomationProperties.Name="Accept suggestion" />
+                    <Button Content="Skip"
+                            Command="{Binding DismissCurrentCommand}"
+                            Padding="14,7"
+                            FontSize="12"
+                            FontWeight="SemiBold"
+                            Background="Transparent"
+                            Foreground="{StaticResource AcTextMutedBrush}"
+                            BorderBrush="{StaticResource AcBorderSoftBrush}"
+                            BorderThickness="1"
+                            CornerRadius="999"
+                            Cursor="Hand"
+                            ToolTip.Tip="Skip this suggestion"
+                            AutomationProperties.Name="Skip suggestion" />
+                    <Button Content="Never"
+                            Command="{Binding NeverSuggestCurrentCommand}"
+                            Padding="14,7"
+                            FontSize="12"
+                            FontWeight="SemiBold"
+                            Background="Transparent"
+                            Foreground="{StaticResource AcTextMutedBrush}"
+                            BorderBrush="{StaticResource AcBorderSoftBrush}"
+                            BorderThickness="1"
+                            CornerRadius="999"
+                            Cursor="Hand"
+                            ToolTip.Tip="Never suggest this word again (Delete)"
+                            AutomationProperties.Name="Never suggest this again" />
+                    <Button Content="Dismiss"
+                            Command="{Binding CloseQueueCommand}"
+                            Padding="14,7"
+                            FontSize="12"
+                            FontWeight="SemiBold"
+                            Background="Transparent"
+                            Foreground="{StaticResource AcTextMutedBrush}"
+                            BorderBrush="{StaticResource AcBorderSoftBrush}"
+                            BorderThickness="1"
+                            CornerRadius="999"
+                            Cursor="Hand"
+                            ToolTip.Tip="Close all suggestions"
+                            AutomationProperties.Name="Dismiss all suggestions" />
+                </StackPanel>
+                <Button Command="{Binding AddToDictionaryCommand}"
+                        IsVisible="{Binding CanAddToDictionary}"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        HorizontalAlignment="Left"
+                        Padding="2,0"
+                        Cursor="Hand"
+                        ToolTip.Tip="Stop flagging this word"
+                        AutomationProperties.Name="Add word to dictionary">
+                    <TextBlock Text="Add to dictionary"
+                               FontSize="12"
+                               Foreground="{StaticResource AcTextMutedBrush}" />
+                </Button>
+            </StackPanel>
+        </DockPanel>
+    </Border>
+</Window>

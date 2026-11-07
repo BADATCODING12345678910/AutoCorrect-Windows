@@ -1,0 +1,126 @@
+# AutoCorrect language pack: Chinese (Simplified)
+# Format: typo<TAB>correction (one per line). High-confidence pairs only.
+nihao	你好
+nihau	你好
+ni hao	你好
+xiexie	谢谢
+xie xie	谢谢
+shexie	谢谢
+duibuqi	对不起
+dui bu qi	对不起
+qing	请
+qingwen	请问
+qing wen	请问
+zaijian	再见
+zai jian	再见
+zaoshanghao	早上好
+zaoshang hao	早上好
+wanshanghao	晚上好
+wanshang hao	晚上好
+wanan	晚安
+wan an	晚安
+keyi	可以
+ke yi	可以
+buhao	不好
+bu hao	不好
+meiyou	没有
+mei you	没有
+meyou	没有
+feichang	非常
+fei chang	非常
+feicang	非常
+xianzai	现在
+xian zai	现在
+xianzi	现在
+jintian	今天
+jin tian	今天
+jintain	今天
+mingtian	明天
+ming tian	明天
+mingtain	明天
+zuotian	昨天
+zuo tian	昨天
+zongshi	总是
+zong shi	总是
+youxie	有时
+you shi	有时
+youshi	有时
+changchang	常常
+chang chang	常常
+yeshi	也是
+ye shi	也是
+keshi	可是
+ke shi	可是
+danshi	但是
+dan shi	但是
+suoyi	所以
+suo yi	所以
+yinwei	因为
+yin wei	因为
+ruguo	如果
+ru guo	如果
+shenme	什么
+shen me	什么
+sheme	什么
+shenma	什么
+nali	哪里
+na li	哪里
+nar	哪儿
+weisheme	为什么
+wei shenme	为什么
+weishenme	为什么
+zenme	怎么
+zen me	怎么
+zeme	怎么
+duoshao	多少
+duo shao	多少
+xingqu	兴趣
+xing qu	兴趣
+zhongyao	重要
+zhong yao	重要
+keneng	可能
+ke neng	可能
+xuyao	需要
+xu yao	需要
+kunnan	困难
+kun nan	困难
+rongyi	容易
+rong yi	容易
+butong	不同
+bu tong	不同
+qita	其他
+qi ta	其他
+meige	每个
+mei ge	每个
+suoyou	所有
+suo you	所有
+yixie	一些
+yi xie	一些
+xinxi	信息
+xin xi	信息
+goutong	沟通
+gou tong	沟通
+zuzhi	组织
+zu zhi	组织
+jiaoyu	教育
+jiao yu	教育
+zhuyi	注意
+zhu yi	注意
+qingkuang	情况
+qing kuang	情况
+guanxi	关系
+guan xi	关系
+jueding	决定
+jue ding	决定
+banben	版本
+ban ben	版本
+jihui	机会
+ji hui	机会
+jingyan	经验
+jing yan	经验
+jianyi	建议
+jian yi	建议
+lijike	立即
+li ji	立即
+kending	肯定
+ken ding	肯定
