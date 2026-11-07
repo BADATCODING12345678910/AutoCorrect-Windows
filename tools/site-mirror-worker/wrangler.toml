@@ -1,6 +1,0 @@
-name = "autocorrect-site-mirror"
-main = "src/worker.js"
-compatibility_date = "2026-11-01"
-
-# Lightspeed-safe alternate (Cloudflare). Same content as GitHub Pages.
-# Primary advertised site remains github.io.

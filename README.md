@@ -18,8 +18,7 @@ System-wide typing helper for Windows: autocorrect, grammar / Perfect Fix, rewri
 - Tray app with hotkeys (Fix, rewrite, privacy, dictation)
 - Rule packs + AutoLearn + review UI
 - Optional AI grammar / Perfect Fix via **bring your own key (BYOK)** in Settings → Grammar
-- PayPal licensing and Cloudflare-hosted product site
-- Language packs published with the site
+- Language packs and in-app updates
 
 ## Build / run
 
@@ -36,19 +35,7 @@ Quit the tray app before rebuild if you hit DLL lock errors.
 
 ## Secrets and BYOK
 
-API keys, PayPal, Supabase push secrets, and similar credentials must **never** be committed.
-
-- End users: paste an AI key in **Settings → Grammar** (stored under `%LocalAppData%\AutoCorrect\` on that PC).
-- Contributors: keep local credential files out of git (see `.gitignore`).
-
-## Maintainer shipping note
-
-Product updates are published from a maintainer machine with:
-
-- `%LocalAppData%\AutoCorrect\SupabaseCredentials.ini` (includes `UpdatePushSecret`)
-- local `push-update.cmd 0.2.x "notes"` (Release zip + live update feed)
-
-Those credentials are **not** in this repository. Site publish: `.\tools\publish-site.ps1` (Cloudflare Pages primary; GitHub Pages mirror).
+API keys and similar credentials must **never** be committed. Paste an AI key in **Settings → Grammar** (stored under `%LocalAppData%\AutoCorrect\` on that PC).
 
 ## Layout
 
@@ -57,11 +44,6 @@ Those credentials are **not** in this repository. Site publish: `.\tools\publish
 | `src/AutoCorrect.Core` | Pipeline, packs, license, updates |
 | `src/AutoCorrect.App` | Avalonia tray / settings / review |
 | `src/AutoCorrect.Platform.*` | Text bridge (Windows UIA + hooks; Linux/Mac stubs) |
-| `website/` | Landing + support + language packs |
-| `installer/` | Inno Setup |
-| `tools/` | Smoke tests, publish-site, Debug Lab |
-| `supabase/` | Edge functions (license, subscribe, update-feed, support) |
-| `distribution/` | Packaging notes |
 
 ## Contributing
 

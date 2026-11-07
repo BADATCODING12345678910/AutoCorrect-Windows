@@ -15,7 +15,6 @@ Thanks for your interest in improving AutoCorrect.
 2. Fork the repo and work on a focused branch.
 3. Keep pull requests small and reviewable.
 4. Do **not** commit secrets, API keys, license keys, or credential `.ini` files.
-5. Do **not** add automation that posts to social accounts from this repository.
 
 ## Local setup
 
@@ -30,7 +29,6 @@ Optional: paste your own AI provider key in **Settings → Grammar** (bring your
 
 - Target: .NET 8, Avalonia UI, Windows-first (`AutoCorrect.Platform.Windows`).
 - Prefer matching existing patterns in `src/AutoCorrect.App` and `src/AutoCorrect.Core`.
-- Smoke: `dotnet run --project tools/PipelineSmoke` when pipeline behavior changes.
 
 ## License
 

@@ -1,17 +1,10 @@
 # Build
 **/bin/
 **/obj/
-**/artifacts/
 *.user
 *.suo
 .vs/
 *.DotSettings.user
-
-# Published / installer output
-artifacts/*.zip
-artifacts/latest.json
-installer/Output/
-**/publish/
 
 # Secrets — never commit
 **/.env
@@ -28,19 +21,9 @@ installer/Output/
 **/certs/
 **/*.pfx
 
-# Local maintainer-only X posting (keep on disk; omit from public tree)
-tools/daily-x-post.ps1
-tools/post-to-x.ps1
-tools/setup-x-credentials.ps1
-**/XCredentials.ini.example
-
 # Caches / junk
 **/__pycache__/
 *.pyc
 *.log
 .DS_Store
 Thumbs.db
-
-# Node (website tooling if any)
-node_modules/
-.wrangler/
