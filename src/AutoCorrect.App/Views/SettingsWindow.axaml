@@ -767,11 +767,11 @@
                 </ScrollViewer>
             </TabItem>
 
-            <!-- License -->
-            <TabItem Header="License">
+            <!-- Donate (optional tips — app is free) -->
+            <TabItem Header="Donate" Name="DonateTab">
                 <ScrollViewer Padding="8,12,8,8">
                     <StackPanel Spacing="14" MaxWidth="720">
-                        <TextBlock Text="14-day trial includes everything. After that, Fix (LanguageTool) and as-you-type autocorrect stay free; Rewrite / ChatGPT writing need a license."
+                        <TextBlock Text="AutoCorrect is free forever. Tips are optional and help pay for hosting, updates, and support."
                                    Foreground="{StaticResource AcTextMutedBrush}"
                                    FontSize="13"
                                    TextWrapping="Wrap" />
@@ -779,88 +779,63 @@
                         <Border Classes="ac-panel"
                                 Padding="14">
                             <StackPanel Spacing="6">
-                                <TextBlock Text="{Binding LicenseStatusLine}"
+                                <TextBlock Text="Free · all features"
                                            FontSize="16"
                                            FontWeight="SemiBold"
                                            Foreground="{StaticResource AcPurpleBrush}" />
-                                <TextBlock Text="{Binding LicenseDetailLine}"
+                                <TextBlock Text="No license key or subscription required. Bring your own AI key in Grammar if you want Perfect Fix / Rewrite."
                                            FontSize="12"
                                            Foreground="{StaticResource AcTextMutedBrush}"
                                            TextWrapping="Wrap" />
                             </StackPanel>
                         </Border>
 
-                        <StackPanel Spacing="6">
-                            <TextBlock Text="Email (PayPal / developer)" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
-                            <DockPanel>
-                                <Button DockPanel.Dock="Right"
-                                        Content="Activate online"
-                                        Command="{Binding ActivateOnlineCommand}"
-                                        Margin="10,0,0,0"
-                                        Padding="14,8"
-                                        Classes="ac-primary" />
-                                <TextBox Text="{Binding LicenseEmail}"
-                                         PlaceholderText="you@email.com"
-                                         MinHeight="36" />
-                            </DockPanel>
-                            <TextBlock Text="After PayPal payment, the webhook marks your email active — then Activate online."
-                                       FontSize="11"
-                                       Foreground="{StaticResource AcTextMutedBrush}"
-                                       TextWrapping="Wrap" />
-                        </StackPanel>
-
-                        <StackPanel Spacing="6">
-                            <TextBlock Text="Offline key (optional / Lifetime backup)" Foreground="{StaticResource AcTextMutedBrush}" FontSize="12" />
-                            <TextBox Text="{Binding LicenseKeyInput}"
-                                     PlaceholderText="Paste AC2.1.… key here"
-                                     AcceptsReturn="True"
-                                     TextWrapping="Wrap"
-                                     MinHeight="72" />
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" Spacing="10">
-                            <Button Content="Activate key"
-                                    Command="{Binding ActivateLicenseCommand}"
-                                    Padding="18,8"
-                                    Classes="ac-ghost" />
-                            <Button Content="Sync now"
-                                    Command="{Binding SyncLicenseCommand}"
-                                    Padding="14,8"
-                                    Classes="ac-ghost" />
-                            <Button Content="Buy Lifetime…"
-                                    Command="{Binding OpenBuyPageCommand}"
-                                    Padding="14,8"
-                                    Classes="ac-primary" />
-                            <Button Content="Clear license"
-                                    Command="{Binding ClearLicenseCommand}"
-                                    Padding="14,8"
-                                    Classes="ac-ghost" />
-                        </StackPanel>
-
-                        <TextBlock Text="Subscriptions (PayPal — Activate online with the same email after checkout)"
+                        <TextBlock Text="Choose an amount (USD)"
                                    FontWeight="SemiBold"
-                                   Foreground="{StaticResource AcTextBrush}"
-                                   Margin="0,8,0,0" />
-                        <StackPanel Orientation="Horizontal" Spacing="10">
-                            <Button Content="Personal yearly…"
-                                    Command="{Binding OpenSubscribePersonalCommand}"
+                                   Foreground="{StaticResource AcTextBrush}" />
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button Content="$5"
+                                    Command="{Binding SetDonateAmountCommand}"
+                                    CommandParameter="5"
                                     Padding="14,8"
                                     Classes="ac-chip" />
-                            <Button Content="Pro yearly…"
-                                    Command="{Binding OpenSubscribeProCommand}"
+                            <Button Content="$10"
+                                    Command="{Binding SetDonateAmountCommand}"
+                                    CommandParameter="10"
                                     Padding="14,8"
                                     Classes="ac-chip" />
-                            <Button Content="Team monthly…"
-                                    Command="{Binding OpenSubscribeTeamCommand}"
+                            <Button Content="$25"
+                                    Command="{Binding SetDonateAmountCommand}"
+                                    CommandParameter="25"
+                                    Padding="14,8"
+                                    Classes="ac-chip" />
+                            <Button Content="$50"
+                                    Command="{Binding SetDonateAmountCommand}"
+                                    CommandParameter="50"
                                     Padding="14,8"
                                     Classes="ac-chip" />
                         </StackPanel>
 
-                        <TextBlock Text="{Binding LicenseFilePath, StringFormat=Saved to: {0}}"
-                                   FontSize="11"
-                                   Foreground="{StaticResource AcTextMutedBrush}"
-                                   TextWrapping="Wrap" />
-                        <TextBlock Text="Pay with PayPal, then Activate online. Lifetime buyers can also paste an offline key."
+                        <StackPanel Orientation="Horizontal" Spacing="10">
+                            <TextBlock Text="$"
+                                       VerticalAlignment="Center"
+                                       FontWeight="SemiBold"
+                                       Foreground="{StaticResource AcTextBrush}" />
+                            <TextBox Text="{Binding DonateAmount}"
+                                     PlaceholderText="10"
+                                     Width="100"
+                                     MinHeight="36" />
+                            <Button Content="Donate with PayPal…"
+                                    Command="{Binding OpenDonateCommand}"
+                                    Padding="18,8"
+                                    Classes="ac-primary" />
+                            <Button Content="Open website donate…"
+                                    Command="{Binding OpenDonateWebsiteCommand}"
+                                    Padding="14,8"
+                                    Classes="ac-ghost" />
+                        </StackPanel>
+
+                        <TextBlock Text="Opens PayPal for the amount you choose ($1–$500). Nothing unlocks — it’s just a tip."
                                    FontSize="12"
                                    Foreground="{StaticResource AcTextMutedBrush}"
                                    TextWrapping="Wrap" />

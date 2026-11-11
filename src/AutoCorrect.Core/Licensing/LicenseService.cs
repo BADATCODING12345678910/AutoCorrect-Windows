@@ -179,6 +179,8 @@ public sealed class LicenseService
 
     private LicenseInfo Evaluate()
     {
+        // Product is free; optional tips live in Settings → Donate (and the website).
+        // Keep key/online paths for existing installs, but never gate features.
         var saved = ReadSavedKey();
         if (!string.IsNullOrWhiteSpace(saved) &&
             TryParseAndVerify(saved, out var payload, out _))
@@ -197,63 +199,32 @@ public sealed class LicenseService
                     Access = LicenseAccess.Full,
                     Email = payload.Email,
                     ExpiresUtc = tier == LicenseTier.Lifetime ? null : exp,
-                    StatusLine = StatusForTier(tier == LicenseTier.None ? LicenseTier.Personal : tier),
-                    DetailLine = BuildLicensedDetail(payload.Email, tier, exp)
+                    StatusLine = "Free · all features",
+                    DetailLine = "AutoCorrect is free. Optional tips: Settings → Donate."
                 };
             }
-
-            // Expired key — fall through to online / trial / core-only
         }
 
         var online = _onlineStore.Load();
         if (_onlineStore.IsGrantFresh(online) && online is not null)
         {
-            var tier = ParseTier(online.Tier);
             return new LicenseInfo
             {
-                Tier = tier == LicenseTier.None ? LicenseTier.Personal : tier,
+                Tier = LicenseTier.Personal,
                 Access = LicenseAccess.Full,
                 Email = online.Email,
                 ExpiresUtc = online.PeriodEnd?.UtcDateTime,
-                StatusLine = StatusForTier(tier == LicenseTier.None ? LicenseTier.Personal : tier) + " · online",
-                DetailLine =
-                    $"Synced with server · grant until {online.GrantExpiresAt:yyyy-MM-dd} UTC" +
-                    (online.PeriodEnd is null ? " · lifetime" : $" · period ends {online.PeriodEnd:yyyy-MM-dd}")
-            };
-        }
-
-        var trial = EnsureTrial();
-        var ends = trial.StartedUtc.Date.AddDays(TrialDays);
-        var remaining = ends - DateTime.UtcNow;
-        var daysLeft = remaining <= TimeSpan.Zero
-            ? 0
-            : Math.Max(1, (int)Math.Ceiling(remaining.TotalDays));
-
-        if (remaining > TimeSpan.Zero)
-        {
-            return new LicenseInfo
-            {
-                Tier = LicenseTier.Trial,
-                Access = LicenseAccess.Full,
-                TrialEndsUtc = ends,
-                TrialDaysLeft = daysLeft,
-                StatusLine = "Trial · " + FormatTrialRemaining(remaining) + " left",
-                DetailLine =
-                    $"Full features until {ends:yyyy-MM-dd HH:mm} UTC ({FormatTrialRemaining(remaining)} left). " +
-                    "Paste a license key anytime, or Subscribe then return here to sync."
+                StatusLine = "Free · all features",
+                DetailLine = "AutoCorrect is free. Optional tips: Settings → Donate."
             };
         }
 
         return new LicenseInfo
         {
-            Tier = LicenseTier.None,
-            Access = LicenseAccess.CoreOnly,
-            TrialEndsUtc = ends,
-            TrialDaysLeft = 0,
-            StatusLine = "Trial ended · Core only",
-            DetailLine =
-                "Autocorrect + LanguageTool Fix still work. Rewrite / ChatGPT writing need a license. " +
-                "Pay with PayPal (or a store that pays you via PayPal) — then paste the key below."
+            Tier = LicenseTier.Lifetime,
+            Access = LicenseAccess.Full,
+            StatusLine = "Free · all features",
+            DetailLine = "AutoCorrect is free forever. Optional tips help hosting and updates — Settings → Donate."
         };
     }
 

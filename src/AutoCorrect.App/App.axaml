@@ -215,7 +215,7 @@
                         <NativeMenuItem Header="Usage stats…" Command="{Binding OpenUsageStatsCommand}" />
                         <NativeMenuItem Header="What's New…" Command="{Binding OpenWhatsNewCommand}" />
                         <NativeMenuItem Header="Settings…" Command="{Binding OpenSettingsCommand}" />
-                        <NativeMenuItem Header="License / Buy…" Command="{Binding OpenLicenseCommand}" />
+                        <NativeMenuItem Header="Donate…" Command="{Binding OpenDonateCommand}" />
                         <NativeMenuItem Header="Check for updates…" Command="{Binding CheckForUpdatesCommand}" />
                         <NativeMenuItem Header="Website…" Command="{Binding OpenWebsiteCommand}" />
                         <NativeMenuItem Header="GitHub mirror…" Command="{Binding OpenAlternateWebsiteCommand}" />

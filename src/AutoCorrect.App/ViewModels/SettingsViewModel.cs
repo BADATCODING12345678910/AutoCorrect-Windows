@@ -30,15 +30,15 @@ public partial class SettingsViewModel : ViewModelBase
     private readonly PrivacyModeService? _privacy;
     private readonly LicenseService _license;
 
-    /// <summary>PayPal NCP payment link (Personal Lifetime $59).</summary>
-    public const string BuyUrl = "https://www.paypal.com/ncp/payment/PA3R3XQRAF8QG";
-
     /// <summary>Advertised primary site (Cloudflare Pages — school / Lightspeed-safe).</summary>
     public const string WebsiteUrl =
         "https://autocorrect-windows-site.pages.dev/";
 
     public const string SupportUrl =
         "https://autocorrect-windows-site.pages.dev/support";
+
+    public const string DonateWebsiteUrl =
+        "https://autocorrect-windows-site.pages.dev/#donate";
 
     /// <summary>GitHub Pages mirror (fallback if Cloudflare is down).</summary>
     public const string AlternateWebsiteUrl =
@@ -53,8 +53,9 @@ public partial class SettingsViewModel : ViewModelBase
     /// <summary>Public GitHub profile (main contributor).</summary>
     public const string SocialGitHubUrl = "https://github.com/BADATCODING12345678910";
 
-    public const string SubscribeBaseUrl =
-        "https://arsfrcafaoagrjbnjydx.supabase.co/functions/v1/subscribe?tier=";
+    /// <summary>PayPal Orders donate edge function — append amount (USD).</summary>
+    public const string DonateBaseUrl =
+        "https://arsfrcafaoagrjbnjydx.supabase.co/functions/v1/donate?amount=";
 
     private readonly AutocorrectEngine? _engine;
     private readonly LearnContributionStore? _contributions;
@@ -84,7 +85,6 @@ public partial class SettingsViewModel : ViewModelBase
         _hostWindow = hostWindow;
         BuildThemeOptions();
         LoadFrom(store.Current);
-        RefreshLicenseUi();
         RefreshPrivacyUi();
         if (_privacy is not null)
             _privacy.Changed += OnPrivacyServiceChanged;
@@ -377,12 +377,8 @@ public partial class SettingsViewModel : ViewModelBase
     [ObservableProperty] private string _settingsPath = "";
     [ObservableProperty] private string _apiKeyPath = "";
 
-    // —— License (Phase C + online entitlements) ——
-    [ObservableProperty] private string _licenseStatusLine = "";
-    [ObservableProperty] private string _licenseDetailLine = "";
-    [ObservableProperty] private string _licenseKeyInput = "";
-    [ObservableProperty] private string _licenseFilePath = "";
-    [ObservableProperty] private string _licenseEmail = "";
+    // —— Donate (optional tips; app is free) ——
+    [ObservableProperty] private string _donateAmount = "10";
 
     public bool IsRecording => !string.IsNullOrEmpty(RecordingTarget);
 
@@ -985,59 +981,6 @@ public partial class SettingsViewModel : ViewModelBase
         return true;
     }
 
-    public void RefreshLicenseUi()
-    {
-        var info = _license.Refresh();
-        LicenseStatusLine = info.StatusLine;
-        LicenseDetailLine = info.DetailLine;
-        LicenseFilePath = DataPaths.FindOrCreateLicenseKeyPath();
-        LicenseKeyInput = _license.ReadSavedKey() ?? "";
-    }
-
-    [RelayCommand]
-    private void ActivateLicense()
-    {
-        var err = _license.Activate(LicenseKeyInput ?? "");
-        if (err is not null)
-        {
-            StatusMessage = err;
-            RefreshLicenseUi();
-            return;
-        }
-
-        RefreshLicenseUi();
-        StatusMessage = "License activated — " + LicenseStatusLine;
-    }
-
-    [RelayCommand]
-    private async Task ActivateOnlineAsync()
-    {
-        StatusMessage = "Checking license server…";
-        var (ok, msg) = await _license.ActivateOnlineAsync(LicenseEmail ?? "").ConfigureAwait(true);
-        RefreshLicenseUi();
-        StatusMessage = ok ? "Online license OK — " + msg : "Online activate failed: " + msg;
-    }
-
-    [RelayCommand]
-    private async Task SyncLicenseAsync()
-    {
-        StatusMessage = "Syncing with license server…";
-        await _license.RefreshOnlineAsync().ConfigureAwait(true);
-        RefreshLicenseUi();
-        StatusMessage = "Synced — " + LicenseStatusLine;
-    }
-
-    [RelayCommand]
-    private void ClearLicense()
-    {
-        _license.ClearLicense();
-        RefreshLicenseUi();
-        StatusMessage = "License cleared. Trial/core rules apply.";
-    }
-
-    private bool _awaitingSubscribeReturn;
-    private DateTime _subscribeOpenedUtc = DateTime.MinValue;
-
     [RelayCommand]
     private void OpenWebsite() =>
         OpenExternal(WebsiteUrl, "Opened AutoCorrect website.");
@@ -1059,32 +1002,47 @@ public partial class SettingsViewModel : ViewModelBase
         OpenExternal(SocialGitHubUrl, "Opened GitHub (BADATCODING12345678910).");
 
     [RelayCommand]
-    private void OpenBuyPage() =>
-        OpenExternal(BuyUrl, "Opened Lifetime checkout. After PayPal, return here — we'll sync automatically.", awaitReturn: true);
+    private void SetDonateAmount(string? amount)
+    {
+        if (!string.IsNullOrWhiteSpace(amount))
+            DonateAmount = amount.Trim();
+    }
 
     [RelayCommand]
-    private void OpenSubscribePersonal() =>
-        OpenExternal(SubscribeBaseUrl + "personal", "Opened Personal yearly. After PayPal, return here — we'll sync automatically.", awaitReturn: true);
+    private void OpenDonate()
+    {
+        if (!TryParseDonateAmount(out var value))
+        {
+            StatusMessage = "Enter a tip between $1 and $500.";
+            return;
+        }
+
+        var amount = value % 1 == 0 ? ((int)value).ToString() : value.ToString("0.00");
+        OpenExternal(DonateBaseUrl + Uri.EscapeDataString(amount),
+            "Opened PayPal donate for $" + amount + ".");
+    }
 
     [RelayCommand]
-    private void OpenSubscribePro() =>
-        OpenExternal(SubscribeBaseUrl + "pro", "Opened Pro yearly. After PayPal, return here — we'll sync automatically.", awaitReturn: true);
+    private void OpenDonateWebsite() =>
+        OpenExternal(DonateWebsiteUrl, "Opened website donate page.");
 
-    [RelayCommand]
-    private void OpenSubscribeTeam() =>
-        OpenExternal(SubscribeBaseUrl + "team", "Opened Team monthly. After PayPal, return here — we'll sync automatically.", awaitReturn: true);
+    private bool TryParseDonateAmount(out double value)
+    {
+        value = 0;
+        var raw = (DonateAmount ?? "").Trim().TrimStart('$');
+        if (!double.TryParse(raw, System.Globalization.NumberStyles.Number,
+                System.Globalization.CultureInfo.InvariantCulture, out value) &&
+            !double.TryParse(raw, out value))
+            return false;
+        return value >= 1 && value <= 500;
+    }
 
-    private void OpenExternal(string url, string okMessage, bool awaitReturn = false)
+    private void OpenExternal(string url, string okMessage)
     {
         try
         {
             Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
             StatusMessage = okMessage;
-            if (awaitReturn)
-            {
-                _awaitingSubscribeReturn = true;
-                _subscribeOpenedUtc = DateTime.UtcNow;
-            }
         }
         catch (Exception ex)
         {
@@ -1092,41 +1050,8 @@ public partial class SettingsViewModel : ViewModelBase
         }
     }
 
-    /// <summary>Called when Settings is re-activated after a Subscribe/checkout tab.</summary>
-    public async Task OnWindowActivatedAsync()
-    {
-        if (!_awaitingSubscribeReturn)
-            return;
-        if ((DateTime.UtcNow - _subscribeOpenedUtc).TotalSeconds < 4)
-            return;
-
-        _awaitingSubscribeReturn = false;
-        StatusMessage = "Checking license after checkout…";
-        try
-        {
-            if (!string.IsNullOrWhiteSpace(LicenseEmail))
-            {
-                var (ok, msg) = await _license.ActivateOnlineAsync(LicenseEmail).ConfigureAwait(true);
-                RefreshLicenseUi();
-                StatusMessage = ok
-                    ? "License synced after checkout — " + msg
-                    : "Couldn't confirm yet — " + msg + " Try Activate online / Sync now.";
-            }
-            else
-            {
-                await _license.RefreshOnlineAsync().ConfigureAwait(true);
-                RefreshLicenseUi();
-                StatusMessage = "Synced after checkout — " + LicenseStatusLine +
-                    (LicenseStatusLine.Contains("Trial", StringComparison.OrdinalIgnoreCase)
-                        ? " Enter the email you used at PayPal, then Activate online."
-                        : "");
-            }
-        }
-        catch (Exception ex)
-        {
-            StatusMessage = "Post-checkout sync failed: " + ex.Message;
-        }
-    }
+    /// <summary>Kept for Settings window Activated hook (no post-checkout license sync).</summary>
+    public Task OnWindowActivatedAsync() => Task.CompletedTask;
 
     [RelayCommand]
     private async Task ExportBackupAsync()

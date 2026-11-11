@@ -816,11 +816,9 @@ public partial class AppViewModel : ViewModelBase, IDisposable
 
     private bool EnsurePremiumAi(string featureLabel)
     {
-        var info = _license.Refresh();
-        if (info.AllowsPremiumAi)
-            return true;
-        Toast(featureLabel + " needs a license (trial ended). Tray → Settings → License. Core Fix + autocorrect still work.");
-        return false;
+        // App is free — tips are optional (Settings → Donate).
+        _ = featureLabel;
+        return true;
     }
 
     private void ApplyDictationWatchSettings()
@@ -845,7 +843,7 @@ public partial class AppViewModel : ViewModelBase, IDisposable
     private void OpenSettings() => ShowSettingsWindow();
 
     [RelayCommand]
-    private void OpenLicense() => ShowSettingsWindow();
+    private void OpenDonate() => ShowSettingsWindow();
 
     private void ShowSettingsWindow()
     {
@@ -1211,43 +1209,23 @@ public partial class AppViewModel : ViewModelBase, IDisposable
             };
         }
 
-        var premiumOk = _license.Refresh().AllowsPremiumAi;
+        const bool premiumOk = true; // free forever — optional tips in Settings → Donate
         var hasKey = !string.IsNullOrWhiteSpace(creds?.ApiKey);
         var perfect = FixQualityResolver.IsPerfect(g.FixQuality);
-        var (provider, providerOrder, suggestKeyToast, suggestLicenseToast) = FixQualityResolver.Resolve(
+        var (provider, providerOrder, suggestKeyToast, _) = FixQualityResolver.Resolve(
             g.FixQuality,
             g.Provider,
             g.ProviderOrder,
             premiumOk,
             hasKey);
 
-        if (perfect)
+        if (perfect && suggestKeyToast && !_perfectFixNoKeyToastShown)
         {
-            if (suggestKeyToast && !_perfectFixNoKeyToastShown)
-            {
-                _perfectFixNoKeyToastShown = true;
-                Toast("Perfect Fix needs an AI API key — using LanguageTool only. Add key in Settings → Grammar.");
-            }
-            else if (suggestLicenseToast)
-            {
-                Toast("Trial ended — Perfect Fix skipped AI; LanguageTool still runs. Unlock in Settings → License.");
-            }
-        }
-        else if (!premiumOk && g.Provider is "chatgpt" or "both")
-        {
-            if (g.Provider == "chatgpt")
-            {
-                Toast("ChatGPT Fix needs a license (trial ended). LanguageTool-only: set Provider to languagetool, or activate in Settings → License.");
-                abort = true;
-                return new CorrectionOptions();
-            }
-            provider = "languagetool";
-            Toast("Trial ended — ChatGPT skipped; LanguageTool Fix still runs. Unlock in Settings → License.");
+            _perfectFixNoKeyToastShown = true;
+            Toast("Perfect Fix needs an AI API key — using LanguageTool only. Add key in Settings → Grammar.");
         }
 
-        var useWriting = g.UseWritingSuggestions && premiumOk;
-        if (g.UseWritingSuggestions && !premiumOk)
-            Toast("Writing suggestions need a license — running correctness only.");
+        var useWriting = g.UseWritingSuggestions;
 
         var options = new CorrectionOptions
         {
