@@ -1,0 +1,1180 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>AutoCorrect for Windows &mdash; Free Grammarly-like autocorrect for every app</title>
+  <meta name="description" content="Free AutoCorrect for Windows: system-wide autocorrect, Win+H dictation cleanup, snippets, clipboard fix, and rewrite. Download at autocorrect-windows-site.pages.dev. Optional donations welcome." />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="canonical" href="https://autocorrect-windows-site.pages.dev/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="AutoCorrect for Windows" />
+  <meta property="og:title" content="AutoCorrect for Windows — free autocorrect for every app" />
+  <meta property="og:description" content="System-wide autocorrect, Win+H dictation cleanup, snippets, and rewrite. Free download. Optional tips keep it going." />
+  <meta property="og:url" content="https://autocorrect-windows-site.pages.dev/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AutoCorrect for Windows — free autocorrect for every app" />
+  <meta name="twitter:description" content="System-wide autocorrect for Slack, Word, browsers, Cursor, and more. Free download." />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "AutoCorrect for Windows",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Windows 10, Windows 11",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "url": "https://autocorrect-windows-site.pages.dev/",
+    "downloadUrl": "https://github.com/BADATCODING12345678910/AutoCorrect-Windows/releases/download/v0.2.0/AutoCorrectSetup.exe",
+    "author": { "@type": "Person", "name": "Kyle Welch", "url": "https://github.com/BADATCODING12345678910" },
+    "description": "Free system-wide autocorrect and dictation cleanup for every Windows app."
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <script>
+    /* Apply saved theme before paint (Light Lavender default / Midnight Purple dark). */
+    (function () {
+      try {
+        var t = localStorage.getItem("acSiteTheme");
+        document.documentElement.setAttribute("data-theme", t === "dark" ? "dark" : "light");
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      /* Light Lavender (app theme) — default */
+      --bg0: #f5f3fa;
+      --bg1: #ede9f6;
+      --bg-end: #e4dff2;
+      --purple: #7c3aed;
+      --purple-deep: #6d28d9;
+      --purple-soft: #a78bfa;
+      --text: #1e1433;
+      --muted: #6b6280;
+      --line: rgba(124, 58, 237, 0.18);
+      --card: rgba(255, 255, 255, 0.78);
+      --surface: #ffffff;
+      --surface-raised: #ede9f6;
+      --glow1: rgba(124, 58, 237, 0.14);
+      --glow2: rgba(167, 139, 250, 0.2);
+      --btn-on-accent: #ffffff;
+      --btn-shadow: 0 12px 40px rgba(124, 58, 237, 0.28);
+      --mark-bg: linear-gradient(160deg, #ede9f6, #c4b5fd 55%, #7c3aed);
+      --mark-shadow: 0 0 0 1px rgba(124, 58, 237, 0.28), 0 8px 22px rgba(124, 58, 237, 0.16);
+      --demo-window-bg: linear-gradient(165deg, #ffffff 0%, #f5f3fa 100%);
+      --demo-window-border: rgba(124, 58, 237, 0.22);
+      --demo-window-shadow: 0 28px 60px rgba(30, 20, 51, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.65) inset;
+      --demo-editor-bg: rgba(124, 58, 237, 0.05);
+      --demo-editor-border: rgba(124, 58, 237, 0.14);
+      --demo-editor-text: #1e1433;
+      --demo-app-name: #4a3d66;
+      --demo-hint: rgba(107, 98, 128, 0.9);
+      --demo-traffic: rgba(124, 58, 237, 0.35);
+      --demo-menu-bg: #ffffff;
+      --demo-menu-border: rgba(124, 58, 237, 0.28);
+      --demo-menu-shadow: 0 22px 50px rgba(30, 20, 51, 0.14);
+      --demo-strike: #9b92b0;
+      --demo-chip: #4a3d66;
+      --demo-primary-btn-bg: rgba(124, 58, 237, 0.12);
+      --demo-primary-btn-border: rgba(124, 58, 237, 0.35);
+      --demo-mark-bg: rgba(124, 58, 237, 0.14);
+      --code: #5b21b6;
+      --price-featured-border: rgba(124, 58, 237, 0.45);
+      --price-featured-shadow: 0 0 0 1px rgba(124, 58, 237, 0.12), 0 18px 40px rgba(30, 20, 51, 0.1);
+      --font: "Source Sans 3", "Segoe UI", sans-serif;
+      color-scheme: light;
+    }
+    html[data-theme="dark"] {
+      /* Midnight Purple (app theme) */
+      --bg0: #07070c;
+      --bg1: #12101a;
+      --bg-end: #0a0910;
+      --purple: #a78bfa;
+      --purple-deep: #7c5cbf;
+      --purple-soft: #c4b5fd;
+      --text: #f4f2ff;
+      --muted: #a39bb8;
+      --line: rgba(167, 139, 250, 0.22);
+      --card: rgba(255, 255, 255, 0.04);
+      --surface: #0c0b12;
+      --surface-raised: #17141f;
+      --glow1: rgba(124, 92, 191, 0.32);
+      --glow2: rgba(167, 139, 250, 0.16);
+      --btn-on-accent: #0e0e10;
+      --btn-shadow: 0 12px 40px rgba(124, 92, 191, 0.35);
+      --mark-bg: linear-gradient(160deg, #1a1028, #3b2466 55%, #6d4ab0);
+      --mark-shadow: 0 0 0 1px rgba(167, 139, 250, 0.35), 0 10px 30px rgba(0, 0, 0, 0.35);
+      --demo-window-bg: linear-gradient(165deg, #17141f 0%, #0d0c12 100%);
+      --demo-window-border: rgba(167, 139, 250, 0.28);
+      --demo-window-shadow: 0 28px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+      --demo-editor-bg: rgba(255, 255, 255, 0.03);
+      --demo-editor-border: rgba(167, 139, 250, 0.16);
+      --demo-editor-text: #e8e3f7;
+      --demo-app-name: #c8c0dc;
+      --demo-hint: rgba(163, 155, 184, 0.85);
+      --demo-traffic: rgba(167, 139, 250, 0.35);
+      --demo-menu-bg: #0c0b12;
+      --demo-menu-border: rgba(167, 139, 250, 0.4);
+      --demo-menu-shadow: 0 22px 50px rgba(0, 0, 0, 0.55);
+      --demo-strike: #8a819e;
+      --demo-chip: #c8c0dc;
+      --demo-primary-btn-bg: rgba(167, 139, 250, 0.2);
+      --demo-primary-btn-border: rgba(167, 139, 250, 0.45);
+      --demo-mark-bg: rgba(167, 139, 250, 0.18);
+      --code: #d4c8f5;
+      --price-featured-border: rgba(167, 139, 250, 0.55);
+      --price-featured-shadow: 0 0 0 1px rgba(167, 139, 250, 0.15), 0 20px 50px rgba(0, 0, 0, 0.25);
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font);
+      font-weight: 400;
+      font-stretch: normal;
+      font-synthesis: none;
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      background:
+        radial-gradient(1100px 560px at 12% -8%, var(--glow1), transparent 58%),
+        radial-gradient(900px 480px at 88% 8%, var(--glow2), transparent 52%),
+        linear-gradient(180deg, var(--bg0), var(--bg1) 45%, var(--bg-end));
+    }
+    a { color: var(--purple); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { width: min(1180px, calc(100% - 3rem)); margin: 0 auto; }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 0 0;
+      gap: 1rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+    .mark {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.5rem;
+      background: var(--mark-bg);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: var(--mark-shadow);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .nav { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .nav a { color: var(--muted); font-size: 0.95rem; font-weight: 500; }
+    .theme-toggle {
+      appearance: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border-radius: 999px;
+      padding: 0.42rem 0.75rem;
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--card);
+      border: 1px solid var(--line);
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+    }
+    .theme-toggle:hover {
+      transform: translateY(-1px);
+      color: var(--text);
+      border-color: var(--purple);
+    }
+    .theme-toggle:focus-visible {
+      outline: 2px solid var(--purple);
+      outline-offset: 2px;
+    }
+    .theme-toggle .theme-icon { font-size: 0.95rem; line-height: 1; }
+    html[data-theme="light"] .theme-toggle .label-dark { display: none; }
+    html[data-theme="dark"] .theme-toggle .label-light { display: none; }
+
+    .hero {
+      padding: 2.4rem 0 2rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 2.25rem 2.75rem;
+      align-items: center;
+    }
+    .hero-copy { display: grid; gap: 1rem; }
+    .hero h1 {
+      margin: 0;
+      font-weight: 700;
+      font-size: clamp(2rem, 3.4vw, 2.75rem);
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--purple);
+    }
+    .hero-copy > p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.55;
+      max-width: 36rem;
+    }
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.7rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 0.78rem 1.25rem;
+      font-weight: 600;
+      font-size: 0.98rem;
+      border: 1px solid transparent;
+      text-decoration: none !important;
+      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--purple), var(--purple-deep));
+      color: var(--btn-on-accent);
+      box-shadow: var(--btn-shadow);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--line);
+    }
+    .fine {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    /* Angled interactive demo */
+    .demo-stage {
+      position: relative;
+      min-height: 22rem;
+      perspective: 1200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .demo-stage::before {
+      content: "";
+      position: absolute;
+      width: 78%;
+      height: 70%;
+      right: 4%;
+      bottom: 8%;
+      background: radial-gradient(circle, var(--glow2), transparent 68%);
+      filter: blur(8px);
+      pointer-events: none;
+    }
+    .demo-frame {
+      position: relative;
+      width: min(100%, 26rem);
+      transform: rotateY(-14deg) rotateX(8deg) rotateZ(-1.5deg);
+      transform-style: preserve-3d;
+      transition: transform 0.45s ease;
+      will-change: transform;
+    }
+    .demo-frame:hover,
+    .demo-frame.is-paused {
+      transform: rotateY(-6deg) rotateX(3deg) rotateZ(0deg);
+    }
+    .demo-window {
+      position: relative;
+      background: var(--demo-window-bg);
+      border: 1px solid var(--demo-window-border);
+      border-radius: 1rem;
+      box-shadow: var(--demo-window-shadow);
+      overflow: visible;
+      padding: 0.85rem 1rem 1.1rem;
+    }
+    .demo-chrome {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.85rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .demo-chrome-left {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .traffic {
+      display: flex;
+      gap: 0.3rem;
+    }
+    .traffic i {
+      width: 0.45rem;
+      height: 0.45rem;
+      border-radius: 50%;
+      background: var(--demo-traffic);
+      display: block;
+    }
+    .demo-app-name { color: var(--demo-app-name); }
+    .demo-hint {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--demo-hint);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+    .demo-hint.show { opacity: 1; }
+    .demo-editor {
+      min-height: 7.5rem;
+      background: var(--demo-editor-bg);
+      border: 1px solid var(--demo-editor-border);
+      border-radius: 0.7rem;
+      padding: 0.85rem 0.95rem;
+      font-size: 1.02rem;
+      line-height: 1.55;
+      color: var(--demo-editor-text);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .demo-caret {
+      display: inline-block;
+      width: 0.1rem;
+      height: 1.05em;
+      margin-left: 1px;
+      vertical-align: text-bottom;
+      background: var(--purple);
+      animation: caret-blink 1s steps(1) infinite;
+    }
+    .demo-caret.hidden { visibility: hidden; animation: none; }
+    @keyframes caret-blink {
+      0%, 45% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+    .demo-mark {
+      background: var(--demo-mark-bg);
+      border-bottom: 2px solid var(--purple);
+      border-radius: 0.15rem;
+      padding: 0 0.05rem;
+    }
+    .demo-fixed {
+      color: var(--purple);
+      font-weight: 600;
+    }
+
+    .demo-menu {
+      position: absolute;
+      z-index: 5;
+      left: 1.1rem;
+      bottom: -0.35rem;
+      width: min(17.5rem, calc(100% - 1.5rem));
+      background: var(--demo-menu-bg);
+      border: 1px solid var(--demo-menu-border);
+      border-radius: 0.85rem;
+      padding: 0.85rem 0.9rem;
+      box-shadow: var(--demo-menu-shadow);
+      transform: translateY(8px) scale(0.96);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .demo-menu.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .demo-menu .label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+    .demo-menu .change {
+      font-size: 0.98rem;
+      margin-bottom: 0.35rem;
+      line-height: 1.35;
+    }
+    .demo-menu .change s { color: var(--demo-strike); }
+    .demo-menu .change .fix { color: var(--purple); font-weight: 600; }
+    .demo-menu .demo-why {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.7rem;
+      line-height: 1.35;
+    }
+    .demo-menu .demo-why .chip {
+      display: inline-block;
+      margin-left: 0.35rem;
+      padding: 0.05rem 0.4rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--demo-chip);
+    }
+    code {
+      font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+      font-size: 0.9em;
+      color: var(--code);
+    }
+    .demo-menu-actions {
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+    .demo-menu button {
+      appearance: none;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 0.4rem 0.8rem;
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+    }
+    .demo-menu button:hover { transform: translateY(-1px); color: var(--text); }
+    .demo-menu button.primary {
+      background: var(--demo-primary-btn-bg);
+      color: var(--text);
+      border-color: var(--demo-primary-btn-border);
+    }
+    .demo-menu button:focus-visible {
+      outline: 2px solid var(--purple);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .demo-frame { transform: none; }
+      .demo-frame:hover, .demo-frame.is-paused { transform: none; }
+      .demo-caret { animation: none; opacity: 1; }
+    }
+
+    section { padding: 1.5rem 0 2rem; }
+    section h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin: 0 0 0.95rem;
+      line-height: 1.3;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.9rem;
+    }
+    .also {
+      margin-top: 1.15rem;
+      padding: 1rem 1.15rem;
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      background: var(--card);
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+    .also strong { color: var(--text); font-weight: 600; }
+    .ver {
+      display: inline-block;
+      margin-left: 0.35rem;
+      padding: 0.12rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      vertical-align: middle;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 1rem;
+      padding: 1.1rem 1.15rem;
+      min-height: 100%;
+    }
+    .card h3 {
+      margin: 0 0 0.4rem;
+      font-size: 1.02rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .pricing {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.9rem;
+      max-width: 42rem;
+    }
+    .donate-note {
+      margin: 1rem 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+      max-width: 42rem;
+    }
+    .donate-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 0.15rem;
+    }
+    .donate-presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+    .donate-presets button {
+      font: inherit;
+      cursor: pointer;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--surface-raised);
+      color: var(--text);
+      padding: 0.4rem 0.85rem;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+    .donate-presets button[aria-pressed="true"] {
+      border-color: var(--purple);
+      background: rgba(124, 58, 237, 0.12);
+      color: var(--purple-deep);
+    }
+    html[data-theme="dark"] .donate-presets button[aria-pressed="true"] {
+      color: var(--purple-soft);
+      background: rgba(167, 139, 250, 0.14);
+    }
+    .donate-custom {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+    .donate-custom label {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .donate-custom .currency {
+      font-weight: 700;
+      color: var(--text);
+    }
+    .donate-custom input {
+      width: 7.5rem;
+      font: inherit;
+      font-weight: 600;
+      font-size: 1.05rem;
+      padding: 0.5rem 0.65rem;
+      border-radius: 0.65rem;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+    }
+    .donate-custom input:focus {
+      outline: 2px solid rgba(124, 58, 237, 0.35);
+      outline-offset: 1px;
+    }
+    .donate-status {
+      margin: 0;
+      min-height: 1.2em;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .donate-status.ok { color: var(--purple-deep); }
+    html[data-theme="dark"] .donate-status.ok { color: var(--purple-soft); }
+    .price {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 1.05rem;
+      padding: 1.15rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      min-width: 0;
+    }
+    .price.featured {
+      border-color: var(--price-featured-border);
+      box-shadow: var(--price-featured-shadow);
+    }
+    .price .name {
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+    .price .amt {
+      font-size: 1.65rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+    }
+    .price .amt span {
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .price ul {
+      margin: 0;
+      padding-left: 1.1rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      flex: 1;
+    }
+    .price ul li + li { margin-top: 0.28rem; }
+    .price .btn { width: 100%; }
+    footer {
+      padding: 1.75rem 0 2.5rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 980px) {
+      .grid, .pricing { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+        padding-top: 2rem;
+      }
+      .demo-frame { transform: rotateY(-8deg) rotateX(5deg); }
+      .demo-stage { min-height: 20rem; }
+    }
+    @media (max-width: 640px) {
+      .wrap { width: calc(100% - 1.75rem); }
+      .grid, .pricing { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 1.85rem; }
+      .demo-frame { transform: none; }
+      .demo-menu { left: 0.75rem; right: 0.75rem; width: auto; }
+    }
+  </style>
+  <script>
+    /* Auto soft-refresh when a new site publish is detected (no hard-refresh required). */
+    (function () {
+      var KEY = "acSiteVer";
+      var FLAG = "acSiteReloading";
+      if (sessionStorage.getItem(FLAG) === "1") {
+        sessionStorage.removeItem(FLAG);
+        return;
+      }
+      fetch("version.json", { cache: "no-store" })
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (data) {
+          var ver = String((data && data.version) || "").trim();
+          if (!ver) return;
+          var prev = localStorage.getItem(KEY);
+          if (prev && prev !== ver) {
+            localStorage.setItem(KEY, ver);
+            sessionStorage.setItem(FLAG, "1");
+            var path = location.pathname || "/";
+            location.replace(path + "?v=" + encodeURIComponent(ver));
+            return;
+          }
+          localStorage.setItem(KEY, ver);
+        })
+        .catch(function () { /* offline / first paint */ });
+    })();
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand"><div class="mark" aria-hidden="true">A</div> AutoCorrect</div>
+      <nav class="nav">
+        <a href="#features">Features</a>
+        <a href="#download">Download</a>
+        <a href="#donate">Donate</a>
+        <a href="./support.html">Support</a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch color theme">
+          <span class="theme-icon" aria-hidden="true"></span>
+          <span class="label-dark">Dark</span>
+          <span class="label-light">Light</span>
+        </button>
+      </nav>
+    </header>
+
+    <main class="hero">
+      <div class="hero-copy">
+        <h1>Grammarly that works in <em>every</em> Windows app</h1>
+        <p>
+          As-you-type autocorrect (including mid-word), Win+H dictation cleanup, snippets,
+          clipboard fix, and rewrite tone packs &mdash; in Slack, Cursor, Word, browsers, Discord,
+          and the rest. Offline by default. Bring your own OpenAI key only when you want AI.
+        </p>
+        <div class="cta" id="download">
+          <a class="btn btn-primary" id="download-btn" href="https://github.com/BADATCODING12345678910/AutoCorrect-Windows/releases/download/v0.2.0/AutoCorrectSetup.exe">Download free for Windows</a>
+          <a class="btn btn-ghost" href="#donate">Donate</a>
+        </div>
+        <p class="fine">Free forever &middot; Windows 10/11 x64 &middot; In-app updates to <span class="ver">0.2.30</span> &middot; Tray &rarr; Settings after install</p>
+      </div>
+
+      <div class="demo-stage" id="demo-stage">
+        <div class="demo-frame" id="demo-frame">
+          <div class="demo-window" role="region" aria-label="Interactive AutoCorrect demo">
+            <div class="demo-chrome">
+              <div class="demo-chrome-left">
+                <span class="traffic" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span class="demo-app-name" id="demo-app">Slack</span>
+              </div>
+              <span class="demo-hint" id="demo-hint">Click Accept or Skip</span>
+            </div>
+            <div class="demo-editor" id="demo-editor" aria-live="polite"><span class="demo-caret" id="demo-caret"></span></div>
+            <div class="demo-menu" id="demo-menu" role="dialog" aria-modal="false" aria-labelledby="demo-menu-label" hidden>
+              <div class="label" id="demo-menu-label">Spelling</div>
+              <div class="change" id="demo-menu-change"></div>
+              <div class="demo-why" id="demo-menu-why"></div>
+              <div class="demo-menu-actions">
+                <button type="button" class="primary" id="demo-accept">Accept</button>
+                <button type="button" id="demo-skip">Skip</button>
+                <button type="button" id="demo-dismiss">Never</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <section id="features">
+      <h2>What you get</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>As-you-type autocorrect</h3>
+          <p>High-confidence typo fixes system-wide, including mid-word AHK-style rules, with Undo toast and per-app profiles.</p>
+        </article>
+        <article class="card">
+          <h3>Win+H dictation cleanup</h3>
+          <p>After Windows Voice Typing, auto-Fix cleans speech mistakes &mdash; skips if you moved focus, so it never hijacks another window.</p>
+        </article>
+        <article class="card">
+          <h3>Under-word Fix card</h3>
+          <p>Suggestions park under the mistake with a Why line and confidence chip. Accept, Skip, Never, or Undo.</p>
+        </article>
+        <article class="card">
+          <h3>Rewrite + tone packs</h3>
+          <p>Highlight text, then Email, Slack, or Formal reply &mdash; or type your own instruction. Uses your OpenAI key.</p>
+        </article>
+        <article class="card">
+          <h3>Snippets</h3>
+          <p>Type <code>;sig</code> (or your own triggers) and expand signatures and boilerplate without mixing them into typo autocorrect.</p>
+        </article>
+        <article class="card">
+          <h3>Clipboard Fix</h3>
+          <p>Win+Alt+C cleans whatever is on the clipboard. Optional paste-after for a one-chord cleanup.</p>
+        </article>
+        <article class="card">
+          <h3>Word Manager</h3>
+          <p>Add custom pairs, bulk Never, search learned vs never lists, and import/export &mdash; your dictionary, your rules.</p>
+        </article>
+        <article class="card">
+          <h3>Themes &amp; updates</h3>
+          <p>Appearance themes for tray and UI. Check for updates downloads with a progress bar and retries &mdash; no reinstall for normal upgrades.</p>
+        </article>
+        <article class="card">
+          <h3>Languages on demand</h3>
+          <p>Pick a grammar language (or use Auto-detect) and the matching as-you-type pack downloads only when needed. American English stays bundled.</p>
+        </article>
+      </div>
+      <p class="also">
+        <strong>Also built in:</strong> Pause hotkey, protect zones (URLs, emails, code), AutoLearn from your corrections,
+        LanguageTool + optional ChatGPT writing suggestions (bring your own key), privacy mode, Accept-all, and themes with in-app updates.
+      </p>
+    </section>
+
+    <section id="donate">
+      <h2>Free to use. Tips keep it going.</h2>
+      <div class="pricing">
+        <div class="price featured">
+          <div class="name">Free</div>
+          <div class="amt">$0 <span>forever</span></div>
+          <ul>
+            <li>Full AutoCorrect for Windows</li>
+            <li>No account required to download</li>
+            <li>In-app updates included</li>
+          </ul>
+          <a class="btn btn-primary" href="#download">Download</a>
+        </div>
+        <div class="price">
+          <div class="name">Donate</div>
+          <div class="amt">You <span>choose</span></div>
+          <ul>
+            <li>Optional &mdash; never required</li>
+            <li>Supports hosting, fixes, and new features</li>
+            <li>PayPal &mdash; pick any amount ($1&ndash;$500)</li>
+          </ul>
+          <form class="donate-form" id="donate-form" action="https://arsfrcafaoagrjbnjydx.supabase.co/functions/v1/donate" method="get">
+            <div class="donate-presets" role="group" aria-label="Suggested amounts">
+              <button type="button" data-amount="5">$5</button>
+              <button type="button" data-amount="10" aria-pressed="true">$10</button>
+              <button type="button" data-amount="25">$25</button>
+              <button type="button" data-amount="50">$50</button>
+            </div>
+            <div class="donate-custom">
+              <label for="donate-amount">Amount</label>
+              <span class="currency" aria-hidden="true">$</span>
+              <input id="donate-amount" name="amount" type="number" inputmode="decimal" min="1" max="500" step="0.01" value="10" required />
+            </div>
+            <button class="btn btn-ghost" type="submit" id="donate-submit">Donate with PayPal</button>
+            <p class="donate-status" id="donate-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+      <p class="donate-note">
+        AutoCorrect is free. If it saves you time, choose any tip you like &mdash; it helps pay for the site, updates, and support.
+        Donations are voluntary and do not unlock a separate paid tier on the website.
+      </p>
+    </section>
+
+    <footer>
+      <div>&copy; AutoCorrect &middot; Free for Windows &middot; <a href="./support.html">Support</a></div>
+      <div>
+        Optional tips: <a href="#donate">Donate</a> via PayPal.
+      </div>
+      <div class="fine" style="width:100%;margin-top:.35rem;opacity:.75;font-size:.8rem">
+        Official site: <a href="https://autocorrect-windows-site.pages.dev/">autocorrect-windows-site.pages.dev</a>
+        · GitHub is a fallback mirror only
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var scenes = [
+        {
+          app: "Slack",
+          parts: [
+            { type: "text", value: "Can we meet " },
+            { type: "fix", wrong: "tommorow", right: "tomorrow", label: "Spelling", why: "Common misspelling of tomorrow.", chip: "Likely typo" },
+            { type: "text", value: " after standup?" }
+          ]
+        },
+        {
+          app: "Cursor",
+          parts: [
+            { type: "text", value: "Please review this when you get a chance. Also fix the " },
+            { type: "fix", wrong: "recieve", right: "receive", label: "Spelling", why: "i-before-e exception.", chip: "Likely typo" },
+            { type: "text", value: " path before merge." }
+          ]
+        },
+        {
+          app: "Word",
+          parts: [
+            { type: "text", value: "Thanks for joining. I " },
+            { type: "fix", wrong: "definately", right: "definitely", label: "Spelling", why: "Definitely has an i after the n.", chip: "Likely typo" },
+            { type: "text", value: " think we should ship the " },
+            { type: "fix", wrong: "wierd", right: "weird", label: "Spelling", why: "Weird is the exception that proves the rule.", chip: "Likely typo" },
+            { type: "text", value: " edge case next." }
+          ]
+        },
+        {
+          app: "Notepad",
+          parts: [
+            { type: "text", value: "I'll be " },
+            { type: "fix", wrong: "teh", right: "the", label: "Autocorrect", why: "Instant as-you-type replace.", chip: "Likely typo" },
+            { type: "text", value: " first one online " },
+            { type: "fix", wrong: "tommorow", right: "tomorrow", label: "Spelling", why: "Caught again on Fix pass.", chip: "Likely typo" },
+            { type: "text", value: "." }
+          ]
+        }
+      ];
+
+      var editor = document.getElementById("demo-editor");
+      var caret = document.getElementById("demo-caret");
+      var menu = document.getElementById("demo-menu");
+      var menuLabel = document.getElementById("demo-menu-label");
+      var menuChange = document.getElementById("demo-menu-change");
+      var menuWhy = document.getElementById("demo-menu-why");
+      var appName = document.getElementById("demo-app");
+      var hint = document.getElementById("demo-hint");
+      var frame = document.getElementById("demo-frame");
+      var btnAccept = document.getElementById("demo-accept");
+      var btnSkip = document.getElementById("demo-skip");
+      var btnDismiss = document.getElementById("demo-dismiss");
+
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var sceneIndex = 0;
+      var timers = [];
+      var waitingChoice = null;
+      var autoTimer = null;
+      var runId = 0;
+
+      function clearTimers() {
+        timers.forEach(function (id) { clearTimeout(id); });
+        timers = [];
+        if (autoTimer) {
+          clearTimeout(autoTimer);
+          autoTimer = null;
+        }
+      }
+
+      function later(ms, fn) {
+        var id = setTimeout(fn, ms);
+        timers.push(id);
+        return id;
+      }
+
+      function escapeHtml(s) {
+        return String(s)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function setEditorHtml(html) {
+        editor.innerHTML = html + '<span class="demo-caret' + (menu.classList.contains("open") ? " hidden" : "") + '" id="demo-caret"></span>';
+        caret = document.getElementById("demo-caret");
+      }
+
+      function hideMenu() {
+        menu.classList.remove("open");
+        menu.hidden = true;
+        hint.classList.remove("show");
+        frame.classList.remove("is-paused");
+        if (caret) caret.classList.remove("hidden");
+      }
+
+      function showMenu(fixPart, onChoice) {
+        menuLabel.textContent = fixPart.label || "Suggestion";
+        menuChange.innerHTML =
+          "<s>" + escapeHtml(fixPart.wrong) + "</s> &rarr; <span class=\"fix\">" +
+          escapeHtml(fixPart.right) + "</span>";
+        var why = fixPart.why || "Likely typo in this field.";
+        var chip = fixPart.chip || "Likely typo";
+        menuWhy.innerHTML = escapeHtml(why) + ' <span class="chip">' + escapeHtml(chip) + "</span>";
+        menu.hidden = false;
+        // force reflow for transition
+        void menu.offsetWidth;
+        menu.classList.add("open");
+        hint.classList.add("show");
+        frame.classList.add("is-paused");
+        if (caret) caret.classList.add("hidden");
+        waitingChoice = onChoice;
+
+        if (autoTimer) clearTimeout(autoTimer);
+        autoTimer = setTimeout(function () {
+          if (waitingChoice) waitingChoice("accept");
+        }, 4200);
+      }
+
+      function resolveChoice(choice) {
+        if (!waitingChoice) return;
+        var fn = waitingChoice;
+        waitingChoice = null;
+        if (autoTimer) {
+          clearTimeout(autoTimer);
+          autoTimer = null;
+        }
+        hideMenu();
+        fn(choice);
+      }
+
+      btnAccept.addEventListener("click", function () { resolveChoice("accept"); });
+      btnSkip.addEventListener("click", function () { resolveChoice("skip"); });
+      btnDismiss.addEventListener("click", function () { resolveChoice("skip"); });
+
+      function typeText(prefixHtml, text, speed, done) {
+        var i = 0;
+        function step() {
+          if (i > text.length) {
+            done();
+            return;
+          }
+          setEditorHtml(prefixHtml + escapeHtml(text.slice(0, i)));
+          i += 1;
+          var delay = speed + (Math.random() * 28 - 10);
+          if (text[i - 1] === " " || text[i - 1] === "," || text[i - 1] === ".") delay += 40;
+          later(Math.max(18, delay), step);
+        }
+        step();
+      }
+
+      function playScene(scene, done) {
+        appName.textContent = scene.app;
+        hideMenu();
+        setEditorHtml("");
+
+        var built = "";
+        var parts = scene.parts.slice();
+        var idx = 0;
+
+        function nextPart() {
+          if (idx >= parts.length) {
+            later(1600, done);
+            return;
+          }
+          var part = parts[idx++];
+          if (part.type === "text") {
+            typeText(built, part.value, reduceMotion ? 0 : 38, function () {
+              built += escapeHtml(part.value);
+              setEditorHtml(built);
+              nextPart();
+            });
+            return;
+          }
+
+          // Type the wrong word, then open menu
+          typeText(built, part.wrong, reduceMotion ? 0 : 42, function () {
+            var marked =
+              built +
+              '<span class="demo-mark" id="demo-active">' +
+              escapeHtml(part.wrong) +
+              "</span>";
+            setEditorHtml(marked);
+            later(reduceMotion ? 100 : 380, function () {
+              showMenu(part, function (choice) {
+                if (choice === "accept") {
+                  built += '<span class="demo-fixed">' + escapeHtml(part.right) + "</span>";
+                } else {
+                  built += escapeHtml(part.wrong);
+                }
+                setEditorHtml(built);
+                later(280, nextPart);
+              });
+            });
+          });
+        }
+
+        nextPart();
+      }
+
+      function loop() {
+        var myRun = ++runId;
+        clearTimers();
+        hideMenu();
+        playScene(scenes[sceneIndex % scenes.length], function () {
+          if (myRun !== runId) return;
+          sceneIndex += 1;
+          later(900, function () {
+            if (myRun !== runId) return;
+            setEditorHtml("");
+            later(350, loop);
+          });
+        });
+      }
+
+      // Instant snapshot for reduced motion: show one corrected line
+      if (reduceMotion) {
+        appName.textContent = "Slack";
+        setEditorHtml(
+          'Can we meet <span class="demo-fixed">tomorrow</span> after standup?'
+        );
+        caret.classList.add("hidden");
+      } else {
+        loop();
+      }
+    })();
+  </script>
+  <script>
+    (function () {
+      var btn = document.getElementById("theme-toggle");
+      if (!btn) return;
+      var icon = btn.querySelector(".theme-icon");
+      function sync() {
+        var dark = document.documentElement.getAttribute("data-theme") === "dark";
+        if (icon) icon.textContent = dark ? "☀" : "☾";
+        btn.setAttribute("aria-label", dark ? "Switch to Light Lavender" : "Switch to Midnight Purple");
+        btn.title = dark ? "Light Lavender" : "Midnight Purple";
+      }
+      sync();
+      btn.addEventListener("click", function () {
+        var next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", next);
+        try { localStorage.setItem("acSiteTheme", next); } catch (e) { /* ignore */ }
+        sync();
+      });
+    })();
+  </script>
+  <script>
+    (function () {
+      var form = document.getElementById("donate-form");
+      var amount = document.getElementById("donate-amount");
+      var status = document.getElementById("donate-status");
+      var presets = document.querySelectorAll(".donate-presets button[data-amount]");
+      if (!form || !amount) return;
+
+      function setPressed(val) {
+        Array.prototype.forEach.call(presets, function (b) {
+          b.setAttribute("aria-pressed", String(b.getAttribute("data-amount") === val));
+        });
+      }
+
+      Array.prototype.forEach.call(presets, function (b) {
+        b.addEventListener("click", function () {
+          var v = b.getAttribute("data-amount");
+          amount.value = v;
+          setPressed(v);
+          if (status) status.textContent = "";
+        });
+      });
+
+      amount.addEventListener("input", function () {
+        setPressed(String(amount.value));
+      });
+
+      form.addEventListener("submit", function (e) {
+        var n = Number(amount.value);
+        if (!Number.isFinite(n) || n < 1 || n > 500) {
+          e.preventDefault();
+          if (status) {
+            status.className = "donate-status";
+            status.textContent = "Enter an amount between $1 and $500.";
+          }
+          amount.focus();
+          return;
+        }
+        amount.value = n.toFixed(2).replace(/\.00$/, "");
+        if (status) {
+          status.className = "donate-status";
+          status.textContent = "Opening PayPal…";
+        }
+      });
+
+      try {
+        var params = new URLSearchParams(location.search);
+        var donated = params.get("donated");
+        if (donated === "1" && status) {
+          status.className = "donate-status ok";
+          status.textContent = "Thank you — your tip helps keep AutoCorrect free.";
+          if (location.hash !== "#donate") location.hash = "donate";
+        } else if (donated === "0" && status) {
+          status.className = "donate-status";
+          status.textContent = "Donation was cancelled or could not be completed. You can try again anytime.";
+          if (location.hash !== "#donate") location.hash = "donate";
+        }
+      } catch (err) { /* ignore */ }
+    })();
+  </script>
+</body>
+</html>
