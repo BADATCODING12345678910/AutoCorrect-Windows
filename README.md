@@ -1,5 +1,8 @@
 # AutoCorrect for Windows
 
+> **Website (use this link):** https://autocorrect-windows-site.pages.dev/  
+> Free download · Support · Donate — not the GitHub Pages mirror.
+
 System-wide typing helper for Windows: autocorrect, grammar / Perfect Fix, rewrite, dictation session, language packs, and in-app updates. Built with **.NET 8** and **Avalonia**.
 
 **License:** MIT  
@@ -7,11 +10,11 @@ System-wide typing helper for Windows: autocorrect, grammar / Perfect Fix, rewri
 
 | | |
 |--|--|
-| Site (primary) | https://autocorrect-windows-site.pages.dev/ |
+| **Official site** | https://autocorrect-windows-site.pages.dev/ |
 | Support | https://autocorrect-windows-site.pages.dev/support |
-| GitHub mirror | https://badatcoding12345678910.github.io/AutoCorrect-Windows/ |
+| GitHub Pages (fallback only) | https://badatcoding12345678910.github.io/AutoCorrect-Windows/ |
 | X | https://x.com/phd_in_sleeping |
-| GitHub | https://github.com/BADATCODING12345678910 |
+| Source | https://github.com/BADATCODING12345678910/AutoCorrect-Windows |
 
 ## Features
 
