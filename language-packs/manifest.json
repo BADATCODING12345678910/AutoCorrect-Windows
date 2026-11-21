@@ -1,0 +1,131 @@
+﻿{
+    "version":  1,
+    "packs":  [
+                  {
+                      "code":  "en-US",
+                      "name":  "English (United States)",
+                      "packVersion":  "1.0.0",
+                      "bundled":  true
+                  },
+                  {
+                      "code":  "ar",
+                      "name":  "Arabic",
+                      "packVersion":  "1.1.0",
+                      "bundled":  false,
+                      "url":  "https://autocorrect-windows-site.pages.dev/language-packs/ar.zip",
+                      "sha256":  "b2e057db26e2b7e8e3115fe1f0843d9cf51bab5c74928f82867aaad5c6b83d4b",
+                      "sizeBytes":  1811
+                  },
+                  {
+                      "code":  "de-DE",
+                      "name":  "German (Germany)",
+                      "packVersion":  "1.1.0",
+                      "bundled":  false,
+                      "url":  "https://autocorrect-windows-site.pages.dev/language-packs/de-DE.zip",
+                      "sha256":  "2e5952b500ca241e9a1c665d6380abfe6beadb18cc7f472ac5351ef2aaffdc17",
+                      "sizeBytes":  2574
+                  },
+                  {
+                      "code":  "en-GB",
+                      "name":  "English (United Kingdom)",
+                      "packVersion":  "1.1.0",
+                      "bundled":  false,
+                      "url":  "https://autocorrect-windows-site.pages.dev/language-packs/en-GB.zip",
+                      "sha256":  "b3a713e1d526de7239d08788f785109285d2fa89eb1f57cb2b9bdc9882940216",
+                      "sizeBytes":  2947
+                  },
+                  {
+                      "code":  "es-AR",
+                      "name":  "Spanish (Argentina)",
+                      "packVersion":  "1.1.0",
+                      "bundled":  false,
+                      "url":  "https://autocorrect-windows-site.pages.dev/language-packs/es-AR.zip",
+                      "sha256":  "08c475149dd144e762fd80d3fcf5bca3e44313049fdd9e052812210a8cfbd88e",
+                      "sizeBytes":  2377,
+                      "fallbacks":  [
+                                        "es-ES"
+                                    ]
+                  },
+                  {
+                      "code":  "es-ES",
+                      "name":  "Spanish (Spain)",
+                      "packVersion":  "1.1.0",
+                      "bundled":  false,
+                      "url":  "https://autocorrect-windows-site.pages.dev/language-packs/es-ES.zip",
+                      "sha256":  "a5da0d10716be3050720fce34af614d54f69e231c064a64aa30fe62bc8a2deba",
+                      "sizeBytes":  2625
+                  },
+                  {
+                      "code":  "fr-FR",
+                      "name":  "French (France)",
+                      "packVersion":  "1.1.0",
+                      "bundled":  false,
+                      "url":  "https://autocorrect-windows-site.pages.dev/language-packs/fr-FR.zip",
+                      "sha256":  "418bd47e0dab89cadce7cf9fd43ce681c50b23708153da2706c0e4edfcf617e3",
+                      "sizeBytes":  2634
+                  },
+                  {
+                      "code":  "it-IT",
+                      "name":  "Italian",
+                      "packVersion":  "1.1.0",
+                      "bundled":  false,
+                      "url":  "https://autocorrect-windows-site.pages.dev/language-packs/it-IT.zip",
+                      "sha256":  "2ca5c9eb8dc3bdfd3842a86697fecd2fa6302c5e7febe672e4297bd790830791",
+                      "sizeBytes":  2060
+                  },
+                  {
+                      "code":  "ja-JP",
+                      "name":  "Japanese",
+                      "packVersion":  "1.1.0",
+                      "bundled":  false,
+                      "url":  "https://autocorrect-windows-site.pages.dev/language-packs/ja-JP.zip",
+                      "sha256":  "3b6e917d5a1822bba6bd03f5142b738340f68e85b3db6260275c3565b221b1c7",
+                      "sizeBytes":  1677
+                  },
+                  {
+                      "code":  "nl-NL",
+                      "name":  "Dutch (Netherlands)",
+                      "packVersion":  "1.1.0",
+                      "bundled":  false,
+                      "url":  "https://autocorrect-windows-site.pages.dev/language-packs/nl-NL.zip",
+                      "sha256":  "33b19324d76e3bd75643fb645f57fc9820cf509b01f7be30fe371c42ce98fa3a",
+                      "sizeBytes":  2004
+                  },
+                  {
+                      "code":  "pl-PL",
+                      "name":  "Polish",
+                      "packVersion":  "1.1.0",
+                      "bundled":  false,
+                      "url":  "https://autocorrect-windows-site.pages.dev/language-packs/pl-PL.zip",
+                      "sha256":  "ef43f157b5d6d659458b85c9b845140771498e8916f22fd2845977306b65dbc3",
+                      "sizeBytes":  2218
+                  },
+                  {
+                      "code":  "pt-BR",
+                      "name":  "Portuguese (Brazil)",
+                      "packVersion":  "1.1.0",
+                      "bundled":  false,
+                      "url":  "https://autocorrect-windows-site.pages.dev/language-packs/pt-BR.zip",
+                      "sha256":  "b9e0c6409bc46cb2cb92bb3575e68063e4b3564b54870011a0fb29ee6cc6ea60",
+                      "sizeBytes":  2467
+                  },
+                  {
+                      "code":  "ru-RU",
+                      "name":  "Russian",
+                      "packVersion":  "1.1.0",
+                      "bundled":  false,
+                      "url":  "https://autocorrect-windows-site.pages.dev/language-packs/ru-RU.zip",
+                      "sha256":  "2abcba31e874fff2472e89fe30ee454cb7bc34cf3476a1a2a0b632f2a9910749",
+                      "sizeBytes":  2504
+                  },
+                  {
+                      "code":  "zh-CN",
+                      "name":  "Chinese (Simplified)",
+                      "packVersion":  "1.1.0",
+                      "bundled":  false,
+                      "url":  "https://autocorrect-windows-site.pages.dev/language-packs/zh-CN.zip",
+                      "sha256":  "d2acc8cd30c8106760b366d9ade0c412ab3549ba3c91d82128bfad16b52b88de",
+                      "sizeBytes":  1904
+                  }
+              ]
+}

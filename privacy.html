@@ -1,0 +1,414 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Privacy Policy &mdash; AutoCorrect for Windows</title>
+  <meta name="description" content="Privacy Policy for AutoCorrect for Windows: what stays on your PC, what is sent when you use Fix/AI/updates/support/donate, and Privacy mode." />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="canonical" href="https://autocorrect-windows-site.pages.dev/privacy" />
+  <meta property="og:url" content="https://autocorrect-windows-site.pages.dev/privacy" />
+  <meta property="og:title" content="Privacy Policy — AutoCorrect for Windows" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem("acSiteTheme");
+        document.documentElement.setAttribute("data-theme", t === "dark" ? "dark" : "light");
+      } catch (e) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
+  <style>
+    :root {
+      --bg0: #f5f3fa;
+      --bg1: #ede9f6;
+      --bg-end: #e4dff2;
+      --purple: #7c3aed;
+      --purple-deep: #6d28d9;
+      --text: #1e1433;
+      --muted: #6b6280;
+      --line: rgba(124, 58, 237, 0.18);
+      --card: rgba(255, 255, 255, 0.78);
+      --glow1: rgba(124, 58, 237, 0.14);
+      --glow2: rgba(167, 139, 250, 0.2);
+      --mark-bg: linear-gradient(160deg, #ede9f6, #c4b5fd 55%, #7c3aed);
+      --mark-shadow: 0 0 0 1px rgba(124, 58, 237, 0.28), 0 8px 22px rgba(124, 58, 237, 0.16);
+      --panel-bg: rgba(255, 255, 255, 0.94);
+      --panel-border: rgba(124, 58, 237, 0.22);
+      --panel-shadow: 0 22px 50px rgba(30, 20, 51, 0.1);
+      --btn-on-accent: #ffffff;
+      --btn-shadow: 0 12px 40px rgba(124, 58, 237, 0.28);
+      --font: "Source Sans 3", "Segoe UI", sans-serif;
+      color-scheme: light;
+    }
+    html[data-theme="dark"] {
+      --bg0: #07070c;
+      --bg1: #12101a;
+      --bg-end: #0a0910;
+      --purple: #a78bfa;
+      --purple-deep: #7c5cbf;
+      --text: #f4f2ff;
+      --muted: #a39bb8;
+      --line: rgba(167, 139, 250, 0.22);
+      --card: rgba(255, 255, 255, 0.04);
+      --glow1: rgba(124, 92, 191, 0.32);
+      --glow2: rgba(167, 139, 250, 0.16);
+      --mark-bg: linear-gradient(160deg, #1a1028, #3b2466 55%, #6d4ab0);
+      --mark-shadow: 0 0 0 1px rgba(167, 139, 250, 0.35), 0 10px 30px rgba(0, 0, 0, 0.35);
+      --panel-bg: rgba(12, 11, 18, 0.92);
+      --panel-border: rgba(167, 139, 250, 0.28);
+      --panel-shadow: 0 22px 50px rgba(0, 0, 0, 0.35);
+      --btn-on-accent: #0e0e10;
+      --btn-shadow: 0 12px 40px rgba(124, 92, 191, 0.35);
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--text);
+      background:
+        radial-gradient(1100px 560px at 12% -8%, var(--glow1), transparent 58%),
+        radial-gradient(900px 480px at 88% 8%, var(--glow2), transparent 52%),
+        linear-gradient(180deg, var(--bg0), var(--bg1) 45%, var(--bg-end));
+      line-height: 1.55;
+    }
+    a { color: var(--purple); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { width: min(800px, calc(100% - 3rem)); margin: 0 auto; }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 0 0;
+      gap: 1rem;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--text);
+      text-decoration: none !important;
+    }
+    .mark {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.5rem;
+      background: var(--mark-bg);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: var(--mark-shadow);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .nav { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .nav a { color: var(--muted); font-size: 0.95rem; font-weight: 500; }
+    .theme-toggle {
+      appearance: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      border-radius: 999px;
+      padding: 0.42rem 0.75rem;
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--muted);
+      background: var(--card);
+      border: 1px solid var(--line);
+    }
+    html[data-theme="light"] .theme-toggle .label-dark { display: none; }
+    html[data-theme="dark"] .theme-toggle .label-light { display: none; }
+    .page { padding: 2.25rem 0 3rem; }
+    .eyebrow {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 0 0 0.5rem;
+    }
+    h1 {
+      margin: 0 0 0.65rem;
+      font-size: clamp(1.85rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .lede {
+      margin: 0 0 1.5rem;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .meta {
+      margin: 0 0 1.75rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .panel {
+      background: var(--panel-bg);
+      border: 1px solid var(--panel-border);
+      border-radius: 1.1rem;
+      padding: 1.35rem 1.4rem 1.5rem;
+      box-shadow: var(--panel-shadow);
+    }
+    .panel h2 {
+      margin: 1.6rem 0 0.55rem;
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+    .panel h2:first-child { margin-top: 0; }
+    .panel p, .panel li {
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+    .panel ul { margin: 0.35rem 0 0; padding-left: 1.2rem; }
+    .panel li + li { margin-top: 0.35rem; }
+    .panel strong { color: var(--text); font-weight: 600; }
+    footer {
+      padding: 1.75rem 0 2.5rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+      justify-content: space-between;
+    }
+    .fine { opacity: 0.85; font-size: 0.8rem; width: 100%; }
+    @media (max-width: 640px) {
+      .wrap { width: calc(100% - 1.75rem); }
+      .nav a:nth-child(1), .nav a:nth-child(2) { display: none; }
+    }
+  </style>
+  <script>
+    (function () {
+      var KEY = "acSiteVer";
+      var FLAG = "acSiteReloading";
+      if (sessionStorage.getItem(FLAG) === "1") {
+        sessionStorage.removeItem(FLAG);
+        return;
+      }
+      fetch("version.json", { cache: "no-store" })
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (data) {
+          var ver = String((data && data.version) || "").trim();
+          if (!ver) return;
+          var prev = localStorage.getItem(KEY);
+          if (prev && prev !== ver) {
+            localStorage.setItem(KEY, ver);
+            sessionStorage.setItem(FLAG, "1");
+            var path = location.pathname || "/";
+            location.replace(path + "?v=" + encodeURIComponent(ver));
+            return;
+          }
+          localStorage.setItem(KEY, ver);
+        })
+        .catch(function () { /* offline */ });
+    })();
+  </script>
+</head>
+<body>
+<aside id="ac-mirror-banner" role="status" style="position:sticky;top:0;z-index:9999;background:#1e1433;color:#f4f2ff;padding:0.85rem 1rem;text-align:center;font:600 0.98rem/1.45 'Source Sans 3',Segoe UI,sans-serif;border-bottom:2px solid #a78bfa;box-shadow:0 8px 24px rgba(0,0,0,.25)">
+  You're on the <strong>GitHub fallback mirror</strong> — not the main AutoCorrect site.
+  <a href="https://autocorrect-windows-site.pages.dev/privacy" style="display:inline-block;margin-left:0.65rem;padding:0.35rem 0.85rem;border-radius:999px;background:#a78bfa;color:#1e1433;font-weight:700;text-decoration:none">Open official Privacy →</a>
+</aside>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="./"><div class="mark" aria-hidden="true">A</div> AutoCorrect</a>
+      <nav class="nav">
+        <a href="./#features">Features</a>
+        <a href="./#download">Download</a>
+        <a href="./#donate">Donate</a>
+        <a href="./support.html">Support</a>
+        <a href="./privacy.html">Privacy</a>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch color theme">
+          <span class="theme-icon" aria-hidden="true"></span>
+          <span class="label-dark">Dark</span>
+          <span class="label-light">Light</span>
+        </button>
+      </nav>
+    </header>
+
+    <main class="page">
+      <p class="eyebrow">Legal</p>
+      <h1>Privacy Policy</h1>
+      <p class="lede">
+        This policy describes how <strong>AutoCorrect for Windows</strong> handles information.
+        It matches how the desktop app and this website actually work today.
+      </p>
+      <p class="meta">Last updated: November 21, 2026 · AutoCorrect Lab (<a href="mailto:autocorrectlab@outlook.com">autocorrectlab@outlook.com</a>)</p>
+
+      <div class="panel">
+        <h2>1. Short version</h2>
+        <ul>
+          <li><strong>No account is required</strong> to download or use AutoCorrect.</li>
+          <li><strong>We do not sell your data</strong> and we do not run advertising or product analytics SDKs in the app.</li>
+          <li><strong>Most typing stays on your PC.</strong> Text only leaves your device when you use a feature that needs a network service (explained below).</li>
+          <li><strong>Privacy mode</strong> (tray) blocks cloud Fix / Rewrite for a timed period or until you turn it off.</li>
+        </ul>
+
+        <h2>2. What AutoCorrect does on your computer</h2>
+        <p>
+          AutoCorrect is a local Windows tray app. To correct text in other apps it uses
+          accessibility APIs (UI Automation), keyboard hooks / hotkeys, and sometimes the clipboard.
+          That processing happens on your machine so the product can read and replace text in the
+          field you are using.
+        </p>
+        <p>Settings, learned corrections, dictionaries, snippets, themes,
+          and optional API keys are stored under:</p>
+        <p><strong>%LocalAppData%\AutoCorrect\</strong></p>
+        <p>
+          Your optional AI / LLM key is saved locally in <strong>PersonalApiKey.ini</strong> in that folder
+          (bring-your-own-key). We do not host your key on our servers.
+        </p>
+
+        <h2>3. When text or other data leaves your device</h2>
+        <p>Depending on features you enable, AutoCorrect may send:</p>
+        <ul>
+          <li>
+            <strong>LanguageTool (default Fix path).</strong>
+            When Fix uses LanguageTool, the text being checked is sent to
+            <strong>api.languagetool.org</strong> (LanguageTool’s public API) to get grammar/spelling suggestions.
+            Their terms and privacy policy apply to that request.
+          </li>
+          <li>
+            <strong>Optional AI providers (Perfect Fix / Rewrite / writing suggestions).</strong>
+            If you paste your own API key and enable AI features, the relevant text (and your key in the
+            Authorization header) is sent to the provider you chose in Settings → Grammar
+            (for example OpenAI, OpenRouter, Anthropic, Groq, DeepSeek, or a custom base URL).
+            Those providers process the request under <em>their</em> privacy policies. We do not receive a copy of that traffic.
+          </li>
+          <li>
+            <strong>In-app updates.</strong>
+            Checking for updates contacts our update feed
+            (<strong>Supabase Edge Function</strong> <code>update-feed</code>) to learn whether a newer
+            version exists (version metadata / download URL / checksum). That check does <em>not</em> include
+            the contents of documents you are typing.
+          </li>
+          <li>
+            <strong>Language packs.</strong>
+            If you select a non-bundled language, pack files may download from our website
+            (Cloudflare Pages, with a GitHub Pages mirror as fallback).
+          </li>
+          <li>
+            <strong>Support tickets.</strong>
+            If you submit the website Support form, the fields you enter (name/email, message, optional
+            app/Windows version) are sent to our <strong>support</strong> backend so we can reply.
+          </li>
+          <li>
+            <strong>Donations.</strong>
+            Optional tips open PayPal checkout (via our <strong>donate</strong> helper, then PayPal).
+            Payment details are handled by PayPal; we may see that a tip completed and the amount,
+            not your full card numbers.
+          </li>
+        </ul>
+
+        <h2>4. Privacy mode</h2>
+        <p>
+          Tray → Privacy lets you turn on <strong>Privacy mode</strong> for a set number of minutes
+          or until you end it. While active, cloud Fix providers and Rewrite are blocked so those
+          features stay local-only / disabled. The active privacy session (end time / until-off) is
+          stored locally in <strong>privacy-session.json</strong> so it can survive an app restart.
+        </p>
+
+        <h2>5. What we do <em>not</em> collect by default</h2>
+        <ul>
+          <li>No mandatory AutoCorrect user account or login wall.</li>
+          <li>No advertising ID, crash-telemetry vendor, or marketing pixel in the desktop app.</li>
+          <li>We do not upload your full typing history to “train a global model” for us.</li>
+          <li>Learned typo pairs and personal dictionary entries stay on your PC unless you
+              deliberately export a backup or include them in a support message.</li>
+        </ul>
+
+        <h2>6. This website</h2>
+        <p>
+          The marketing site (Cloudflare Pages primary; GitHub Pages is a noindex fallback mirror)
+          is mostly static HTML. It may store small preferences in your browser
+          (<strong>localStorage</strong> for light/dark theme and a site-version soft-refresh flag).
+          Those are not used to track you across other sites. We do not use third-party ad cookies on these pages.
+        </p>
+
+        <h2>7. Children</h2>
+        <p>
+          AutoCorrect is a general productivity tool for Windows. It is not directed at children under 13
+          (or the equivalent age in your region). Do not submit personal information about a child through Support.
+        </p>
+
+        <h2>8. Third parties</h2>
+        <p>Services that may process data when you use related features:</p>
+        <ul>
+          <li>LanguageTool (grammar API)</li>
+          <li>Your chosen LLM provider (only if you enable AI + provide a key)</li>
+          <li>Supabase (update feed / support / donate helpers we operate)</li>
+          <li>PayPal (donations)</li>
+          <li>Cloudflare / GitHub (website and installer hosting)</li>
+        </ul>
+
+        <h2>9. Your choices</h2>
+        <ul>
+          <li>Use LanguageTool-only, AI, or local rules via Settings → Grammar.</li>
+          <li>Turn on Privacy mode to block cloud Fix / Rewrite temporarily.</li>
+          <li>Clear or omit an API key anytime; delete files under %LocalAppData%\AutoCorrect\ to wipe local app data.</li>
+          <li>Uninstall the app via Windows Settings or the Setup uninstaller.</li>
+          <li>Contact us to ask about a support ticket you submitted.</li>
+        </ul>
+
+        <h2>10. Changes</h2>
+        <p>
+          We may update this policy when the product changes. The “Last updated” date at the top will change.
+          Material changes will be reflected on this page on the official site:
+          <a href="https://autocorrect-windows-site.pages.dev/privacy">https://autocorrect-windows-site.pages.dev/privacy</a>.
+        </p>
+
+        <h2>11. Contact</h2>
+        <p>
+          Questions about privacy:
+          <a href="mailto:autocorrectlab@outlook.com">autocorrectlab@outlook.com</a>
+          or the <a href="./support.html">Support</a> form.
+        </p>
+      </div>
+    </main>
+
+    <footer>
+      <div>&copy; AutoCorrect &middot; <a href="./">Home</a> &middot; <a href="./support.html">Support</a></div>
+      <div><a href="./privacy.html">Privacy</a></div>
+      <div class="fine">
+        Official site:
+        <a href="https://autocorrect-windows-site.pages.dev/privacy">https://autocorrect-windows-site.pages.dev/privacy</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var btn = document.getElementById("theme-toggle");
+      if (!btn) return;
+      var icon = btn.querySelector(".theme-icon");
+      function sync() {
+        var dark = document.documentElement.getAttribute("data-theme") === "dark";
+        if (icon) icon.textContent = dark ? "☀" : "☾";
+        btn.setAttribute("aria-label", dark ? "Switch to Light Lavender" : "Switch to Midnight Purple");
+      }
+      sync();
+      btn.addEventListener("click", function () {
+        var next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", next);
+        try { localStorage.setItem("acSiteTheme", next); } catch (e) { /* ignore */ }
+        sync();
+      });
+    })();
+  </script>
+</body>
+</html>
